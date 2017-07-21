@@ -6,23 +6,23 @@ This was designed to be used in conjunction with [Blinkshell](https://github.com
 
 # Compilation:
 
-- type 'getPackages.sh'
+- type `getPackages.sh`
 
 This will download the Python-2.7.13 source code, and patch it. It will also download libffi-3.2.1, and patch it. 
 
 After patching, you have two Xcode projects: 
-- Python-2.7.13/Python_ios/Python_ios.xcodeproj
-- libffi-3.2.1/libffi.xcodeproj
+- `Python-2.7.13/Python_ios/Python_ios.xcodeproj`
+- `libffi-3.2.1/libffi.xcodeproj`
 
-and you have to compile both. Python uses libffi as a framework; it also uses several include files and frameworks from [Blinkshell](https://github.com/holzschu/blink), so you will have to either download it or comment out the relevant lines (corresponding to libssh, libssl...)
+and you have to compile both. Python uses libffi as a framework; it also uses several include files and frameworks from [Blinkshell](https://github.com/holzschu/blink), so you will have to either download it or comment out the relevant lines (corresponding to libssh, libssl...). Python assumes it's side-by-side with Blink (that they share the same parent directory). If you have a different setting, you'll need to edit the compilation flags for `-I` and `-F`. 
 
 In a full installation, Python needs the following frameworks from [Blinkshell](https://github.com/holzschu/blink):
-- file_cmds_ios.framework
-- libarchive_ios.framework
-- libssh2.framework
-- openssl.framework
-- shell_cmds_ios.framework
-- text_cmds_ios.framework
+- `file_cmds_ios.framework`
+- `libarchive_ios.framework`
+- `libssh2.framework`
+- `openssl.framework`
+- `shell_cmds_ios.framework`
+- `text_cmds_ios.framework`
 
 You can remove any of them, if you comment out the relevant lines in systemFunctions.h and posixmodule.c (for ssh).
 
@@ -48,7 +48,7 @@ Then, install a few useful modules:
 
 (Other pip calls are up to you). 
 
-Inside Python, you can call the shell commands defined by the frameworks: ls, cat, curl, sftp, grep... 
+Inside Python, you can call the shell commands defined by the frameworks: ls, cat, grep... 
 
 In the shell, you can use all Python scripts: pydoc, which.py, diff.py... 
 
