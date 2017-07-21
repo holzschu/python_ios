@@ -36,11 +36,21 @@ You will need to transfer the Python scripts to your device:
 - on the iOS device: tar -xvfz pythonScripts.tar.gz 
 - mv Lib ../Library/lib/python2.7
 
+Also transfer the scripts: 
+- tar -cvfz binaries.tar.gz Tools/scripts/
+- transfer the binaries.tar.gz on your device, for example using iTunes
+- on the iOS device: tar -xvfz binaries.tar.gz 
+- mv Tools/scripts/ ../Library/bin/
+
 Then, install a few useful modules: 
 - python -m ensurepip
 - pip install urllib3
 
 (Other pip calls are up to you). 
+
+Inside Python, you can call the shell commands defined by the frameworks: ls, cat, curl, sftp, grep... 
+
+In the shell, you can use all Python scripts: pydoc, which.py, diff.py... 
 
 # Mercurial
 
@@ -52,11 +62,12 @@ To install mercurial:
 
 (you can't use pip because pip will try to compile, so you have to do a "pure" install, using only Python).
 
-Mercurial will use your SSH keys, stored in .ssh/ You can create them using Blink, then save them to .ssh/ using "ssh-save-id [name-of-the-key]". You will also have to upload the public key on your server (e.g. [Bitbucket](http://bitbucket.org)). 
+Mercurial will use your SSH keys, stored in .ssh/ You can create them using Blink, then save them to .ssh/ using "ssh-save-id [name-of-the-key]". You will also have to upload the public key on your server (e.g. [Bitbucket](http://bitbucket.org)). You will need to download the [CAcert certificates](https://www.mercurial-scm.org/wiki/CACertificates). 
 
-Once you've done that, you're done. Try "hg clone you-repository". 
+Your Mercurial configuration file is stored in  ~/Documents/.hgrc (you don't have the right to write in ~/.hgrc in iOS, unless it's jailbroken). You can place it elsewhere if you change the value of the $HGRCPATH environment variable. 
+
+Once you've done that, you're done. Try "hg clone your-repository". Then edit your files (in place) using [VimIOS](https://github.com/holzschu/VimIOS). 
 
 # TODO:
-
-- make the install process more user friendly
-
+- make the install process more friendly 
+- allow for shell redirection 
