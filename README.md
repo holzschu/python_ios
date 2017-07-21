@@ -67,7 +67,7 @@ Mercurial will use your SSH keys, stored in `~/Documents/.ssh/` You can create t
 
 Your Mercurial configuration file is stored in  `~/Documents/.hgrc` (you don't have the right to write in `~/.hgrc` in iOS, unless it's jailbroken). You can place it elsewhere if you change the value of the $HGRCPATH environment variable. 
 
-Once you've done that, you're done. Try "hg clone your-repository". Then edit your files (in place) using [VimIOS](https://github.com/holzschu/VimIOS). 
+Once you've done that, you're done. Try `hg clone your-repository`. Then edit your files (in place) using [VimIOS](https://github.com/holzschu/VimIOS). 
 
 # TODO:
 - make the install process more friendly 
