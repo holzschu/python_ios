@@ -62,7 +62,8 @@ To install mercurial:
 
 (you can't use pip because pip will try to compile, so you have to do a "pure" install, using only Python).
 
-Mercurial will use your SSH keys, stored in .ssh/ You can create them using Blink, then save them to .ssh/ using "ssh-save-id [name-of-the-key]". You will also have to upload the public key on your server (e.g. [Bitbucket](http://bitbucket.org)). You will need to download the [CAcert certificates](https://www.mercurial-scm.org/wiki/CACertificates). 
+Mercurial will use your SSH keys, stored in ~/Documents/.ssh/ You can create them using Blink "config", then save them to ~/Documents/.ssh/ using "ssh-save-id [name-of-the-key]". You will also have to upload the public key on your server (e.g. [Bitbucket](http://bitbucket.org)). Finally, you will either need the [CAcert certificates](https://www.mercurial-scm.org/wiki/CACertificates) or disable mercurial clonebundles extension: 
+`hg --config ui.clonebundles=false`
 
 Your Mercurial configuration file is stored in  ~/Documents/.hgrc (you don't have the right to write in ~/.hgrc in iOS, unless it's jailbroken). You can place it elsewhere if you change the value of the $HGRCPATH environment variable. 
 
