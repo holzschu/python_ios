@@ -11,24 +11,25 @@ This was designed to be used in conjunction with [Blinkshell](https://github.com
 This will download the Python-2.7.13 source code, and patch it. It will also download libffi-3.2.1, and patch it. 
 
 After patching, you have two Xcode projects: 
-- `Python-2.7.13/Python_ios/Python_ios.xcodeproj`
 - `libffi-3.2.1/libffi.xcodeproj`
+- `Python_ios.xcodeproj`
 
-and you have to compile both. Python uses libffi as a framework; it also uses several include files and frameworks from [Blinkshell](https://github.com/holzschu/blink), so you will have to either download it or comment out the relevant lines (corresponding to libssh, libssl...). Python assumes it's side-by-side with Blink (that they share the same parent directory). If you have a different setting, you'll need to edit the compilation flags for `-I` and `-F`. 
+Open the first one, build it, and move the produce `libffi.a` to this directory. 
 
-In a full installation, Python needs the following frameworks from [Blinkshell](https://github.com/holzschu/blink):
+For Python, you need `openSSL.framework` and `libssh2.framework`. They are available as part of [Blink](https://github.com/blinksh/blink) or in [libssh2-for-iOS](https://github.com/x2on/libssh2-for-iOS). 
+
+The file `ios_system.m` simulates calls to `system()` inside iOS. The commands available depend on a list of `#define` at the start of  `ios_system.m`. You will need the corresponding frameworks, available as part of [Blinkshell](https://github.com/holzschu/blink):
 - `file_cmds_ios.framework`
 - `libarchive_ios.framework`
-- `libssh2.framework`
-- `openssl.framework`
+- `curl.framework`
 - `shell_cmds_ios.framework`
 - `text_cmds_ios.framework`
 
-You can remove any of them, if you comment out the relevant lines in systemFunctions.h and posixmodule.c (for ssh).
+You may have to edit the `-F` flag depending on their location. 
 
 # Installation (on your device)
 
-Once you have compiled the Python framework, you can link it with your favorite app (I used [Blinkshell](https://github.com/holzschu/blink), but it's up to you). 
+Once you have compiled the Python-ios framework, you can link it with your favorite app (I used [Blinkshell](https://github.com/holzschu/blink) and [iVim](https://github.com/holzschu/iVim)). 
 
 You will need to transfer the Python scripts to your device:
 - `tar -cvfz pythonScripts.tar.gz Lib/`
@@ -67,8 +68,4 @@ Mercurial will use your SSH keys, stored in `~/Documents/.ssh/` You can create t
 
 Your Mercurial configuration file is stored in  `~/Documents/.hgrc` (you don't have the right to write in `~/.hgrc` in iOS, unless it's jailbroken). You can place it elsewhere if you change the value of the $HGRCPATH environment variable. 
 
-Once you've done that, you're done. Try `hg clone your-repository`. Then edit your files (in place) using [VimIOS](https://github.com/holzschu/VimIOS). 
-
-# TODO:
-- make the install process more friendly 
-- allow for shell redirection 
+Once you've done that, you're done. Try `hg clone your-repository`. 
