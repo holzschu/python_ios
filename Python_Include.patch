@@ -1,0 +1,67 @@
+diff -Naur Python-2.7.13/Include/Python.h ../Python-2.7.13/Include/Python.h
+--- Python-2.7.13/Include/Python.h	2016-12-17 21:05:05.000000000 +0100
++++ ../Python-2.7.13/Include/Python.h	2017-07-11 16:05:25.000000000 +0200
+@@ -54,7 +54,8 @@
+  * assert() calls won't be removed.
+  */
+ #include <assert.h>
+-
++// iOS, threaded version
++#include <pthread.h>
+ #include "pyport.h"
+ 
+ /* pyconfig.h or pyport.h may or may not define DL_IMPORT */
+diff -Naur Python-2.7.13/Include/pymactoolbox.h ../Python-2.7.13/Include/pymactoolbox.h
+--- Python-2.7.13/Include/pymactoolbox.h	2016-12-17 21:05:05.000000000 +0100
++++ ../Python-2.7.13/Include/pymactoolbox.h	2017-07-04 16:56:50.000000000 +0200
+@@ -7,8 +7,9 @@
+ 	extern "C" {
+ #endif
+ 
+-#include <Carbon/Carbon.h>
+-
++// #include <Carbon/Carbon.h>
++#include <CoreFoundation/CoreFoundation.h>
++        
+ /*
+ ** Issue #27806: Workaround for gcc 4.x which does not have _has_include.
+ */
+@@ -59,11 +60,13 @@
+ 
+ int PyMac_GetPoint(PyObject *, Point *);	/* argument parser for Point */
+ PyObject *PyMac_BuildPoint(Point);		/* Convert Point to PyObject */
+-
++        
++#ifdef CARBON
+ int PyMac_GetEventRecord(PyObject *, EventRecord *); /* argument parser for
+ 							EventRecord */
+ PyObject *PyMac_BuildEventRecord(EventRecord *); /* Convert EventRecord to
+ 						    PyObject */
++#endif
+ 
+ int PyMac_GetFixed(PyObject *, Fixed *);	/* argument parser for Fixed */
+ PyObject *PyMac_BuildFixed(Fixed);		/* Convert Fixed to PyObject */
+@@ -109,10 +112,11 @@
+ PyObject *PyMac_BuildFSSpec(FSSpec *);		/* Convert FSSpec to PyObject */
+ #endif /* !__LP64__ */
+ 
+-int PyMac_GetFSRef(PyObject *, FSRef *);	/* argument parser for FSRef */
+-PyObject *PyMac_BuildFSRef(FSRef *);		/* Convert FSRef to PyObject */
++        int PyMac_GetFSRef(PyObject *, struct FSRef *);    /* argument parser for FSRef */
++        PyObject *PyMac_BuildFSRef(struct FSRef *);        /* Convert FSRef to PyObject */
+ 
+ /* AE exports */
++#ifdef CARBON
+ extern PyObject *AEDesc_New(AppleEvent *); /* XXXX Why passed by address?? */
+ extern PyObject *AEDesc_NewBorrowed(AppleEvent *);
+ extern int AEDesc_Convert(PyObject *, AppleEvent *);
+@@ -122,7 +126,8 @@
+ extern int CmpObj_Convert(PyObject *, Component *);
+ extern PyObject *CmpInstObj_New(ComponentInstance);
+ extern int CmpInstObj_Convert(PyObject *, ComponentInstance *);
+-
++#endif
++        
+ /* Ctl exports */
+ #if APPLE_SUPPORTS_QUICKTIME
+ extern PyObject *CtlObj_New(ControlHandle);

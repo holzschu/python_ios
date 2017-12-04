@@ -1,0 +1,23 @@
+diff -Naur Python-2.7.13/Parser/acceler.c ../Python-2.7.13/Parser/acceler.c
+--- Python-2.7.13/Parser/acceler.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Parser/acceler.c	2017-07-11 16:08:27.000000000 +0200
+@@ -71,7 +71,8 @@
+     accel = (int *) PyObject_MALLOC(nl * sizeof(int));
+     if (accel == NULL) {
+         fprintf(stderr, "no mem to build parser accelerators\n");
+-        exit(1);
++        pthread_exit(NULL);
++        // exit(1);
+     }
+     for (k = 0; k < nl; k++)
+         accel[k] = -1;
+@@ -114,7 +115,8 @@
+         s->s_accel = (int *) PyObject_MALLOC((nl-k) * sizeof(int));
+         if (s->s_accel == NULL) {
+             fprintf(stderr, "no mem to add parser accelerators\n");
+-            exit(1);
++            pthread_exit(NULL);
++            //exit(1);
+         }
+         s->s_lower = k;
+         s->s_upper = nl;

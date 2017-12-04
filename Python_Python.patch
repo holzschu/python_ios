@@ -1,0 +1,248 @@
+diff -Naur Python-2.7.13/Python/ceval.c ../Python-2.7.13/Python/ceval.c
+--- Python-2.7.13/Python/ceval.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/ceval.c	2017-11-24 23:26:50.000000000 +0100
+@@ -4444,6 +4444,8 @@
+         d = &PyTuple_GET_ITEM(argdefs, 0);
+         nd = Py_SIZE(argdefs);
+     }
++    // debug
++    // fprintf(stderr, "calling: %s\n", PyEval_GetFuncName(func)); fflush(stderr);
+     return PyEval_EvalCodeEx(co, globals,
+                              (PyObject *)NULL, (*pp_stack)-n, na,
+                              (*pp_stack)-2*nk, nk, d, nd,
+diff -Naur Python-2.7.13/Python/dtoa.c ../Python-2.7.13/Python/dtoa.c
+--- Python-2.7.13/Python/dtoa.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/dtoa.c	2017-07-11 16:03:03.000000000 +0200
+@@ -172,7 +172,8 @@
+ /* End Python #define linking */
+ 
+ #ifdef DEBUG
+-#define Bug(x) {fprintf(stderr, "%s\n", x); exit(1);}
++// #define Bug(x) {fprintf(stderr, "%s\n", x); exit(1);}
++#define Bug(x) {fprintf(stderr, "%s\n", x); phtread_exit(NULL);}
+ #endif
+ 
+ #ifndef PRIVATE_MEM
+diff -Naur Python-2.7.13/Python/dynload_shlib.c ../Python-2.7.13/Python/dynload_shlib.c
+--- Python-2.7.13/Python/dynload_shlib.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/dynload_shlib.c	2017-07-08 17:43:30.000000000 +0200
+@@ -115,7 +115,7 @@
+     if (Py_VerboseFlag)
+         PySys_WriteStderr("dlopen(\"%s\", %x);\n", pathname,
+                           dlopenflags);
+-
++    
+ #ifdef __VMS
+     /* VMS currently don't allow a pathname, use a logical name instead */
+     /* Concatenate 'python_module_' and shortname */
+diff -Naur Python-2.7.13/Python/errors.c ../Python-2.7.13/Python/errors.c
+--- Python-2.7.13/Python/errors.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/errors.c	2017-07-08 18:06:51.000000000 +0200
+@@ -149,7 +149,9 @@
+     PyObject *inclass = NULL;
+     PyObject *initial_tb = NULL;
+     PyThreadState *tstate = NULL;
+-
++    
++    if (value->ob_refcnt == 0) return;
++    
+     if (type == NULL) {
+         /* There was no exception, so nothing to do. */
+         return;
+@@ -244,7 +246,8 @@
+ PyErr_Fetch(PyObject **p_type, PyObject **p_value, PyObject **p_traceback)
+ {
+     PyThreadState *tstate = PyThreadState_GET();
+-
++    if (!tstate) return;
++    
+     *p_type = tstate->curexc_type;
+     *p_value = tstate->curexc_value;
+     *p_traceback = tstate->curexc_traceback;
+diff -Naur Python-2.7.13/Python/import.c ../Python-2.7.13/Python/import.c
+--- Python-2.7.13/Python/import.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/import.c	2017-07-08 17:44:55.000000000 +0200
+@@ -1605,7 +1605,7 @@
+     }
+     if (fp == NULL) {
+         PyErr_Format(PyExc_ImportError,
+-                     "No module named %.200s", name);
++                     "No (file) module named %.200s\r", name);
+         goto error_exit;
+     }
+     *p_fp = fp;
+@@ -2535,8 +2535,10 @@
+     strncpy(p, name, len);
+     p[len] = '\0';
+     *p_buflen = p+len-buf;
+-
++    
++    // This is where we have an issue with _collections and shutil
+     result = import_submodule(mod, p, buf);
++    
+     if (result == Py_None && altmod != mod) {
+         Py_DECREF(result);
+         /* Here, altmod must be None and mod must not be None */
+@@ -2557,7 +2559,7 @@
+     if (result == Py_None) {
+         Py_DECREF(result);
+         PyErr_Format(PyExc_ImportError,
+-                     "No module named %.200s", name);
++                     "No (sub)module named %.200s\r", name);
+         return NULL;
+     }
+ 
+diff -Naur Python-2.7.13/Python/importdl.c ../Python-2.7.13/Python/importdl.c
+--- Python-2.7.13/Python/importdl.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/importdl.c	2017-07-07 21:05:02.000000000 +0200
+@@ -12,6 +12,7 @@
+ 
+ #include "importdl.h"
+ 
++
+ extern dl_funcptr _PyImport_GetDynLoadFunc(const char *name,
+                                            const char *shortname,
+                                            const char *pathname, FILE *fp);
+diff -Naur Python-2.7.13/Python/mactoolboxglue.c ../Python-2.7.13/Python/mactoolboxglue.c
+--- Python-2.7.13/Python/mactoolboxglue.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/mactoolboxglue.c	2017-07-04 16:57:32.000000000 +0200
+@@ -263,6 +263,7 @@
+ 
+ /* Convert a Python object to an EventRecord.
+    The object must be a (what, message, when, (v, h), modifiers) tuple. */
++#ifdef CARBON
+ int
+ PyMac_GetEventRecord(PyObject *v, EventRecord *e)
+ {
+@@ -287,6 +288,7 @@
+                          e->where.v,
+                          e->modifiers);
+ }
++#endif
+ 
+ /* Convert Python object to Fixed */
+ int
+@@ -379,6 +381,7 @@
+     return (*PyMacGluePtr_##routinename)(pyobj, cobj); \
+ }
+ 
++#ifdef CARBON
+ GLUE_NEW(FSSpec *, PyMac_BuildFSSpec, "Carbon.File")
+ GLUE_CONVERT(FSSpec, PyMac_GetFSSpec, "Carbon.File")
+ GLUE_NEW(FSRef *, PyMac_BuildFSRef, "Carbon.File")
+@@ -418,6 +421,7 @@
+ 
+ GLUE_NEW(GWorldPtr, GWorldObj_New, "Carbon.Qdoffs")
+ GLUE_CONVERT(GWorldPtr, GWorldObj_Convert, "Carbon.Qdoffs")
++#endif
+ 
+ #if APPLE_SUPPORTS_QUICKTIME
+ GLUE_NEW(Track, TrackObj_New, "Carbon.Qt")
+@@ -439,12 +443,14 @@
+ GLUE_NEW(Handle, OptResObj_New, "Carbon.Res")
+ GLUE_CONVERT(Handle, OptResObj_Convert, "Carbon.Res")
+ 
++#ifdef CARBON
+ GLUE_NEW(TEHandle, TEObj_New, "Carbon.TE")
+ GLUE_CONVERT(TEHandle, TEObj_Convert, "Carbon.TE")
+ 
+ GLUE_NEW(WindowPtr, WinObj_New, "Carbon.Win")
+ GLUE_CONVERT(WindowPtr, WinObj_Convert, "Carbon.Win")
+ GLUE_NEW(WindowPtr, WinObj_WhichWindow, "Carbon.Win")
++#endif
+ 
+ GLUE_CONVERT(CFTypeRef, CFObj_Convert, "Carbon.CF")
+ GLUE_NEW(CFTypeRef, CFObj_New, "Carbon.CF")
+diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
+--- Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/pythonrun.c	2017-11-08 13:44:36.000000000 +0100
+@@ -175,7 +175,7 @@
+     extern void _Py_ReadyTypes(void);
+ 
+     if (initialized)
+-        return;
++        return; 
+     initialized = 1;
+ 
+     if ((p = Py_GETENV("PYTHONDEBUG")) && *p != '\0')
+@@ -282,6 +282,8 @@
+ 
+     if (!Py_NoSiteFlag)
+         initsite(); /* Module site */
++    // We couldn't find the module "site", need to return before we crash.
++    if (_PyThreadState_Current == NULL) return;
+ 
+     if ((p = Py_GETENV("PYTHONIOENCODING")) && *p != '\0') {
+         p = icodeset = codeset = strdup(p);
+@@ -316,7 +318,8 @@
+                     loc_codeset = NULL;
+                 } else {
+                     PyErr_Print();
+-                    exit(1);
++                    pthread_exit(NULL);
++                    // exit(1);
+                 }
+             }
+         } else
+@@ -727,7 +730,8 @@
+     if (m == NULL) {
+         PyErr_Print();
+         Py_Finalize();
+-        exit(1);
++        pthread_exit(NULL);
++        // exit(1);
+     }
+     else {
+         Py_DECREF(m);
+@@ -1161,8 +1165,8 @@
+         handle_system_exit();
+     }
+     PyErr_Fetch(&exception, &v, &tb);
+-    if (exception == NULL)
+-        return;
++    if (exception == NULL) return;
++    
+     PyErr_NormalizeException(&exception, &v, &tb);
+     if (exception == NULL)
+         return;
+@@ -1781,8 +1785,8 @@
+ Py_Exit(int sts)
+ {
+     Py_Finalize();
+-
+-    exit(sts);
++    pthread_exit(NULL);
++    // exit(sts);
+ }
+ 
+ static void
+diff -Naur Python-2.7.13/Python/sysmodule.c ../Python-2.7.13/Python/sysmodule.c
+--- Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ ../Python-2.7.13/Python/sysmodule.c	2017-07-11 16:07:56.000000000 +0200
+@@ -50,6 +50,8 @@
+ PySys_GetObject(char *name)
+ {
+     PyThreadState *tstate = PyThreadState_GET();
++    if (tstate == NULL) return NULL;
++    
+     PyObject *sd = tstate->interp->sysdict;
+     if (sd == NULL)
+         return NULL;
+@@ -72,6 +74,7 @@
+ PySys_SetObject(char *name, PyObject *v)
+ {
+     PyThreadState *tstate = PyThreadState_GET();
++    if (tstate == NULL) return 0;
+     PyObject *sd = tstate->interp->sysdict;
+     if (v == NULL) {
+         if (PyDict_GetItemString(sd, name) == NULL)
+@@ -1383,7 +1386,8 @@
+             /* There's nothing more we can do. */
+             /* Py_FatalError() will core dump, so just exit. */
+             PySys_WriteStderr("Python error: <stdin> is a directory, cannot continue\n");
+-            exit(EXIT_FAILURE);
++            pthread_exit(NULL);
++            // exit(EXIT_FAILURE);
+         }
+     }
+ #endif
