@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2219E3231FD81E9900675252 /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3061FD81B7100675252 /* ios_system.framework */; };
+		2219E3251FD81EAD00675252 /* libssh2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3241FD81EAD00675252 /* libssh2.framework */; };
+		2219E3271FD81EBD00675252 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3261FD81EBD00675252 /* openssl.framework */; };
 		223496131FD5DC3D007ED1A9 /* bitset.c in Sources */ = {isa = PBXBuildFile; fileRef = 223496121FD5DC3C007ED1A9 /* bitset.c */; };
-		2234968A1FD5ED65007ED1A9 /* file_cmds_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223496891FD5ED65007ED1A9 /* file_cmds_ios.framework */; };
-		2234968C1FD5ED79007ED1A9 /* curl_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2234968B1FD5ED79007ED1A9 /* curl_ios.framework */; };
-		2234968E1FD5ED81007ED1A9 /* libarchive_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2234968D1FD5ED81007ED1A9 /* libarchive_ios.framework */; };
-		223496901FD5ED8D007ED1A9 /* shell_cmds_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2234968F1FD5ED8D007ED1A9 /* shell_cmds_ios.framework */; };
-		223496A01FD5EEA3007ED1A9 /* text_cmds_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2234969F1FD5EEA3007ED1A9 /* text_cmds_ios.framework */; };
 		224794B11FACBE42008CB0EC /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 224794B01FACBE42008CB0EC /* libffi.a */; };
 		225A288A1F0BE4DA00A1068F /* getbuildinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 225A28891F0BE4D900A1068F /* getbuildinfo.c */; settings = {COMPILER_FLAGS = " -DPy_BUILD_CORE -DSVNVERSION=\"\\\"`LC_ALL=C svnversion .`\\\"\" -DHGVERSION=\"\\\"`LC_ALL=C hg id -i .`\\\"\" -DHGTAG=\"\\\"`LC_ALL=C hg id -t .`\\\"\" -DHGBRANCH=\"\\\"`LC_ALL=C hg id -b .`\\\"\" "; }; };
 		225A288C1F0BE52F00A1068F /* signalmodule.c in Sources */ = {isa = PBXBuildFile; fileRef = 225A288B1F0BE52F00A1068F /* signalmodule.c */; };
@@ -78,14 +76,6 @@
 		22B5180E1F104A6F008C31C4 /* stringio.c in Sources */ = {isa = PBXBuildFile; fileRef = 22B518071F104A6F008C31C4 /* stringio.c */; };
 		22B5180F1F104A6F008C31C4 /* fileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 22B518081F104A6F008C31C4 /* fileio.c */; };
 		22B518101F104A6F008C31C4 /* iobase.c in Sources */ = {isa = PBXBuildFile; fileRef = 22B518091F104A6F008C31C4 /* iobase.c */; };
-		22CF27B51FC764330031A1AA /* libbibtex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF27B01FC764320031A1AA /* libbibtex.dylib */; };
-		22CF27B61FC764330031A1AA /* libluatex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF27B11FC764330031A1AA /* libluatex.dylib */; };
-		22CF27B71FC764330031A1AA /* libtexlua52.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF27B21FC764330031A1AA /* libtexlua52.5.dylib */; };
-		22CF27B81FC764330031A1AA /* libpdftex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF27B31FC764330031A1AA /* libpdftex.dylib */; };
-		22CF27B91FC764330031A1AA /* libkpathsea.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF27B41FC764330031A1AA /* libkpathsea.6.dylib */; };
-		22D364571FC4B349008A8A76 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D364561FC4B349008A8A76 /* openssl.framework */; };
-		22D3645D1FC4C0A1008A8A76 /* libssh2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D3645C1FC4C0A1008A8A76 /* libssh2.framework */; };
-		22D364671FC4C8F4008A8A76 /* ios_system.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D364661FC4C8F4008A8A76 /* ios_system.m */; };
 		22F02F7F1F10C7BC008FFB23 /* sha512module.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F02F7C1F10C7BC008FFB23 /* sha512module.c */; };
 		22F02F801F10C7BC008FFB23 /* sha256module.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F02F7D1F10C7BC008FFB23 /* sha256module.c */; };
 		22F02F811F10C7BC008FFB23 /* shamodule.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F02F7E1F10C7BC008FFB23 /* shamodule.c */; };
@@ -206,14 +196,21 @@
 		22FCD02B1F0BD8AF00F67B0B /* getpath.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FCD02A1F0BD8AF00F67B0B /* getpath.m */; settings = {COMPILER_FLAGS = "-DPYTHONPATH='\":plat-darwin:plat-mac:plat-mac/lib-scriptpackages:lib-tk:lib-old\"' -DPREFIX='\"/Library/Frameworks/Python.framework/Versions/2.7\"' -DEXEC_PREFIX='\"/Library/Frameworks/Python.framework/Versions/2.7\"' -DVERSION='\"2.7\"' -DVPATH='\"\"' "; }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2219E3051FD81B7100675252 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2219E3011FD81B7100675252 /* ios_system.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 223496AB1FD5FC71007ED1A9;
+			remoteInfo = ios_system;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2219E3011FD81B7100675252 /* ios_system.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ios_system.xcodeproj; path = ../ios_system/ios_system.xcodeproj; sourceTree = "<group>"; };
+		2219E3241FD81EAD00675252 /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libssh2.framework; path = "../libssh2-for-iOS/libssh2.framework"; sourceTree = "<group>"; };
+		2219E3261FD81EBD00675252 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = "../libssh2-for-iOS/openssl.framework"; sourceTree = "<group>"; };
 		223496121FD5DC3C007ED1A9 /* bitset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitset.c; path = "Python-2.7.13/Parser/bitset.c"; sourceTree = "<group>"; };
-		223496871FD5ED51007ED1A9 /* text_cmds_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = text_cmds_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/text_cmds_ios.framework"; sourceTree = "<group>"; };
-		223496891FD5ED65007ED1A9 /* file_cmds_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = file_cmds_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/file_cmds_ios.framework"; sourceTree = "<group>"; };
-		2234968B1FD5ED79007ED1A9 /* curl_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = curl_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/curl_ios.framework"; sourceTree = "<group>"; };
-		2234968D1FD5ED81007ED1A9 /* libarchive_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libarchive_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/libarchive_ios.framework"; sourceTree = "<group>"; };
-		2234968F1FD5ED8D007ED1A9 /* shell_cmds_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shell_cmds_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/shell_cmds_ios.framework"; sourceTree = "<group>"; };
-		2234969F1FD5EEA3007ED1A9 /* text_cmds_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = text_cmds_ios.framework; path = "../../../Library/Developer/Xcode/DerivedData/lua_ios-aypdikiflnrllcezefcczfrmzagt/Build/Products/Debug-iphoneos/text_cmds_ios.framework"; sourceTree = "<group>"; };
 		224794B01FACBE42008CB0EC /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi.a; sourceTree = "<group>"; };
 		225A28891F0BE4D900A1068F /* getbuildinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getbuildinfo.c; path = "Python-2.7.13/Modules/getbuildinfo.c"; sourceTree = "<group>"; };
 		225A288B1F0BE52F00A1068F /* signalmodule.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = signalmodule.c; path = "Python-2.7.13/Modules/signalmodule.c"; sourceTree = "<group>"; };
@@ -280,14 +277,6 @@
 		22B518071F104A6F008C31C4 /* stringio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stringio.c; path = "Python-2.7.13/Modules/_io/stringio.c"; sourceTree = "<group>"; };
 		22B518081F104A6F008C31C4 /* fileio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fileio.c; path = "Python-2.7.13/Modules/_io/fileio.c"; sourceTree = "<group>"; };
 		22B518091F104A6F008C31C4 /* iobase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = iobase.c; path = "Python-2.7.13/Modules/_io/iobase.c"; sourceTree = "<group>"; };
-		22CF27B01FC764320031A1AA /* libbibtex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbibtex.dylib; path = ../blink/Frameworks/libbibtex.dylib; sourceTree = "<group>"; };
-		22CF27B11FC764330031A1AA /* libluatex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libluatex.dylib; path = ../blink/Frameworks/libluatex.dylib; sourceTree = "<group>"; };
-		22CF27B21FC764330031A1AA /* libtexlua52.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtexlua52.5.dylib; path = ../blink/Frameworks/libtexlua52.5.dylib; sourceTree = "<group>"; };
-		22CF27B31FC764330031A1AA /* libpdftex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpdftex.dylib; path = ../blink/Frameworks/libpdftex.dylib; sourceTree = "<group>"; };
-		22CF27B41FC764330031A1AA /* libkpathsea.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libkpathsea.6.dylib; path = ../blink/Frameworks/libkpathsea.6.dylib; sourceTree = "<group>"; };
-		22D364561FC4B349008A8A76 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = "../libssh2-for-iOS/openssl.framework"; sourceTree = "<group>"; };
-		22D3645C1FC4C0A1008A8A76 /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libssh2.framework; path = "../libssh2-for-iOS/libssh2.framework"; sourceTree = "<group>"; };
-		22D364661FC4C8F4008A8A76 /* ios_system.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ios_system.m; sourceTree = SOURCE_ROOT; };
 		22F02F7C1F10C7BC008FFB23 /* sha512module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sha512module.c; path = "Python-2.7.13/Modules/sha512module.c"; sourceTree = "<group>"; };
 		22F02F7D1F10C7BC008FFB23 /* sha256module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sha256module.c; path = "Python-2.7.13/Modules/sha256module.c"; sourceTree = "<group>"; };
 		22F02F7E1F10C7BC008FFB23 /* shamodule.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = shamodule.c; path = "Python-2.7.13/Modules/shamodule.c"; sourceTree = "<group>"; };
@@ -415,46 +404,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22CF27B51FC764330031A1AA /* libbibtex.dylib in Frameworks */,
-				22CF27B61FC764330031A1AA /* libluatex.dylib in Frameworks */,
-				22CF27B71FC764330031A1AA /* libtexlua52.5.dylib in Frameworks */,
-				223496901FD5ED8D007ED1A9 /* shell_cmds_ios.framework in Frameworks */,
-				2234968A1FD5ED65007ED1A9 /* file_cmds_ios.framework in Frameworks */,
-				223496A01FD5EEA3007ED1A9 /* text_cmds_ios.framework in Frameworks */,
-				22CF27B81FC764330031A1AA /* libpdftex.dylib in Frameworks */,
-				22CF27B91FC764330031A1AA /* libkpathsea.6.dylib in Frameworks */,
+				2219E3271FD81EBD00675252 /* openssl.framework in Frameworks */,
+				2219E3251FD81EAD00675252 /* libssh2.framework in Frameworks */,
+				2219E3231FD81E9900675252 /* ios_system.framework in Frameworks */,
 				224794B11FACBE42008CB0EC /* libffi.a in Frameworks */,
 				22F02FAA1F116D63008FFB23 /* libbz2.tbd in Frameworks */,
-				22D364571FC4B349008A8A76 /* openssl.framework in Frameworks */,
-				22D3645D1FC4C0A1008A8A76 /* libssh2.framework in Frameworks */,
 				22B518011F104842008C31C4 /* libz.tbd in Frameworks */,
-				2234968C1FD5ED79007ED1A9 /* curl_ios.framework in Frameworks */,
-				2234968E1FD5ED81007ED1A9 /* libarchive_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2219E3021FD81B7100675252 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2219E3061FD81B7100675252 /* ios_system.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		225A28AB1F0BE99900A1068F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2234969F1FD5EEA3007ED1A9 /* text_cmds_ios.framework */,
-				2234968F1FD5ED8D007ED1A9 /* shell_cmds_ios.framework */,
-				2234968D1FD5ED81007ED1A9 /* libarchive_ios.framework */,
-				2234968B1FD5ED79007ED1A9 /* curl_ios.framework */,
-				223496891FD5ED65007ED1A9 /* file_cmds_ios.framework */,
-				223496871FD5ED51007ED1A9 /* text_cmds_ios.framework */,
-				22CF27B01FC764320031A1AA /* libbibtex.dylib */,
-				22CF27B41FC764330031A1AA /* libkpathsea.6.dylib */,
-				22CF27B11FC764330031A1AA /* libluatex.dylib */,
-				22CF27B31FC764330031A1AA /* libpdftex.dylib */,
-				22CF27B21FC764330031A1AA /* libtexlua52.5.dylib */,
-				22D364561FC4B349008A8A76 /* openssl.framework */,
+				2219E3261FD81EBD00675252 /* openssl.framework */,
+				2219E3241FD81EAD00675252 /* libssh2.framework */,
 				224794B01FACBE42008CB0EC /* libffi.a */,
 				22F02FA91F116D5C008FFB23 /* libbz2.tbd */,
 				22B518001F10483A008C31C4 /* libz.tbd */,
-				22D3645C1FC4C0A1008A8A76 /* libssh2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -501,7 +478,7 @@
 		22FCCF451F0BCFB800F67B0B = {
 			isa = PBXGroup;
 			children = (
-				22D364661FC4C8F4008A8A76 /* ios_system.m */,
+				2219E3011FD81B7100675252 /* ios_system.xcodeproj */,
 				22FCCFC71F0BD55900F67B0B /* Python */,
 				22FCCF781F0BD2DF00F67B0B /* Objects */,
 				22FCCF5D1F0BD0CA00F67B0B /* Parser */,
@@ -779,12 +756,28 @@
 			mainGroup = 22FCCF451F0BCFB800F67B0B;
 			productRefGroup = 22FCCF501F0BCFB800F67B0B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2219E3021FD81B7100675252 /* Products */;
+					ProjectRef = 2219E3011FD81B7100675252 /* ios_system.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				22FCCF4E1F0BCFB800F67B0B /* Python_ios */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2219E3061FD81B7100675252 /* ios_system.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ios_system.framework;
+			remoteRef = 2219E3051FD81B7100675252 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		22FCCF4D1F0BCFB800F67B0B /* Resources */ = {
@@ -960,7 +953,6 @@
 				22FCCF611F0BD22F00F67B0B /* grammar1.c in Sources */,
 				22FCD01A1F0BD7EF00F67B0B /* structmember.c in Sources */,
 				22FCCF961F0BD4CA00F67B0B /* funcobject.c in Sources */,
-				22D364671FC4C8F4008A8A76 /* ios_system.m in Sources */,
 				22FCD0211F0BD81B00F67B0B /* pystrcmp.c in Sources */,
 				22FCCFE31F0BD68300F67B0B /* dtoa.c in Sources */,
 				227ED6EF1F0F87E700D8EB67 /* datetimemodule.c in Sources */,
@@ -1119,8 +1111,6 @@
 					"$(PROJECT_DIR)/Python_ios",
 				);
 				OTHER_CFLAGS = (
-					"-F",
-					../blink/Frameworks,
 					"-DNDEBUG",
 					"-fno-strict-aliasing",
 					"-fno-common",
@@ -1135,18 +1125,14 @@
 					"-I",
 					.,
 					"-DPy_BUILD_CORE",
+					"-I",
+					"../libssh2-for-iOS/include/",
 				);
 				OTHER_LDFLAGS = (
+					"-L",
+					.,
 					"-F",
 					"../libssh2-for-iOS/",
-					"-x",
-					"objective-c",
-					"-L",
-					../blink/Frameworks/,
-					"-L",
-					.,
-					"-F",
-					.,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1178,8 +1164,6 @@
 					"$(PROJECT_DIR)/Python_ios",
 				);
 				OTHER_CFLAGS = (
-					"-F",
-					../blink/Frameworks,
 					"-DNDEBUG",
 					"-fno-strict-aliasing",
 					"-fno-common",
@@ -1194,18 +1178,14 @@
 					"-I",
 					.,
 					"-DPy_BUILD_CORE",
+					"-I",
+					"../libssh2-for-iOS/include/",
 				);
 				OTHER_LDFLAGS = (
+					"-L",
+					.,
 					"-F",
 					"../libssh2-for-iOS/",
-					"-x",
-					"objective-c",
-					"-L",
-					../blink/Frameworks/,
-					"-L",
-					.,
-					"-F",
-					.,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
