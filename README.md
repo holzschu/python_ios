@@ -1,8 +1,8 @@
 # Python for iOS -- with partial fork() and exec() ability
 
-This project is a patch of Python-2.7.13, designed to make it compile on iOS. Python becomes a framework, and your programs can call python_main(argc, argv) to execute python scripts. 
+This project is a patch of Python-2.7.13, designed to make it compile on iOS. Python becomes a framework, and your programs call `python_main(argc, argv)` to execute python scripts. 
 
-This was designed to be used in conjunction with [Blinkshell](https://github.com/holzschu/blink), but it can be used independently. 
+This framework was designed to be used in conjunction with [Blinkshell](https://github.com/holzschu/blink) or [iVim](https://github.com/holzschu/iVim), but it can be used independently. 
 
 # Compilation:
 
@@ -14,18 +14,13 @@ After patching, you have two Xcode projects:
 - `libffi-3.2.1/libffi.xcodeproj`
 - `Python_ios.xcodeproj`
 
-Open the first one, build it, and move the produce `libffi.a` to this directory. 
+Open the first one, build it, and move the product `libffi.a` to this directory. 
 
 For Python, you need `openSSL.framework` and `libssh2.framework`. They are available as part of [Blink](https://github.com/blinksh/blink) or in [libssh2-for-iOS](https://github.com/x2on/libssh2-for-iOS). 
 
-The file `ios_system.m` simulates calls to `system()` inside iOS. The commands available depend on a list of `#define` at the start of  `ios_system.m`. You will need the corresponding frameworks, available as part of [Blinkshell](https://github.com/holzschu/blink):
-- `file_cmds_ios.framework`
-- `libarchive_ios.framework`
-- `curl.framework`
-- `shell_cmds_ios.framework`
-- `text_cmds_ios.framework`
+For python to make system calls, we use the [ios_system](https://github.com/holzschu/ios_system) framework. Download it, compile, and it will be linked with python. 
 
-You may have to edit the `-F` flag depending on their location. 
+The system commands available depend on a list of `#define` at the start of  `ios_system.m`. 
 
 # Installation (on your device)
 
