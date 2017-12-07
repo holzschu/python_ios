@@ -90,6 +90,8 @@
 		22F02FA21F113160008FFB23 /* callproc.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F02F9D1F11315F008FFB23 /* callproc.c */; settings = {COMPILER_FLAGS = "-I libffi-3.2.1//build_iphoneos-arm64/include/"; }; };
 		22F02FA81F116D2B008FFB23 /* bz2module.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F02FA71F116D2B008FFB23 /* bz2module.c */; };
 		22F02FAA1F116D63008FFB23 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F02FA91F116D5C008FFB23 /* libbz2.tbd */; };
+		22F4C7BF1FD9DE79005CB496 /* libssh2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4C7BE1FD9DE79005CB496 /* libssh2.framework */; };
+		22F4C7C11FD9DE87005CB496 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4C7C01FD9DE87005CB496 /* openssl.framework */; };
 		22FCCF541F0BCFB800F67B0B /* Python_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FCCF521F0BCFB800F67B0B /* Python_ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FCCF5C1F0BCFEF00F67B0B /* python.c in Sources */ = {isa = PBXBuildFile; fileRef = 22FCCF5B1F0BCFEF00F67B0B /* python.c */; settings = {COMPILER_FLAGS = "-I ../include"; }; };
 		22FCCF5F1F0BD0DB00F67B0B /* acceler.c in Sources */ = {isa = PBXBuildFile; fileRef = 22FCCF5E1F0BD0DB00F67B0B /* acceler.c */; };
@@ -278,6 +280,8 @@
 		22F02F9D1F11315F008FFB23 /* callproc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = callproc.c; path = "Python-2.7.13/Modules/_ctypes/callproc.c"; sourceTree = "<group>"; };
 		22F02FA71F116D2B008FFB23 /* bz2module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bz2module.c; path = "Python-2.7.13/Modules/bz2module.c"; sourceTree = "<group>"; };
 		22F02FA91F116D5C008FFB23 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		22F4C7BE1FD9DE79005CB496 /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libssh2.framework; path = "../libssh2-for-iOS/libssh2.framework"; sourceTree = "<group>"; };
+		22F4C7C01FD9DE87005CB496 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = "../libssh2-for-iOS/openssl.framework"; sourceTree = "<group>"; };
 		22FCCF4F1F0BCFB800F67B0B /* Python_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Python_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FCCF521F0BCFB800F67B0B /* Python_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Python_ios.h; sourceTree = "<group>"; };
 		22FCCF531F0BCFB800F67B0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -388,6 +392,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F4C7C11FD9DE87005CB496 /* openssl.framework in Frameworks */,
+				22F4C7BF1FD9DE79005CB496 /* libssh2.framework in Frameworks */,
 				224794B11FACBE42008CB0EC /* libffi.a in Frameworks */,
 				22F02FAA1F116D63008FFB23 /* libbz2.tbd in Frameworks */,
 				22B518011F104842008C31C4 /* libz.tbd in Frameworks */,
@@ -400,6 +406,8 @@
 		225A28AB1F0BE99900A1068F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22F4C7C01FD9DE87005CB496 /* openssl.framework */,
+				22F4C7BE1FD9DE79005CB496 /* libssh2.framework */,
 				224794B01FACBE42008CB0EC /* libffi.a */,
 				22F02FA91F116D5C008FFB23 /* libbz2.tbd */,
 				22B518001F10483A008C31C4 /* libz.tbd */,
@@ -1091,6 +1099,8 @@
 					.,
 					"-undefined",
 					dynamic_lookup,
+					"-F",
+					"../libssh2-for-iOS/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1144,6 +1154,8 @@
 					.,
 					"-undefined",
 					dynamic_lookup,
+					"-F",
+					"../libssh2-for-iOS/",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
