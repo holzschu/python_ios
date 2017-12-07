@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2219E3231FD81E9900675252 /* ios_system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3061FD81B7100675252 /* ios_system.framework */; };
-		2219E3251FD81EAD00675252 /* libssh2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3241FD81EAD00675252 /* libssh2.framework */; };
-		2219E3271FD81EBD00675252 /* openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2219E3261FD81EBD00675252 /* openssl.framework */; };
 		223496131FD5DC3D007ED1A9 /* bitset.c in Sources */ = {isa = PBXBuildFile; fileRef = 223496121FD5DC3C007ED1A9 /* bitset.c */; };
 		224794B11FACBE42008CB0EC /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 224794B01FACBE42008CB0EC /* libffi.a */; };
 		225A288A1F0BE4DA00A1068F /* getbuildinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 225A28891F0BE4D900A1068F /* getbuildinfo.c */; settings = {COMPILER_FLAGS = " -DPy_BUILD_CORE -DSVNVERSION=\"\\\"`LC_ALL=C svnversion .`\\\"\" -DHGVERSION=\"\\\"`LC_ALL=C hg id -i .`\\\"\" -DHGTAG=\"\\\"`LC_ALL=C hg id -t .`\\\"\" -DHGBRANCH=\"\\\"`LC_ALL=C hg id -b .`\\\"\" "; }; };
@@ -196,20 +193,7 @@
 		22FCD02B1F0BD8AF00F67B0B /* getpath.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FCD02A1F0BD8AF00F67B0B /* getpath.m */; settings = {COMPILER_FLAGS = "-DPYTHONPATH='\":plat-darwin:plat-mac:plat-mac/lib-scriptpackages:lib-tk:lib-old\"' -DPREFIX='\"/Library/Frameworks/Python.framework/Versions/2.7\"' -DEXEC_PREFIX='\"/Library/Frameworks/Python.framework/Versions/2.7\"' -DVERSION='\"2.7\"' -DVPATH='\"\"' "; }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		2219E3051FD81B7100675252 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2219E3011FD81B7100675252 /* ios_system.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 223496AB1FD5FC71007ED1A9;
-			remoteInfo = ios_system;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		2219E3011FD81B7100675252 /* ios_system.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ios_system.xcodeproj; path = ../ios_system/ios_system.xcodeproj; sourceTree = "<group>"; };
-		2219E3241FD81EAD00675252 /* libssh2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libssh2.framework; path = "../libssh2-for-iOS/libssh2.framework"; sourceTree = "<group>"; };
-		2219E3261FD81EBD00675252 /* openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = openssl.framework; path = "../libssh2-for-iOS/openssl.framework"; sourceTree = "<group>"; };
 		223496121FD5DC3C007ED1A9 /* bitset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitset.c; path = "Python-2.7.13/Parser/bitset.c"; sourceTree = "<group>"; };
 		224794B01FACBE42008CB0EC /* libffi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi.a; sourceTree = "<group>"; };
 		225A28891F0BE4D900A1068F /* getbuildinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getbuildinfo.c; path = "Python-2.7.13/Modules/getbuildinfo.c"; sourceTree = "<group>"; };
@@ -404,9 +388,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2219E3271FD81EBD00675252 /* openssl.framework in Frameworks */,
-				2219E3251FD81EAD00675252 /* libssh2.framework in Frameworks */,
-				2219E3231FD81E9900675252 /* ios_system.framework in Frameworks */,
 				224794B11FACBE42008CB0EC /* libffi.a in Frameworks */,
 				22F02FAA1F116D63008FFB23 /* libbz2.tbd in Frameworks */,
 				22B518011F104842008C31C4 /* libz.tbd in Frameworks */,
@@ -416,19 +397,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2219E3021FD81B7100675252 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2219E3061FD81B7100675252 /* ios_system.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		225A28AB1F0BE99900A1068F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2219E3261FD81EBD00675252 /* openssl.framework */,
-				2219E3241FD81EAD00675252 /* libssh2.framework */,
 				224794B01FACBE42008CB0EC /* libffi.a */,
 				22F02FA91F116D5C008FFB23 /* libbz2.tbd */,
 				22B518001F10483A008C31C4 /* libz.tbd */,
@@ -478,7 +449,6 @@
 		22FCCF451F0BCFB800F67B0B = {
 			isa = PBXGroup;
 			children = (
-				2219E3011FD81B7100675252 /* ios_system.xcodeproj */,
 				22FCCFC71F0BD55900F67B0B /* Python */,
 				22FCCF781F0BD2DF00F67B0B /* Objects */,
 				22FCCF5D1F0BD0CA00F67B0B /* Parser */,
@@ -756,28 +726,12 @@
 			mainGroup = 22FCCF451F0BCFB800F67B0B;
 			productRefGroup = 22FCCF501F0BCFB800F67B0B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 2219E3021FD81B7100675252 /* Products */;
-					ProjectRef = 2219E3011FD81B7100675252 /* ios_system.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				22FCCF4E1F0BCFB800F67B0B /* Python_ios */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		2219E3061FD81B7100675252 /* ios_system.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ios_system.framework;
-			remoteRef = 2219E3051FD81B7100675252 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		22FCCF4D1F0BCFB800F67B0B /* Resources */ = {
@@ -1011,6 +965,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1030,6 +985,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1069,6 +1025,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1081,6 +1038,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -1098,7 +1056,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1131,8 +1089,8 @@
 				OTHER_LDFLAGS = (
 					"-L",
 					.,
-					"-F",
-					"../libssh2-for-iOS/",
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1151,7 +1109,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1184,8 +1142,8 @@
 				OTHER_LDFLAGS = (
 					"-L",
 					.,
-					"-F",
-					"../libssh2-for-iOS/",
+					"-undefined",
+					dynamic_lookup,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Acube.Python-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
