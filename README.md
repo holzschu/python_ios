@@ -27,16 +27,16 @@ The system commands available depend on a list of `#define` at the start of  `io
 Once you have compiled the Python-ios framework, you can link it with your favorite app (I used [Blinkshell](https://github.com/holzschu/blink) and [iVim](https://github.com/holzschu/iVim)). 
 
 You will need to transfer the Python scripts to your device:
-- `tar -cvfz pythonScripts.tar.gz Lib/`
+- `tar -cvzf pythonScripts.tar.gz Lib/`
 - transfer the pythonScripts.tar.gz on the device, for example using iTunes
-- on the iOS device: `tar -xvfz pythonScripts.tar.gz`
+- on the iOS device: `tar -xvzf pythonScripts.tar.gz`
 - `mv Lib ../Library/lib/python2.7`
 
 Also transfer the scripts: 
-- `tar -cvfz binaries.tar.gz Tools/scripts/`
+- `tar -cvzf binaries.tar.gz Tools/scripts/`
 - transfer the binaries.tar.gz on your device, for example using iTunes
-- on the iOS device: `tar -xvfz binaries.tar.gz` 
-- `mv Tools/scripts/ ../Library/bin/`
+- on the iOS device: `tar -xvzf binaries.tar.gz` 
+- `mv Tools/scripts ../Library/bin`
 
 Then, install a few useful modules: 
 - `python -m ensurepip`
@@ -47,6 +47,15 @@ Then, install a few useful modules:
 Inside Python, you can call the shell commands defined by the frameworks: ls, cat, grep... 
 
 In the shell, you can use all Python scripts: pydoc, which.py, diff.py... 
+
+# Installing new packages
+
+To install more packages, you have to try different options, in order of complexity:
+- `pip install packagename`, which will work if the package has a universal wheel, 
+- `pip download packagename` to download the source. Expand the source and run `python setup.py install`, which will work most of the time.
+- if the package tries to compile C extensions, install will fail (obviously). Look in the documentation to see if there is an option to install without extensions: `--pure install` for mercurial, `--without-speedups` for MarkupSafe, `setenv TORNADO_EXTENSION 0` for tornado... There are no standard way to express this. 
+- if none of the above work, you'll have to add the C extensions to the Python source group, and edit `config.c` to add the relevant line: `{"packageName", init_packageName},` (the actual function name and package name will vary). 
+
 
 # Mercurial
 
