@@ -631,7 +631,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_ssl.c Python-2.7.13/Modules/_ssl.c
              PyBytes_AS_STRING(PyTuple_GET_ITEM(attr, 1)));
 diff -Naur tmp/Python-2.7.13/Modules/bsddbmodule.c Python-2.7.13/Modules/bsddbmodule.c
 --- tmp/Python-2.7.13/Modules/bsddbmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/bsddbmodule.c	2018-01-21 18:00:10.000000000 +0100
++++ Python-2.7.13/Modules/bsddbmodule.c	2018-01-25 12:00:58.000000000 +0100
 @@ -17,6 +17,7 @@
  #ifdef WITH_THREAD
  #include "pythread.h"
@@ -649,6 +649,15 @@ diff -Naur tmp/Python-2.7.13/Modules/bsddbmodule.c Python-2.7.13/Modules/bsddbmo
                  "Python bsddb: close errno %d in dealloc\n",
                  errno);
      }
+@@ -582,6 +583,8 @@
+     BSDDB_END_SAVE(dp)
+     if (status == 0) {
+         if ((kdata == NULL) || (ddata == NULL))
++            if (kdata != NULL) free(kdata);
++            if (ddata != NULL) free(ddata);
+             return PyErr_NoMemory();
+     }
+     else {
 diff -Naur tmp/Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
 --- tmp/Python-2.7.13/Modules/config.c	1970-01-01 01:00:00.000000000 +0100
 +++ Python-2.7.13/Modules/config.c	2018-01-07 17:01:59.000000000 +0100
@@ -2189,6 +2198,18 @@ diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
  #endif
  
  #ifdef __INSURE__
+diff -Naur tmp/Python-2.7.13/Modules/operator.c Python-2.7.13/Modules/operator.c
+--- tmp/Python-2.7.13/Modules/operator.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/operator.c	2018-01-25 11:59:41.000000000 +0100
+@@ -259,7 +259,7 @@
+     volatile const unsigned char *left;
+     volatile const unsigned char *right;
+     Py_ssize_t i;
+-    unsigned char result;
++    unsigned char result = 0;
+ 
+     /* loop count depends on length of b */
+     length = len_b;
 diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parsermodule.c
 --- tmp/Python-2.7.13/Modules/parsermodule.c	2016-12-17 21:05:07.000000000 +0100
 +++ Python-2.7.13/Modules/parsermodule.c	2018-01-22 16:15:00.000000000 +0100
@@ -2203,7 +2224,7 @@ diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parser
  #include <note.h>
 diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
 --- tmp/Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/posixmodule.c	2018-01-23 15:34:53.000000000 +0100
++++ Python-2.7.13/Modules/posixmodule.c	2018-01-25 11:57:20.000000000 +0100
 @@ -30,6 +30,8 @@
  #ifndef MS_WINDOWS
  #include "posixmodule.h"
@@ -2237,18 +2258,21 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      /* If we get here it's definitely an error */
  
      free_string_array(argvlist, argc);
-@@ -3335,6 +3343,10 @@
+@@ -3335,6 +3343,13 @@
      envlist[envc] = 0;
  
      execve(path, argvlist, envlist);
 +#ifdef TARGET_OS_IPHONE
++        while (--envc >= 0)
++            PyMem_DEL(envlist[envc]);
++        PyMem_DEL(envlist);
 +        Py_INCREF(Py_None);
 +        return Py_None;
 +#endif
  
      /* If we get here it's definitely an error */
  
-@@ -3866,6 +3878,10 @@
+@@ -3866,6 +3881,10 @@
  static PyObject *
  posix_fork(PyObject *self, PyObject *noargs)
  {
@@ -2259,7 +2283,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      pid_t pid;
      int result = 0;
      _PyImport_AcquireLock();
-@@ -6077,7 +6093,7 @@
+@@ -6077,7 +6096,7 @@
  static PyObject *
  posix_setgroups(PyObject *self, PyObject *groups)
  {
@@ -2268,7 +2292,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      gid_t grouplist[MAX_GROUPS];
  
      if (!PySequence_Check(groups)) {
-@@ -6085,6 +6101,9 @@
+@@ -6085,6 +6104,9 @@
          return NULL;
      }
      len = PySequence_Size(groups);
@@ -2278,7 +2302,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      if (len > MAX_GROUPS) {
          PyErr_SetString(PyExc_ValueError, "too many groups");
          return NULL;
-@@ -6681,6 +6700,7 @@
+@@ -6681,6 +6703,7 @@
  PyDoc_STRVAR(posix_dup2__doc__,
  "dup2(old_fd, new_fd)\n\n\
  Duplicate file descriptor.");
