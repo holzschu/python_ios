@@ -1,31 +1,259 @@
-diff -Naur Python-2.7.13/Python/ceval.c ../Python-2.7.13/Python/ceval.c
---- Python-2.7.13/Python/ceval.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/ceval.c	2017-11-24 23:26:50.000000000 +0100
-@@ -4444,6 +4444,8 @@
+diff -Naur tmp/Python-2.7.13/Python/_warnings.c Python-2.7.13/Python/_warnings.c
+--- tmp/Python-2.7.13/Python/_warnings.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/_warnings.c	2018-01-21 17:59:46.000000000 +0100
+@@ -1,5 +1,6 @@
+ #include "Python.h"
+ #include "frameobject.h"
++#include "ios_error.h"
+ 
+ #define MODULE_NAME "_warnings"
+ 
+@@ -255,7 +256,7 @@
+ 
+     f_stderr = PySys_GetObject("stderr");
+     if (f_stderr == NULL) {
+-        fprintf(stderr, "lost sys.stderr\n");
++        fprintf(thread_stderr, "lost sys.stderr\n");
+         Py_DECREF(name);
+         return;
+     }
+diff -Naur tmp/Python-2.7.13/Python/ceval.c Python-2.7.13/Python/ceval.c
+--- tmp/Python-2.7.13/Python/ceval.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/ceval.c	2018-01-22 17:38:40.000000000 +0100
+@@ -16,6 +16,7 @@
+ #include "eval.h"
+ #include "opcode.h"
+ #include "structmember.h"
++#include "ios_error.h"
+ 
+ #include <ctype.h>
+ 
+@@ -89,7 +90,7 @@
+     intr = intr1 - intr0;
+     inst = inst1 - inst0 - intr;
+     loop = loop1 - loop0 - intr;
+-    fprintf(stderr, "opcode=%03d t=%d inst=%06lld loop=%06lld\n",
++    fprintf(thread_stderr, "opcode=%03d t=%d inst=%06lld loop=%06lld\n",
+             opcode, ticked, inst, loop);
+ }
+ 
+@@ -1183,11 +1184,11 @@
+ 
+         if (lltrace) {
+             if (HAS_ARG(opcode)) {
+-                printf("%d: %d, %d\n",
++                fprintf(thread_stdout, "%d: %d, %d\n",
+                        f->f_lasti, opcode, oparg);
+             }
+             else {
+-                printf("%d: %d\n",
++                fprintf(thread_stdout, "%d: %d\n",
+                        f->f_lasti, opcode);
+             }
+         }
+@@ -3127,7 +3128,7 @@
+         _unknown_opcode:
+ #endif
+         default:
+-            fprintf(stderr,
++            fprintf(thread_stderr,
+                 "XXX lineno: %d, opcode: %d\n",
+                 PyFrame_GetLineNumber(f),
+                 opcode);
+@@ -3152,7 +3153,7 @@
+ #ifdef CHECKEXC
+                 /* This check is expensive! */
+                 if (PyErr_Occurred())
+-                    fprintf(stderr,
++                    fprintf(thread_stderr,
+                         "XXX undetected error\n");
+                 else {
+ #endif
+@@ -3955,10 +3956,10 @@
+ static int
+ prtrace(PyObject *v, char *str)
+ {
+-    printf("%s ", str);
+-    if (PyObject_Print(v, stdout, 0) != 0)
++    fprintf(thread_stdout, "%s ", str);
++    if (PyObject_Print(v, thread_stdout, 0) != 0)
+         PyErr_Clear(); /* Don't know what else to do */
+-    printf("\n");
++    fprintf(thread_stdout, "\n");
+     return 1;
+ }
+ #endif
+@@ -4444,6 +4445,8 @@
          d = &PyTuple_GET_ITEM(argdefs, 0);
          nd = Py_SIZE(argdefs);
      }
 +    // debug
-+    // fprintf(stderr, "calling: %s\n", PyEval_GetFuncName(func)); fflush(stderr);
++    // fprintf(thread_stderr, "calling: %s\n", PyEval_GetFuncName(func)); fflush(stderr);
      return PyEval_EvalCodeEx(co, globals,
                               (PyObject *)NULL, (*pp_stack)-n, na,
                               (*pp_stack)-2*nk, nk, d, nd,
-diff -Naur Python-2.7.13/Python/dtoa.c ../Python-2.7.13/Python/dtoa.c
---- Python-2.7.13/Python/dtoa.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/dtoa.c	2017-07-11 16:03:03.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/compile.c Python-2.7.13/Python/compile.c
+--- tmp/Python-2.7.13/Python/compile.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/compile.c	2018-01-22 16:13:36.000000000 +0100
+@@ -31,8 +31,9 @@
+ #include "compile.h"
+ #include "symtable.h"
+ #include "opcode.h"
++#include "ios_error.h"
+ 
+-int Py_OptimizeFlag = 0;
++__thread int Py_OptimizeFlag = 0;
+ 
+ #define DEFAULT_BLOCK_SIZE 16
+ #define DEFAULT_BLOCKS 8
+@@ -909,7 +910,7 @@
+         case STORE_DEREF:
+             return -1;
+         default:
+-            fprintf(stderr, "opcode = %d\n", opcode);
++            fprintf(thread_stderr, "opcode = %d\n", opcode);
+             Py_FatalError("opcode_stack_effect()");
+ 
+     }
+@@ -1284,7 +1285,7 @@
+         else /* (reftype == FREE) */
+             arg = compiler_lookup_arg(c->u->u_freevars, name);
+         if (arg == -1) {
+-            printf("lookup %s in %s %d %d\n"
++            fprintf(thread_stdout, "lookup %s in %s %d %d\n"
+                 "freevars of %s: %s\n",
+                 PyString_AS_STRING(PyObject_Repr(name)),
+                 PyString_AS_STRING(c->u->u_name),
+@@ -3883,7 +3884,7 @@
+     if (i->i_hasarg)
+         sprintf(arg, "arg: %d ", i->i_oparg);
+ 
+-    fprintf(stderr, "line: %d, opcode: %d %s%s%s\n",
++    fprintf(thread_stderr, "line: %d, opcode: %d %s%s%s\n",
+                     i->i_lineno, i->i_opcode, arg, jabs, jrel);
+ }
+ 
+@@ -3892,12 +3893,12 @@
+ {
+     const char *seen = b->b_seen ? "seen " : "";
+     const char *b_return = b->b_return ? "return " : "";
+-    fprintf(stderr, "used: %d, depth: %d, offset: %d %s%s\n",
++    fprintf(thread_stderr, "used: %d, depth: %d, offset: %d %s%s\n",
+         b->b_iused, b->b_startdepth, b->b_offset, seen, b_return);
+     if (b->b_instr) {
+         int i;
+         for (i = 0; i < b->b_iused; i++) {
+-            fprintf(stderr, "  [%02d] ", i);
++            fprintf(thread_stderr, "  [%02d] ", i);
+             dump_instr(b->b_instr + i);
+         }
+     }
+diff -Naur tmp/Python-2.7.13/Python/dtoa.c Python-2.7.13/Python/dtoa.c
+--- tmp/Python-2.7.13/Python/dtoa.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/dtoa.c	2018-01-21 16:22:38.000000000 +0100
 @@ -172,7 +172,8 @@
  /* End Python #define linking */
  
  #ifdef DEBUG
 -#define Bug(x) {fprintf(stderr, "%s\n", x); exit(1);}
-+// #define Bug(x) {fprintf(stderr, "%s\n", x); exit(1);}
-+#define Bug(x) {fprintf(stderr, "%s\n", x); phtread_exit(NULL);}
++// #define Bug(x) {fprintf(thread_stderr, "%s\n", x); exit(1);}
++#define Bug(x) {fprintf(thread_stderr, "%s\n", x); phtread_exit(NULL);}
  #endif
  
  #ifndef PRIVATE_MEM
-diff -Naur Python-2.7.13/Python/dynload_shlib.c ../Python-2.7.13/Python/dynload_shlib.c
---- Python-2.7.13/Python/dynload_shlib.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/dynload_shlib.c	2017-07-08 17:43:30.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/dynload_atheos.c Python-2.7.13/Python/dynload_atheos.c
+--- tmp/Python-2.7.13/Python/dynload_atheos.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/dynload_atheos.c	2018-01-21 18:11:18.000000000 +0100
+@@ -22,7 +22,7 @@
+     char funcname[258];
+ 
+     if (Py_VerboseFlag)
+-        printf("load_library %s\n", pathname);
++        fprintf(thread_stdout, "load_library %s\n", pathname);
+ 
+     lib = load_library(pathname, 0);
+     if (lib < 0) {
+@@ -36,7 +36,7 @@
+     }
+     PyOS_snprintf(funcname, sizeof(funcname), "init%.200s", shortname);
+     if (Py_VerboseFlag)
+-        printf("get_symbol_address %s\n", funcname);
++        fprintf(thread_stdout, "get_symbol_address %s\n", funcname);
+     if (get_symbol_address(lib, funcname, -1, &p) < 0) {
+         p = NULL;
+         if (Py_VerboseFlag)
+diff -Naur tmp/Python-2.7.13/Python/dynload_beos.c Python-2.7.13/Python/dynload_beos.c
+--- tmp/Python-2.7.13/Python/dynload_beos.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/dynload_beos.c	2018-01-21 18:11:18.000000000 +0100
+@@ -164,7 +164,7 @@
+     char funcname[258];
+ 
+     if( Py_VerboseFlag ) {
+-        printf( "load_add_on( %s )\n", pathname );
++        fprintf(thread_stdout,  "load_add_on( %s )\n", pathname );
+     }
+ 
+     /* Hmm, this old bug appears to have regenerated itself; if the
+@@ -177,7 +177,7 @@
+         (void)strncat( fullpath, pathname, PATH_MAX );
+ 
+         if( Py_VerboseFlag ) {
+-            printf( "load_add_on( %s )\n", fullpath );
++            fprintf(thread_stdout,  "load_add_on( %s )\n", fullpath );
+         }
+     } else {
+         (void)strcpy( fullpath, pathname );
+@@ -190,7 +190,7 @@
+         char buff[256];  /* hate hard-coded string sizes... */
+ 
+         if( Py_VerboseFlag ) {
+-            printf( "load_add_on( %s ) failed", fullpath );
++            fprintf(thread_stdout,  "load_add_on( %s ) failed", fullpath );
+         }
+ 
+         if( the_id == B_ERROR )
+@@ -208,7 +208,7 @@
+ 
+     PyOS_snprintf(funcname, sizeof(funcname), "init%.200s", shortname);
+     if( Py_VerboseFlag ) {
+-        printf( "get_image_symbol( %s )\n", funcname );
++        fprintf(thread_stdout,  "get_image_symbol( %s )\n", funcname );
+     }
+ 
+     retval = get_image_symbol( the_id, funcname, B_SYMBOL_TYPE_TEXT, &p );
+@@ -218,7 +218,7 @@
+         char buff[256];  /* hate hard-coded string sizes... */
+ 
+         if( Py_VerboseFlag ) {
+-            printf( "get_image_symbol( %s ) failed", funcname );
++            fprintf(thread_stdout,  "get_image_symbol( %s ) failed", funcname );
+         }
+ 
+         switch( retval ) {
+diff -Naur tmp/Python-2.7.13/Python/dynload_hpux.c Python-2.7.13/Python/dynload_hpux.c
+--- tmp/Python-2.7.13/Python/dynload_hpux.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/dynload_hpux.c	2018-01-21 18:11:18.000000000 +0100
+@@ -31,7 +31,7 @@
+     if (Py_VerboseFlag) {
+         flags = BIND_FIRST | BIND_IMMEDIATE |
+             BIND_NONFATAL | BIND_VERBOSE;
+-        printf("shl_load %s\n",pathname);
++        fprintf(thread_stdout, "shl_load %s\n",pathname);
+     }
+     lib = shl_load(pathname, flags, 0);
+     /* XXX Chuck Blake once wrote that 0 should be BIND_NOSTART? */
+@@ -46,7 +46,7 @@
+     }
+     PyOS_snprintf(funcname, sizeof(funcname), FUNCNAME_PATTERN, shortname);
+     if (Py_VerboseFlag)
+-        printf("shl_findsym %s\n", funcname);
++        fprintf(thread_stdout, "shl_findsym %s\n", funcname);
+     if (shl_findsym(&lib, funcname, TYPE_UNDEFINED, (void *) &p) == -1) {
+         shl_unload(lib);
+         p = NULL;
+diff -Naur tmp/Python-2.7.13/Python/dynload_shlib.c Python-2.7.13/Python/dynload_shlib.c
+--- tmp/Python-2.7.13/Python/dynload_shlib.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/dynload_shlib.c	2018-01-07 17:01:56.000000000 +0100
 @@ -115,7 +115,7 @@
      if (Py_VerboseFlag)
          PySys_WriteStderr("dlopen(\"%s\", %x);\n", pathname,
@@ -35,9 +263,9 @@ diff -Naur Python-2.7.13/Python/dynload_shlib.c ../Python-2.7.13/Python/dynload_
  #ifdef __VMS
      /* VMS currently don't allow a pathname, use a logical name instead */
      /* Concatenate 'python_module_' and shortname */
-diff -Naur Python-2.7.13/Python/errors.c ../Python-2.7.13/Python/errors.c
---- Python-2.7.13/Python/errors.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/errors.c	2017-07-08 18:06:51.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/errors.c Python-2.7.13/Python/errors.c
+--- tmp/Python-2.7.13/Python/errors.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/errors.c	2018-01-07 17:01:56.000000000 +0100
 @@ -149,7 +149,9 @@
      PyObject *inclass = NULL;
      PyObject *initial_tb = NULL;
@@ -59,9 +287,118 @@ diff -Naur Python-2.7.13/Python/errors.c ../Python-2.7.13/Python/errors.c
      *p_type = tstate->curexc_type;
      *p_value = tstate->curexc_value;
      *p_traceback = tstate->curexc_traceback;
-diff -Naur Python-2.7.13/Python/import.c ../Python-2.7.13/Python/import.c
---- Python-2.7.13/Python/import.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/import.c	2017-07-08 17:44:55.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/frozenmain.c Python-2.7.13/Python/frozenmain.c
+--- tmp/Python-2.7.13/Python/frozenmain.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/frozenmain.c	2018-01-21 16:24:21.000000000 +0100
+@@ -2,6 +2,7 @@
+ /* Python interpreter main program for frozen scripts */
+ 
+ #include "Python.h"
++#include "ios_error.h"
+ 
+ #ifdef MS_WINDOWS
+ extern void PyWinFreeze_ExeInit(void);
+@@ -27,9 +28,9 @@
+         unbuffered = 1;
+ 
+     if (unbuffered) {
+-        setbuf(stdin, (char *)NULL);
+-        setbuf(stdout, (char *)NULL);
+-        setbuf(stderr, (char *)NULL);
++        setbuf(thread_stdin, (char *)NULL);
++        setbuf(thread_stdout, (char *)NULL);
++        setbuf(thread_stderr, (char *)NULL);
+     }
+ 
+ #ifdef MS_WINDOWS
+@@ -43,7 +44,7 @@
+ #endif
+ 
+     if (Py_VerboseFlag)
+-        fprintf(stderr, "Python %s\n%s\n",
++        fprintf(thread_stderr, "Python %s\n%s\n",
+             Py_GetVersion(), Py_GetCopyright());
+ 
+     PySys_SetArgv(argc, argv);
+@@ -58,8 +59,8 @@
+     else
+         sts = 0;
+ 
+-    if (inspect && isatty((int)fileno(stdin)))
+-        sts = PyRun_AnyFile(stdin, "<stdin>") != 0;
++    if (inspect && isatty((int)fileno(thread_stdin)))
++        sts = PyRun_AnyFile(thread_stdin, "<stdin>") != 0;
+ 
+ #ifdef MS_WINDOWS
+     PyWinFreeze_ExeTerm();
+diff -Naur tmp/Python-2.7.13/Python/getopt.c Python-2.7.13/Python/getopt.c
+--- tmp/Python-2.7.13/Python/getopt.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/getopt.c	2018-01-21 17:59:57.000000000 +0100
+@@ -29,6 +29,7 @@
+ 
+ #include <stdio.h>
+ #include <string.h>
++#include "ios_error.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -91,20 +92,20 @@
+ 
+     if (option == 'J') {
+         if (_PyOS_opterr)
+-            fprintf(stderr, "-J is reserved for Jython\n");
++            fprintf(thread_stderr, "-J is reserved for Jython\n");
+         return '_';
+     }
+ 
+     if (option == 'X') {
+         if (_PyOS_opterr)
+-            fprintf(stderr,
++            fprintf(thread_stderr,
+                 "-X is reserved for implementation-specific arguments\n");
+         return '_';
+     }
+ 
+     if ((ptr = strchr(optstring, option)) == NULL) {
+         if (_PyOS_opterr)
+-            fprintf(stderr, "Unknown option: -%c\n", option);
++            fprintf(thread_stderr, "Unknown option: -%c\n", option);
+ 
+         return '_';
+     }
+@@ -118,7 +119,7 @@
+         else {
+             if (_PyOS_optind >= argc) {
+                 if (_PyOS_opterr)
+-                    fprintf(stderr,
++                    fprintf(thread_stderr,
+                         "Argument expected for the -%c option\n", option);
+                 return '_';
+             }
+diff -Naur tmp/Python-2.7.13/Python/graminit.c Python-2.7.13/Python/graminit.c
+--- tmp/Python-2.7.13/Python/graminit.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/graminit.c	2018-01-22 16:15:46.000000000 +0100
+@@ -2,7 +2,7 @@
+ 
+ #include "pgenheaders.h"
+ #include "grammar.h"
+-PyAPI_DATA(grammar) _PyParser_Grammar;
++__thread PyAPI_DATA(grammar) _PyParser_Grammar;
+ static arc arcs_0_0[3] = {
+     {2, 1},
+     {3, 1},
+@@ -2169,7 +2169,7 @@
+     {339, 0},
+     {1, "yield"},
+ };
+-grammar _PyParser_Grammar = {
++__thread grammar _PyParser_Grammar = {
+     85,
+     dfas,
+     {169, labels},
+diff -Naur tmp/Python-2.7.13/Python/import.c Python-2.7.13/Python/import.c
+--- tmp/Python-2.7.13/Python/import.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/import.c	2018-01-07 17:01:56.000000000 +0100
 @@ -1605,7 +1605,7 @@
      }
      if (fp == NULL) {
@@ -92,9 +429,9 @@ diff -Naur Python-2.7.13/Python/import.c ../Python-2.7.13/Python/import.c
          return NULL;
      }
  
-diff -Naur Python-2.7.13/Python/importdl.c ../Python-2.7.13/Python/importdl.c
---- Python-2.7.13/Python/importdl.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/importdl.c	2017-07-07 21:05:02.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/importdl.c Python-2.7.13/Python/importdl.c
+--- tmp/Python-2.7.13/Python/importdl.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/importdl.c	2018-01-07 17:01:56.000000000 +0100
 @@ -12,6 +12,7 @@
  
  #include "importdl.h"
@@ -103,9 +440,9 @@ diff -Naur Python-2.7.13/Python/importdl.c ../Python-2.7.13/Python/importdl.c
  extern dl_funcptr _PyImport_GetDynLoadFunc(const char *name,
                                             const char *shortname,
                                             const char *pathname, FILE *fp);
-diff -Naur Python-2.7.13/Python/mactoolboxglue.c ../Python-2.7.13/Python/mactoolboxglue.c
---- Python-2.7.13/Python/mactoolboxglue.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/mactoolboxglue.c	2017-07-04 16:57:32.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Python/mactoolboxglue.c Python-2.7.13/Python/mactoolboxglue.c
+--- tmp/Python-2.7.13/Python/mactoolboxglue.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/mactoolboxglue.c	2018-01-07 17:01:56.000000000 +0100
 @@ -263,6 +263,7 @@
  
  /* Convert a Python object to an EventRecord.
@@ -153,10 +490,150 @@ diff -Naur Python-2.7.13/Python/mactoolboxglue.c ../Python-2.7.13/Python/mactool
  
  GLUE_CONVERT(CFTypeRef, CFObj_Convert, "Carbon.CF")
  GLUE_NEW(CFTypeRef, CFObj_New, "Carbon.CF")
-diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
---- Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/pythonrun.c	2017-11-08 13:44:36.000000000 +0100
-@@ -175,7 +175,7 @@
+diff -Naur tmp/Python-2.7.13/Python/marshal.c Python-2.7.13/Python/marshal.c
+--- tmp/Python-2.7.13/Python/marshal.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/marshal.c	2018-01-21 17:38:46.000000000 +0100
+@@ -10,6 +10,7 @@
+ #include "longintrepr.h"
+ #include "code.h"
+ #include "marshal.h"
++#include "ios_error.h"
+ 
+ #define ABS(x) ((x) < 0 ? -(x) : (x))
+ 
+@@ -1085,7 +1086,7 @@
+ {
+     PyObject *v;
+     if (PyErr_Occurred()) {
+-        fprintf(stderr, "XXX readobject called with exception set\n");
++        fprintf(thread_stderr, "XXX readobject called with exception set\n");
+         return NULL;
+     }
+     v = r_object(p);
+diff -Naur tmp/Python-2.7.13/Python/pyarena.c Python-2.7.13/Python/pyarena.c
+--- tmp/Python-2.7.13/Python/pyarena.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/pyarena.c	2018-01-21 16:22:38.000000000 +0100
+@@ -162,7 +162,7 @@
+     assert(arena);
+ #if defined(Py_DEBUG)
+     /*
+-    fprintf(stderr,
++    fprintf(thread_stderr,
+         "alloc=%d size=%d blocks=%d block_size=%d big=%d objects=%d\n",
+         arena->total_allocs, arena->total_size, arena->total_blocks,
+         arena->total_block_size, arena->total_big_blocks,
+diff -Naur tmp/Python-2.7.13/Python/pystate.c Python-2.7.13/Python/pystate.c
+--- tmp/Python-2.7.13/Python/pystate.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/pystate.c	2018-01-22 16:07:13.000000000 +0100
+@@ -21,6 +21,7 @@
+ #define RTLD_LAZY 1
+ #endif
+ #endif
++#include "ios_error.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -36,18 +37,18 @@
+ /* The single PyInterpreterState used by this process'
+    GILState implementation
+ */
+-static PyInterpreterState *autoInterpreterState = NULL;
+-static int autoTLSkey = 0;
++static __thread PyInterpreterState *autoInterpreterState = NULL;
++static __thread int autoTLSkey = 0;
+ #else
+ #define HEAD_INIT() /* Nothing */
+ #define HEAD_LOCK() /* Nothing */
+ #define HEAD_UNLOCK() /* Nothing */
+ #endif
+ 
+-static PyInterpreterState *interp_head = NULL;
++static __thread PyInterpreterState *interp_head = NULL;
+ 
+-PyThreadState *_PyThreadState_Current = NULL;
+-PyThreadFrameGetter _PyThreadState_GetFrame = NULL;
++__thread PyThreadState *_PyThreadState_Current = NULL;
++__thread PyThreadFrameGetter _PyThreadState_GetFrame = NULL;
+ 
+ #ifdef WITH_THREAD
+ static void _PyGILState_NoteThreadState(PyThreadState* tstate);
+@@ -231,7 +232,7 @@
+ PyThreadState_Clear(PyThreadState *tstate)
+ {
+     if (Py_VerboseFlag && tstate->frame != NULL)
+-        fprintf(stderr,
++        fprintf(thread_stderr,
+           "PyThreadState_Clear: warning: thread still has a frame\n");
+ 
+     Py_CLEAR(tstate->frame);
+diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
+--- tmp/Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/pythonrun.c	2018-01-22 16:15:26.000000000 +0100
+@@ -2,6 +2,7 @@
+ /* Python interpreter top-level routines, including init/exit */
+ 
+ #include "Python.h"
++#include "ios_error.h"
+ 
+ #include "Python-ast.h"
+ #undef Yield /* undefine macro conflicting with winbase.h */
+@@ -40,7 +41,7 @@
+ #ifndef Py_REF_DEBUG
+ #define PRINT_TOTAL_REFS()
+ #else /* Py_REF_DEBUG */
+-#define PRINT_TOTAL_REFS() fprintf(stderr,                              \
++#define PRINT_TOTAL_REFS() fprintf(thread_stderr,                              \
+                    "[%" PY_FORMAT_SIZE_T "d refs]\n",                   \
+                    _Py_GetRefTotal())
+ #endif
+@@ -51,7 +52,7 @@
+ 
+ extern char *Py_GetPath(void);
+ 
+-extern grammar _PyParser_Grammar; /* From graminit.c */
++extern __thread grammar _PyParser_Grammar; /* From graminit.c */
+ 
+ /* Forward */
+ static void initmain(void);
+@@ -73,23 +74,23 @@
+ extern void _PyGILState_Fini(void);
+ #endif /* WITH_THREAD */
+ 
+-int Py_DebugFlag; /* Needed by parser.c */
+-int Py_VerboseFlag; /* Needed by import.c */
+-int Py_InteractiveFlag; /* Needed by Py_FdIsInteractive() below */
+-int Py_InspectFlag; /* Needed to determine whether to exit at SystemExit */
+-int Py_NoSiteFlag; /* Suppress 'import site' */
+-int Py_BytesWarningFlag; /* Warn on str(bytes) and str(buffer) */
+-int Py_DontWriteBytecodeFlag; /* Suppress writing bytecode files (*.py[co]) */
+-int Py_UseClassExceptionsFlag = 1; /* Needed by bltinmodule.c: deprecated */
+-int Py_FrozenFlag; /* Needed by getpath.c */
+-int Py_UnicodeFlag = 0; /* Needed by compile.c */
+-int Py_IgnoreEnvironmentFlag; /* e.g. PYTHONPATH, PYTHONHOME */
++__thread int Py_DebugFlag; /* Needed by parser.c */
++__thread int Py_VerboseFlag; /* Needed by import.c */
++__thread int Py_InteractiveFlag; /* Needed by Py_FdIsInteractive() below */
++__thread int Py_InspectFlag; /* Needed to determine whether to exit at SystemExit */
++__thread int Py_NoSiteFlag; /* Suppress 'import site' */
++__thread int Py_BytesWarningFlag; /* Warn on str(bytes) and str(buffer) */
++__thread int Py_DontWriteBytecodeFlag; /* Suppress writing bytecode files (*.py[co]) */
++__thread int Py_UseClassExceptionsFlag = 1; /* Needed by bltinmodule.c: deprecated */
++__thread int Py_FrozenFlag; /* Needed by getpath.c */
++__thread int Py_UnicodeFlag = 0; /* Needed by compile.c */
++__thread int Py_IgnoreEnvironmentFlag; /* e.g. PYTHONPATH, PYTHONHOME */
+ /* _XXX Py_QnewFlag should go away in 2.3.  It's true iff -Qnew is passed,
+   on the command line, and is used in 2.2 by ceval.c to make all "/" divisions
+   true divisions (which they will be in 2.3). */
+-int _Py_QnewFlag = 0;
+-int Py_NoUserSiteDirectory = 0; /* for -s and site.py */
+-int Py_HashRandomizationFlag = 0; /* for -R and PYTHONHASHSEED */
++__thread int _Py_QnewFlag = 0;
++__thread int Py_NoUserSiteDirectory = 0; /* for -s and site.py */
++__thread int Py_HashRandomizationFlag = 0; /* for -R and PYTHONHASHSEED */
+ 
+ 
+ /* Hack to force loading of object files */
+@@ -175,7 +176,7 @@
      extern void _Py_ReadyTypes(void);
  
      if (initialized)
@@ -165,7 +642,7 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
      initialized = 1;
  
      if ((p = Py_GETENV("PYTHONDEBUG")) && *p != '\0')
-@@ -282,6 +282,8 @@
+@@ -282,6 +283,8 @@
  
      if (!Py_NoSiteFlag)
          initsite(); /* Module site */
@@ -174,7 +651,7 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
  
      if ((p = Py_GETENV("PYTHONIOENCODING")) && *p != '\0') {
          p = icodeset = codeset = strdup(p);
-@@ -316,7 +318,8 @@
+@@ -316,7 +319,8 @@
                      loc_codeset = NULL;
                  } else {
                      PyErr_Print();
@@ -184,7 +661,34 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
                  }
              }
          } else
-@@ -727,7 +730,8 @@
+@@ -481,7 +485,7 @@
+ 
+     /* Debugging stuff */
+ #ifdef COUNT_ALLOCS
+-    dump_counts(stdout);
++    dump_counts(thread_stdout);
+ #endif
+ 
+     PRINT_TOTAL_REFS();
+@@ -493,7 +497,7 @@
+      * up later.
+      */
+     if (Py_GETENV("PYTHONDUMPREFS"))
+-        _Py_PrintReferences(stderr);
++        _Py_PrintReferences(thread_stderr);
+ #endif /* Py_TRACE_REFS */
+ 
+     /* Clear interpreter state */
+@@ -549,7 +553,7 @@
+      * above by _Py_PrintReferences.
+      */
+     if (Py_GETENV("PYTHONDUMPREFS"))
+-        _Py_PrintReferenceAddresses(stderr);
++        _Py_PrintReferenceAddresses(thread_stderr);
+ #endif /* Py_TRACE_REFS */
+ #ifdef PYMALLOC_DEBUG
+     if (Py_GETENV("PYTHONMALLOCSTATS"))
+@@ -727,7 +731,8 @@
      if (m == NULL) {
          PyErr_Print();
          Py_Finalize();
@@ -194,7 +698,36 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
      }
      else {
          Py_DECREF(m);
-@@ -1161,8 +1165,8 @@
+@@ -937,7 +942,7 @@
+         if (closeit)
+             fclose(fp);
+         if ((fp = fopen(filename, "rb")) == NULL) {
+-            fprintf(stderr, "python: Can't reopen .pyc file\n");
++            fprintf(thread_stderr, "python: Can't reopen .pyc file\n");
+             goto done;
+         }
+         /* Turn on optimization if a .pyo file is given */
+@@ -1112,7 +1117,7 @@
+     PyErr_Fetch(&exception, &value, &tb);
+     if (Py_FlushLine())
+         PyErr_Clear();
+-    fflush(stdout);
++    fflush(thread_stdout);
+     if (value == NULL || value == Py_None)
+         goto done;
+     if (PyExceptionInstance_Check(value)) {
+@@ -1134,8 +1139,8 @@
+         if (sys_stderr != NULL && sys_stderr != Py_None) {
+             PyFile_WriteObject(value, sys_stderr, Py_PRINT_RAW);
+         } else {
+-            PyObject_Print(value, stderr, Py_PRINT_RAW);
+-            fflush(stderr);
++            PyObject_Print(value, thread_stderr, Py_PRINT_RAW);
++            fflush(thread_stderr);
+         }
+         PySys_WriteStderr("\n");
+         exitcode = 1;
+@@ -1161,8 +1166,8 @@
          handle_system_exit();
      }
      PyErr_Fetch(&exception, &v, &tb);
@@ -205,7 +738,60 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
      PyErr_NormalizeException(&exception, &v, &tb);
      if (exception == NULL)
          return;
-@@ -1781,8 +1785,8 @@
+@@ -1197,7 +1202,7 @@
+             }
+             if (Py_FlushLine())
+                 PyErr_Clear();
+-            fflush(stdout);
++            fflush(thread_stdout);
+             PySys_WriteStderr("Error in sys.excepthook:\n");
+             PyErr_Display(exception2, v2, tb2);
+             PySys_WriteStderr("\nOriginal exception was:\n");
+@@ -1224,11 +1229,11 @@
+     PyObject *f = PySys_GetObject("stderr");
+     Py_INCREF(value);
+     if (f == NULL || f == Py_None)
+-        fprintf(stderr, "lost sys.stderr\n");
++        fprintf(thread_stderr, "lost sys.stderr\n");
+     else {
+         if (Py_FlushLine())
+             PyErr_Clear();
+-        fflush(stdout);
++        fflush(thread_stdout);
+         if (tb && tb != Py_None)
+             err = PyTraceBack_Print(tb, f);
+         if (err == 0 &&
+@@ -1649,7 +1654,7 @@
+         msg = "unexpected character after line continuation character";
+         break;
+     default:
+-        fprintf(stderr, "error=%d\n", err->error);
++        fprintf(thread_stderr, "error=%d\n", err->error);
+         msg = "unknown parsing error";
+         break;
+     }
+@@ -1674,8 +1679,8 @@
+ void
+ Py_FatalError(const char *msg)
+ {
+-    fprintf(stderr, "Fatal Python error: %s\n", msg);
+-    fflush(stderr); /* it helps in Windows debug build */
++    fprintf(thread_stderr, "Fatal Python error: %s\n", msg);
++    fflush(thread_stderr); /* it helps in Windows debug build */
+ 
+ #ifdef MS_WINDOWS
+     {
+@@ -1773,16 +1778,16 @@
+     while (nexitfuncs > 0)
+         (*exitfuncs[--nexitfuncs])();
+ 
+-    fflush(stdout);
+-    fflush(stderr);
++    fflush(thread_stdout);
++    fflush(thread_stderr);
+ }
+ 
+ void
  Py_Exit(int sts)
  {
      Py_Finalize();
@@ -216,10 +802,18 @@ diff -Naur Python-2.7.13/Python/pythonrun.c ../Python-2.7.13/Python/pythonrun.c
  }
  
  static void
-diff -Naur Python-2.7.13/Python/sysmodule.c ../Python-2.7.13/Python/sysmodule.c
---- Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ ../Python-2.7.13/Python/sysmodule.c	2017-07-11 16:07:56.000000000 +0200
-@@ -50,6 +50,8 @@
+diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
+--- tmp/Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/sysmodule.c	2018-01-21 17:35:49.000000000 +0100
+@@ -21,6 +21,7 @@
+ #include "eval.h"
+ 
+ #include "osdefs.h"
++#include "ios_error.h"
+ 
+ #ifdef MS_WINDOWS
+ #define WIN32_LEAN_AND_MEAN
+@@ -50,6 +51,8 @@
  PySys_GetObject(char *name)
  {
      PyThreadState *tstate = PyThreadState_GET();
@@ -228,7 +822,7 @@ diff -Naur Python-2.7.13/Python/sysmodule.c ../Python-2.7.13/Python/sysmodule.c
      PyObject *sd = tstate->interp->sysdict;
      if (sd == NULL)
          return NULL;
-@@ -72,6 +74,7 @@
+@@ -72,6 +75,7 @@
  PySys_SetObject(char *name, PyObject *v)
  {
      PyThreadState *tstate = PyThreadState_GET();
@@ -236,7 +830,13 @@ diff -Naur Python-2.7.13/Python/sysmodule.c ../Python-2.7.13/Python/sysmodule.c
      PyObject *sd = tstate->interp->sysdict;
      if (v == NULL) {
          if (PyDict_GetItemString(sd, name) == NULL)
-@@ -1383,7 +1386,8 @@
+@@ -1378,12 +1382,13 @@
+ #if !defined(MS_WINDOWS)
+     {
+         struct stat sb;
+-        if (fstat(fileno(stdin), &sb) == 0 &&
++        if (fstat(fileno(thread_stdin), &sb) == 0 &&
+             S_ISDIR(sb.st_mode)) {
              /* There's nothing more we can do. */
              /* Py_FatalError() will core dump, so just exit. */
              PySys_WriteStderr("Python error: <stdin> is a directory, cannot continue\n");
@@ -246,3 +846,56 @@ diff -Naur Python-2.7.13/Python/sysmodule.c ../Python-2.7.13/Python/sysmodule.c
          }
      }
  #endif
+@@ -1397,9 +1402,9 @@
+      * On OS X, fflush()ing stdin causes an error, so we exempt stdin
+      * from that procedure.
+      */
+-    sysin = PyFile_FromFile(stdin, "<stdin>", "r", NULL);
+-    sysout = PyFile_FromFile(stdout, "<stdout>", "w", _check_and_flush);
+-    syserr = PyFile_FromFile(stderr, "<stderr>", "w", _check_and_flush);
++    sysin = PyFile_FromFile(thread_stdin, "<stdin>", "r", NULL);
++    sysout = PyFile_FromFile(thread_stdout, "<stdout>", "w", _check_and_flush);
++    syserr = PyFile_FromFile(thread_stderr, "<stderr>", "w", _check_and_flush);
+     if (PyErr_Occurred())
+         return NULL;
+ 
+@@ -1785,7 +1790,7 @@
+     va_list va;
+ 
+     va_start(va, format);
+-    mywrite("stdout", stdout, format, va);
++    mywrite("stdout", thread_stdout, format, va);
+     va_end(va);
+ }
+ 
+@@ -1795,6 +1800,6 @@
+     va_list va;
+ 
+     va_start(va, format);
+-    mywrite("stderr", stderr, format, va);
++    mywrite("stderr", thread_stderr, format, va);
+     va_end(va);
+ }
+diff -Naur tmp/Python-2.7.13/Python/thread.c Python-2.7.13/Python/thread.c
+--- tmp/Python-2.7.13/Python/thread.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Python/thread.c	2018-01-21 18:22:47.000000000 +0100
+@@ -64,8 +64,8 @@
+ 
+ #ifdef Py_DEBUG
+ static int thread_debug = 0;
+-#define dprintf(args)   (void)((thread_debug & 1) && printf args)
+-#define d2printf(args)  ((thread_debug & 8) && printf args)
++#define dprintf(args)   (void)((thread_debug & 1) && fprintf args)
++#define d2printf(args)  ((thread_debug & 8) && fprintf args)
+ #else
+ #define dprintf(args)
+ #define d2printf(args)
+@@ -91,7 +91,7 @@
+     if (initialized)
+         return;
+     initialized = 1;
+-    dprintf(("PyThread_init_thread called\n"));
++    dprintf((thread_stdout, "PyThread_init_thread called\n"));
+     PyThread__init_thread();
+ }
+ 

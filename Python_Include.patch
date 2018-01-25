@@ -1,6 +1,6 @@
-diff -Naur Python-2.7.13/Include/Python.h ../Python-2.7.13/Include/Python.h
---- Python-2.7.13/Include/Python.h	2016-12-17 21:05:05.000000000 +0100
-+++ ../Python-2.7.13/Include/Python.h	2017-07-11 16:05:25.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Include/Python.h Python-2.7.13/Include/Python.h
+--- tmp/Python-2.7.13/Include/Python.h	2016-12-17 21:05:05.000000000 +0100
++++ Python-2.7.13/Include/Python.h	2018-01-07 17:01:56.000000000 +0100
 @@ -54,7 +54,8 @@
   * assert() calls won't be removed.
   */
@@ -11,9 +11,59 @@ diff -Naur Python-2.7.13/Include/Python.h ../Python-2.7.13/Include/Python.h
  #include "pyport.h"
  
  /* pyconfig.h or pyport.h may or may not define DL_IMPORT */
-diff -Naur Python-2.7.13/Include/pymactoolbox.h ../Python-2.7.13/Include/pymactoolbox.h
---- Python-2.7.13/Include/pymactoolbox.h	2016-12-17 21:05:05.000000000 +0100
-+++ ../Python-2.7.13/Include/pymactoolbox.h	2017-07-04 16:56:50.000000000 +0200
+diff -Naur tmp/Python-2.7.13/Include/pydebug.h Python-2.7.13/Include/pydebug.h
+--- tmp/Python-2.7.13/Include/pydebug.h	2016-12-17 21:05:05.000000000 +0100
++++ Python-2.7.13/Include/pydebug.h	2018-01-22 16:11:34.000000000 +0100
+@@ -5,28 +5,28 @@
+ extern "C" {
+ #endif
+ 
+-PyAPI_DATA(int) Py_DebugFlag;
+-PyAPI_DATA(int) Py_VerboseFlag;
+-PyAPI_DATA(int) Py_InteractiveFlag;
+-PyAPI_DATA(int) Py_InspectFlag;
+-PyAPI_DATA(int) Py_OptimizeFlag;
+-PyAPI_DATA(int) Py_NoSiteFlag;
+-PyAPI_DATA(int) Py_BytesWarningFlag;
+-PyAPI_DATA(int) Py_UseClassExceptionsFlag;
+-PyAPI_DATA(int) Py_FrozenFlag;
+-PyAPI_DATA(int) Py_TabcheckFlag;
+-PyAPI_DATA(int) Py_UnicodeFlag;
+-PyAPI_DATA(int) Py_IgnoreEnvironmentFlag;
+-PyAPI_DATA(int) Py_DivisionWarningFlag;
+-PyAPI_DATA(int) Py_DontWriteBytecodeFlag;
+-PyAPI_DATA(int) Py_NoUserSiteDirectory;
++__thread PyAPI_DATA(int) Py_DebugFlag;
++__thread PyAPI_DATA(int) Py_VerboseFlag;
++__thread PyAPI_DATA(int) Py_InteractiveFlag;
++__thread PyAPI_DATA(int) Py_InspectFlag;
++__thread PyAPI_DATA(int) Py_OptimizeFlag;
++__thread PyAPI_DATA(int) Py_NoSiteFlag;
++__thread PyAPI_DATA(int) Py_BytesWarningFlag;
++__thread PyAPI_DATA(int) Py_UseClassExceptionsFlag;
++__thread PyAPI_DATA(int) Py_FrozenFlag;
++__thread PyAPI_DATA(int) Py_TabcheckFlag;
++__thread PyAPI_DATA(int) Py_UnicodeFlag;
++__thread PyAPI_DATA(int) Py_IgnoreEnvironmentFlag;
++__thread PyAPI_DATA(int) Py_DivisionWarningFlag;
++__thread PyAPI_DATA(int) Py_DontWriteBytecodeFlag;
++__thread PyAPI_DATA(int) Py_NoUserSiteDirectory;
+ /* _XXX Py_QnewFlag should go away in 3.0.  It's true iff -Qnew is passed,
+   on the command line, and is used in 2.2 by ceval.c to make all "/" divisions
+   true divisions (which they will be in 3.0). */
+-PyAPI_DATA(int) _Py_QnewFlag;
++__thread PyAPI_DATA(int) _Py_QnewFlag;
+ /* Warn about 3.x issues */
+-PyAPI_DATA(int) Py_Py3kWarningFlag;
+-PyAPI_DATA(int) Py_HashRandomizationFlag;
++__thread PyAPI_DATA(int) Py_Py3kWarningFlag;
++__thread PyAPI_DATA(int) Py_HashRandomizationFlag;
+ 
+ /* this is a wrapper around getenv() that pays attention to
+    Py_IgnoreEnvironmentFlag.  It should be used for getting variables like
+diff -Naur tmp/Python-2.7.13/Include/pymactoolbox.h Python-2.7.13/Include/pymactoolbox.h
+--- tmp/Python-2.7.13/Include/pymactoolbox.h	2016-12-17 21:05:05.000000000 +0100
++++ Python-2.7.13/Include/pymactoolbox.h	2018-01-07 17:01:56.000000000 +0100
 @@ -7,8 +7,9 @@
  	extern "C" {
  #endif
@@ -65,3 +115,24 @@ diff -Naur Python-2.7.13/Include/pymactoolbox.h ../Python-2.7.13/Include/pymacto
  /* Ctl exports */
  #if APPLE_SUPPORTS_QUICKTIME
  extern PyObject *CtlObj_New(ControlHandle);
+diff -Naur tmp/Python-2.7.13/Include/pystate.h Python-2.7.13/Include/pystate.h
+--- tmp/Python-2.7.13/Include/pystate.h	2016-12-17 21:05:05.000000000 +0100
++++ Python-2.7.13/Include/pystate.h	2018-01-22 16:06:20.000000000 +0100
+@@ -124,7 +124,7 @@
+ 
+ /* Variable and macro for in-line access to current thread state */
+ 
+-PyAPI_DATA(PyThreadState *) _PyThreadState_Current;
++__thread PyAPI_DATA(PyThreadState *) _PyThreadState_Current;
+ 
+ #ifdef Py_DEBUG
+ #define PyThreadState_GET() PyThreadState_Get()
+@@ -192,7 +192,7 @@
+ typedef struct _frame *(*PyThreadFrameGetter)(PyThreadState *self_);
+ 
+ /* hook for PyEval_GetFrame(), requested for Psyco */
+-PyAPI_DATA(PyThreadFrameGetter) _PyThreadState_GetFrame;
++__thread PyAPI_DATA(PyThreadFrameGetter) _PyThreadState_GetFrame;
+ 
+ #ifdef __cplusplus
+ }

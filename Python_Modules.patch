@@ -1,6 +1,6 @@
-diff -Naur ../Python-2.7.13/Modules/Setup Python-2.7.13/Modules/Setup
---- ../Python-2.7.13/Modules/Setup	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/Setup Python-2.7.13/Modules/Setup
+--- tmp/Python-2.7.13/Modules/Setup	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/Setup	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1,499 @@
 +# -*- makefile -*-
 +# The file Setup is used by the makesetup script to construct the files
@@ -501,9 +501,9 @@ diff -Naur ../Python-2.7.13/Modules/Setup Python-2.7.13/Modules/Setup
 +
 +# Another example -- the 'xxsubtype' module shows C-level subtyping in action
 +xxsubtype xxsubtype.c
-diff -Naur ../Python-2.7.13/Modules/Setup.config Python-2.7.13/Modules/Setup.config
---- ../Python-2.7.13/Modules/Setup.config	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.config	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/Setup.config Python-2.7.13/Modules/Setup.config
+--- tmp/Python-2.7.13/Modules/Setup.config	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/Setup.config	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1,13 @@
 +# This file is transmogrified into Setup.config by config.status.
 +
@@ -518,9 +518,9 @@ diff -Naur ../Python-2.7.13/Modules/Setup.config Python-2.7.13/Modules/Setup.con
 +
 +# The rest of the modules previously listed in this file are built
 +# by the setup.py script in Python 2.1 and later.
-diff -Naur ../Python-2.7.13/Modules/Setup.dist Python-2.7.13/Modules/Setup.dist
---- ../Python-2.7.13/Modules/Setup.dist	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.dist	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/Setup.dist Python-2.7.13/Modules/Setup.dist
+--- tmp/Python-2.7.13/Modules/Setup.dist	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/Setup.dist	2018-01-07 17:01:59.000000000 +0100
 @@ -215,10 +215,10 @@
  
  # Socket module helper for SSL support; you must comment out the other
@@ -536,14 +536,122 @@ diff -Naur ../Python-2.7.13/Modules/Setup.dist Python-2.7.13/Modules/Setup.dist
  
  # The crypt module is now disabled by default because it breaks builds
  # on many systems (where -lcrypt is needed), e.g. Linux (I believe).
-diff -Naur ../Python-2.7.13/Modules/Setup.local Python-2.7.13/Modules/Setup.local
---- ../Python-2.7.13/Modules/Setup.local	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.local	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/Setup.local Python-2.7.13/Modules/Setup.local
+--- tmp/Python-2.7.13/Modules/Setup.local	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/Setup.local	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1 @@
 +# Edit this file for local setup changes
-diff -Naur ../Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
---- ../Python-2.7.13/Modules/config.c	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/config.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/_ctypes/malloc_closure.c Python-2.7.13/Modules/_ctypes/malloc_closure.c
+--- tmp/Python-2.7.13/Modules/_ctypes/malloc_closure.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_ctypes/malloc_closure.c	2018-01-21 18:11:18.000000000 +0100
+@@ -75,7 +75,7 @@
+ #endif
+ 
+ #ifdef MALLOC_CLOSURE_DEBUG
+-    printf("block at %p allocated (%d bytes), %d ITEMs\n",
++    fprintf(thread_stdout, "block at %p allocated (%d bytes), %d ITEMs\n",
+            item, count * sizeof(ITEM), count);
+ #endif
+     /* put them into the free list */
+diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/connection.h Python-2.7.13/Modules/_multiprocessing/connection.h
+--- tmp/Python-2.7.13/Modules/_multiprocessing/connection.h	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/connection.h	2018-01-22 16:08:26.000000000 +0100
+@@ -474,7 +474,7 @@
+              "    Connection(handle, readable=True, writable=True).\n\n"
+              "The constructor does *not* duplicate the handle.");
+ 
+-PyTypeObject CONNECTION_TYPE = {
++__thread PyTypeObject CONNECTION_TYPE = {
+     PyVarObject_HEAD_INIT(NULL, 0)
+     /* tp_name           */ "_multiprocessing." CONNECTION_NAME,
+     /* tp_basicsize      */ sizeof(ConnectionObject),
+diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.c Python-2.7.13/Modules/_multiprocessing/multiprocessing.c
+--- tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.c	2018-01-22 16:08:04.000000000 +0100
+@@ -16,8 +16,8 @@
+ 
+ PyObject *create_win32_namespace(void);
+ 
+-PyObject *pickle_dumps, *pickle_loads, *pickle_protocol;
+-PyObject *ProcessError, *BufferTooShort;
++__thread PyObject *pickle_dumps, *pickle_loads, *pickle_protocol;
++__thread PyObject *ProcessError, *BufferTooShort;
+ 
+ /*
+  * Function which raises exceptions based on error codes
+diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.h Python-2.7.13/Modules/_multiprocessing/multiprocessing.h
+--- tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.h	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.h	2018-01-22 16:08:16.000000000 +0100
+@@ -130,14 +130,14 @@
+  * Externs - not all will really exist on all platforms
+  */
+ 
+-extern PyObject *pickle_dumps;
+-extern PyObject *pickle_loads;
+-extern PyObject *pickle_protocol;
+-extern PyObject *BufferTooShort;
+-extern PyTypeObject SemLockType;
+-extern PyTypeObject ConnectionType;
+-extern PyTypeObject PipeConnectionType;
+-extern HANDLE sigint_event;
++__thread extern PyObject *pickle_dumps;
++__thread extern PyObject *pickle_loads;
++__thread extern PyObject *pickle_protocol;
++__thread extern PyObject *BufferTooShort;
++__thread extern PyTypeObject SemLockType;
++__thread extern PyTypeObject ConnectionType;
++__thread extern PyTypeObject PipeConnectionType;
++__thread extern HANDLE sigint_event;
+ 
+ /*
+  * Py3k compatibility
+diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/semaphore.c Python-2.7.13/Modules/_multiprocessing/semaphore.c
+--- tmp/Python-2.7.13/Modules/_multiprocessing/semaphore.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/semaphore.c	2018-01-22 16:08:34.000000000 +0100
+@@ -598,7 +598,7 @@
+  * Semaphore type
+  */
+ 
+-PyTypeObject SemLockType = {
++__thread PyTypeObject SemLockType = {
+     PyVarObject_HEAD_INIT(NULL, 0)
+     /* tp_name           */ "_multiprocessing.SemLock",
+     /* tp_basicsize      */ sizeof(SemLockObject),
+diff -Naur tmp/Python-2.7.13/Modules/_ssl.c Python-2.7.13/Modules/_ssl.c
+--- tmp/Python-2.7.13/Modules/_ssl.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/_ssl.c	2018-01-21 16:22:38.000000000 +0100
+@@ -776,7 +776,7 @@
+         value = X509_NAME_ENTRY_get_data(entry);
+         attr = _create_tuple_for_attribute(name, value);
+         /*
+-        fprintf(stderr, "RDN level %d, attribute %s: %s\n",
++        fprintf(thread_stderr, "RDN level %d, attribute %s: %s\n",
+             entry->set,
+             PyBytes_AS_STRING(PyTuple_GET_ITEM(attr, 0)),
+             PyBytes_AS_STRING(PyTuple_GET_ITEM(attr, 1)));
+diff -Naur tmp/Python-2.7.13/Modules/bsddbmodule.c Python-2.7.13/Modules/bsddbmodule.c
+--- tmp/Python-2.7.13/Modules/bsddbmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/bsddbmodule.c	2018-01-21 18:00:10.000000000 +0100
+@@ -17,6 +17,7 @@
+ #ifdef WITH_THREAD
+ #include "pythread.h"
+ #endif
++#include "ios_error.h"
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -223,7 +224,7 @@
+         status = (dp->di_bsddb->close)(dp->di_bsddb);
+         Py_END_ALLOW_THREADS
+         if (status != 0)
+-            fprintf(stderr,
++            fprintf(thread_stderr,
+                 "Python bsddb: close errno %d in dealloc\n",
+                 errno);
+     }
+diff -Naur tmp/Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
+--- tmp/Python-2.7.13/Modules/config.c	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/config.c	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1,187 @@
 +/* Generated automatically from ./Modules/config.c.in by makesetup. */
 +/* -*- C -*- ***********************************************
@@ -732,9 +840,9 @@ diff -Naur ../Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
 +#ifdef __cplusplus
 +}
 +#endif
-diff -Naur ../Python-2.7.13/Modules/config_sharedlibs.c Python-2.7.13/Modules/config_sharedlibs.c
---- ../Python-2.7.13/Modules/config_sharedlibs.c	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/config_sharedlibs.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/config_sharedlibs.c Python-2.7.13/Modules/config_sharedlibs.c
+--- tmp/Python-2.7.13/Modules/config_sharedlibs.c	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/config_sharedlibs.c	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1,97 @@
 +/* Generated automatically from ./Modules/config.c.in by makesetup. */
 +/* -*- C -*- ***********************************************
@@ -833,9 +941,9 @@ diff -Naur ../Python-2.7.13/Modules/config_sharedlibs.c Python-2.7.13/Modules/co
 +#ifdef __cplusplus
 +}
 +#endif
-diff -Naur ../Python-2.7.13/Modules/expat/xmlparse.c Python-2.7.13/Modules/expat/xmlparse.c
---- ../Python-2.7.13/Modules/expat/xmlparse.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmlparse.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/expat/xmlparse.c Python-2.7.13/Modules/expat/xmlparse.c
+--- tmp/Python-2.7.13/Modules/expat/xmlparse.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmlparse.c	2018-01-07 17:01:59.000000000 +0100
 @@ -13,7 +13,7 @@
  #elif defined(__WATCOMC__)
  #include "watcomconfig.h"
@@ -845,9 +953,9 @@ diff -Naur ../Python-2.7.13/Modules/expat/xmlparse.c Python-2.7.13/Modules/expat
  #endif /* ndef COMPILED_FROM_DSP */
  
  #include <stddef.h>
-diff -Naur ../Python-2.7.13/Modules/expat/xmlrole.c Python-2.7.13/Modules/expat/xmlrole.c
---- ../Python-2.7.13/Modules/expat/xmlrole.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmlrole.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/expat/xmlrole.c Python-2.7.13/Modules/expat/xmlrole.c
+--- tmp/Python-2.7.13/Modules/expat/xmlrole.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmlrole.c	2018-01-07 17:01:59.000000000 +0100
 @@ -14,7 +14,7 @@
  #include "watcomconfig.h"
  #else
@@ -857,9 +965,9 @@ diff -Naur ../Python-2.7.13/Modules/expat/xmlrole.c Python-2.7.13/Modules/expat/
  #endif
  #endif /* ndef COMPILED_FROM_DSP */
  
-diff -Naur ../Python-2.7.13/Modules/expat/xmltok.c Python-2.7.13/Modules/expat/xmltok.c
---- ../Python-2.7.13/Modules/expat/xmltok.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmltok.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/expat/xmltok.c Python-2.7.13/Modules/expat/xmltok.c
+--- tmp/Python-2.7.13/Modules/expat/xmltok.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmltok.c	2018-01-07 17:01:59.000000000 +0100
 @@ -14,7 +14,7 @@
  #include "watcomconfig.h"
  #else
@@ -869,9 +977,40 @@ diff -Naur ../Python-2.7.13/Modules/expat/xmltok.c Python-2.7.13/Modules/expat/x
  #endif
  #endif /* ndef COMPILED_FROM_DSP */
  
-diff -Naur ../Python-2.7.13/Modules/gcmodule.c Python-2.7.13/Modules/gcmodule.c
---- ../Python-2.7.13/Modules/gcmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/gcmodule.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/fpectlmodule.c Python-2.7.13/Modules/fpectlmodule.c
+--- tmp/Python-2.7.13/Modules/fpectlmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/fpectlmodule.c	2018-01-21 17:55:05.000000000 +0100
+@@ -75,7 +75,8 @@
+ #include <starlet.h>
+ #include <ieeedef.h>
+ #endif
+-
++#include "ios_error.h"
++    
+ #ifndef WANT_SIGFPE_HANDLER
+ /* Define locally if they are not defined in Python.  This gives only
+  * the limited control to induce a core dump in case of an exception.
+@@ -251,7 +252,7 @@
+ 
+ /*-- Give Up --------------------------------------------------------------*/
+ #else
+-    fputs("Operation not implemented\n", stderr);
++    fputs("Operation not implemented\n", thread_stderr);
+ #endif
+ 
+ }
+@@ -270,7 +271,7 @@
+                 IEEE$M_INHERIT;
+         sys$ieee_set_fp_control(&clrmsk, 0, 0);
+ #else
+-    fputs("Operation not implemented\n", stderr);
++    fputs("Operation not implemented\n", thread_stderr);
+ #endif
+     Py_INCREF(Py_None);
+     return Py_None;
+diff -Naur tmp/Python-2.7.13/Modules/gcmodule.c Python-2.7.13/Modules/gcmodule.c
+--- tmp/Python-2.7.13/Modules/gcmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/gcmodule.c	2018-01-07 17:01:59.000000000 +0100
 @@ -1437,7 +1437,7 @@
          n = 0; /* already collecting, don't do anything */
      else {
@@ -881,9 +1020,9 @@ diff -Naur ../Python-2.7.13/Modules/gcmodule.c Python-2.7.13/Modules/gcmodule.c
          collecting = 0;
      }
  
-diff -Naur ../Python-2.7.13/Modules/getpath.c Python-2.7.13/Modules/getpath.c
---- ../Python-2.7.13/Modules/getpath.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/getpath.c	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/getpath.c Python-2.7.13/Modules/getpath.c
+--- tmp/Python-2.7.13/Modules/getpath.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/getpath.c	2018-01-07 17:01:59.000000000 +0100
 @@ -448,9 +448,14 @@
          ** which is in the framework, not relative to the executable, which may
          ** be outside of the framework. Except when we're in the build directory...
@@ -901,10 +1040,10 @@ diff -Naur ../Python-2.7.13/Modules/getpath.c Python-2.7.13/Modules/getpath.c
      if (buf != NULL) {
          /* We're in a framework. */
          /* See if we might be in the build directory. The framework in the
-diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
---- ../Python-2.7.13/Modules/getpath.m	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/getpath.m	2017-12-04 14:15:31.000000000 +0100
-@@ -0,0 +1,707 @@
+diff -Naur tmp/Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
+--- tmp/Python-2.7.13/Modules/getpath.m	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/getpath.m	2018-01-21 17:37:26.000000000 +0100
+@@ -0,0 +1,708 @@
 +/* Return the initial module search path. */
 +
 +#include "Python.h"
@@ -916,6 +1055,7 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +#ifdef __APPLE__
 +#include <mach-o/dyld.h>
 +#import <Foundation/Foundation.h>
++#include "ios_error.h"
 +#endif
 +
 +/* Search in some common locations for the associated Python libraries.
@@ -1425,7 +1565,7 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +
 +    if (!(pfound = search_for_prefix(argv0_path, home))) {
 +        if (!Py_FrozenFlag)
-+            fprintf(stderr,
++            fprintf(thread_stderr,
 +                "Could not find platform independent libraries <prefix>\n");
 +        strncpy(prefix, PREFIX, MAXPATHLEN);
 +        joinpath(prefix, lib_python);
@@ -1448,7 +1588,7 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +
 +    if (!(efound = search_for_exec_prefix(argv0_path, home))) {
 +        if (!Py_FrozenFlag)
-+            fprintf(stderr,
++            fprintf(thread_stderr,
 +                "Could not find platform dependent libraries <exec_prefix>\n");
 +        strncpy(exec_prefix, EXEC_PREFIX, MAXPATHLEN);
 +        joinpath(exec_prefix, "lib/lib-dynload");
@@ -1456,7 +1596,7 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +    /* If we found EXEC_PREFIX do *not* reduce it!  (Yet.) */
 +
 +    if ((!pfound || !efound) && !Py_FrozenFlag)
-+        fprintf(stderr,
++        fprintf(thread_stderr,
 +                "Consider setting $PYTHONHOME to <prefix>[:<exec_prefix>]\n");
 +
 +    /* Calculate size of return buffer.
@@ -1492,8 +1632,8 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +
 +    if (buf == NULL) {
 +        /* We can't exit, so print a warning and limp along */
-+        fprintf(stderr, "Not enough memory for dynamic PYTHONPATH.\n");
-+        fprintf(stderr, "Using default static PYTHONPATH.\n");
++        fprintf(thread_stderr, "Not enough memory for dynamic PYTHONPATH.\n");
++        fprintf(thread_stderr, "Using default static PYTHONPATH.\n");
 +        module_search_path = PYTHONPATH;
 +    }
 +    else {
@@ -1612,9 +1752,9 @@ diff -Naur ../Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +}
 +#endif
 +
-diff -Naur ../Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
---- ../Python-2.7.13/Modules/ld_so_aix	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/ld_so_aix	2017-12-04 14:15:31.000000000 +0100
+diff -Naur tmp/Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
+--- tmp/Python-2.7.13/Modules/ld_so_aix	1970-01-01 01:00:00.000000000 +0100
++++ Python-2.7.13/Modules/ld_so_aix	2018-01-07 17:01:59.000000000 +0100
 @@ -0,0 +1,195 @@
 +#!/bin/sh
 +#
@@ -1811,10 +1951,15 @@ diff -Naur ../Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
 +rm -f $expfile
 +
 +exit $retval
-diff -Naur ../Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
---- ../Python-2.7.13/Modules/main.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/main.c	2017-12-04 14:15:31.000000000 +0100
-@@ -8,6 +8,8 @@
+diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
+--- tmp/Python-2.7.13/Modules/main.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/main.c	2018-01-22 16:14:21.000000000 +0100
+@@ -4,10 +4,13 @@
+ #include "osdefs.h"
+ #include "code.h" /* For CO_FUTURE_DIVISION */
+ #include "import.h"
++#include "ios_error.h"
+ 
  #ifdef __VMS
  #include <unixlib.h>
  #endif
@@ -1823,7 +1968,56 @@ diff -Naur ../Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
  
  #if defined(MS_WINDOWS) || defined(__CYGWIN__)
  #ifdef HAVE_FCNTL_H
-@@ -253,6 +255,27 @@
+@@ -49,7 +52,7 @@
+    frontend; especially my_readline will behave different */
+ #define PROGRAM_OPTS BASE_OPTS "w"
+ /* corresponding flag */
+-extern int Py_RISCOSWimpFlag;
++extern __thread int Py_RISCOSWimpFlag;
+ #endif /*RISCOS*/
+ 
+ /* Short usage message (with %s for argv0) */
+@@ -116,7 +119,7 @@
+ static int
+ usage(int exitcode, char* program)
+ {
+-    FILE *f = exitcode ? stderr : stdout;
++    FILE *f = exitcode ? thread_stderr : thread_stdout;
+ 
+     fprintf(f, usage_line, program);
+     if (exitcode)
+@@ -172,18 +175,18 @@
+     PyObject *runpy, *runmodule, *runargs, *result;
+     runpy = PyImport_ImportModule("runpy");
+     if (runpy == NULL) {
+-        fprintf(stderr, "Could not import runpy module\n");
++        fprintf(thread_stderr, "Could not import runpy module\n");
+         return -1;
+     }
+     runmodule = PyObject_GetAttrString(runpy, "_run_module_as_main");
+     if (runmodule == NULL) {
+-        fprintf(stderr, "Could not access runpy._run_module_as_main\n");
++        fprintf(thread_stderr, "Could not access runpy._run_module_as_main\n");
+         Py_DECREF(runpy);
+         return -1;
+     }
+     runargs = Py_BuildValue("(si)", module, set_argv0);
+     if (runargs == NULL) {
+-        fprintf(stderr,
++        fprintf(thread_stderr,
+             "Could not create arguments for runpy._run_module_as_main\n");
+         Py_DECREF(runpy);
+         Py_DECREF(runmodule);
+@@ -243,7 +246,7 @@
+     char *command = NULL;
+     char *filename = NULL;
+     char *module = NULL;
+-    FILE *fp = stdin;
++    FILE *fp = thread_stdin;
+     char *p;
+     int unbuffered = 0;
+     int skipfirstline = 0;
+@@ -253,6 +256,27 @@
      int saw_unbuffered_flag = 0;
      PyCompilerFlags cf;
  
@@ -1851,691 +2045,175 @@ diff -Naur ../Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
      cf.cf_flags = 0;
  
      orig_argc = argc;           /* For Py_GetArgcArgv() */
-@@ -544,7 +567,12 @@
+@@ -353,7 +377,7 @@
+                 _Py_QnewFlag = 1;
+                 break;
+             }
+-            fprintf(stderr,
++            fprintf(thread_stderr,
+                 "-Q option should be `-Qold', "
+                 "`-Qwarn', `-Qwarnall', or `-Qnew' only\n");
+             return usage(2, argv[0]);
+@@ -443,7 +467,7 @@
+         return usage(0, argv[0]);
+ 
+     if (version) {
+-        fprintf(stderr, "Python %s\n", PY_VERSION);
++        fprintf(thread_stderr, "Python %s\n", PY_VERSION);
+         return 0;
+     }
+ 
+@@ -490,39 +514,39 @@
+ #endif
+     }
+ 
+-    stdin_is_interactive = Py_FdIsInteractive(stdin, (char *)0);
++    stdin_is_interactive = Py_FdIsInteractive(thread_stdin, (char *)0);
+ 
+     if (unbuffered) {
+ #if defined(MS_WINDOWS) || defined(__CYGWIN__)
+-        _setmode(fileno(stdin), O_BINARY);
+-        _setmode(fileno(stdout), O_BINARY);
++        _setmode(fileno(thread_stdin), O_BINARY);
++        _setmode(fileno(thread_stdout), O_BINARY);
+ #endif
+ #ifdef HAVE_SETVBUF
+-        setvbuf(stdin,  (char *)NULL, _IONBF, BUFSIZ);
+-        setvbuf(stdout, (char *)NULL, _IONBF, BUFSIZ);
+-        setvbuf(stderr, (char *)NULL, _IONBF, BUFSIZ);
++        setvbuf(thread_stdin,  (char *)NULL, _IONBF, BUFSIZ);
++        setvbuf(thread_stdout, (char *)NULL, _IONBF, BUFSIZ);
++        setvbuf(thread_stderr, (char *)NULL, _IONBF, BUFSIZ);
+ #else /* !HAVE_SETVBUF */
+-        setbuf(stdin,  (char *)NULL);
+-        setbuf(stdout, (char *)NULL);
+-        setbuf(stderr, (char *)NULL);
++        setbuf(thread_stdin,  (char *)NULL);
++        setbuf(thread_stdout, (char *)NULL);
++        setbuf(thread_stderr, (char *)NULL);
+ #endif /* !HAVE_SETVBUF */
+     }
+     else if (Py_InteractiveFlag) {
+ #ifdef MS_WINDOWS
+         /* Doesn't have to have line-buffered -- use unbuffered */
+         /* Any set[v]buf(stdin, ...) screws up Tkinter :-( */
+-        setvbuf(stdout, (char *)NULL, _IONBF, BUFSIZ);
++        setvbuf(thread_stdout, (char *)NULL, _IONBF, BUFSIZ);
+ #else /* !MS_WINDOWS */
+ #ifdef HAVE_SETVBUF
+-        setvbuf(stdin,  (char *)NULL, _IOLBF, BUFSIZ);
+-        setvbuf(stdout, (char *)NULL, _IOLBF, BUFSIZ);
++        setvbuf(thread_stdin,  (char *)NULL, _IOLBF, BUFSIZ);
++        setvbuf(thread_stdout, (char *)NULL, _IOLBF, BUFSIZ);
+ #endif /* HAVE_SETVBUF */
+ #endif /* !MS_WINDOWS */
+         /* Leave stderr alone - it should be unbuffered anyway. */
+     }
+ #ifdef __VMS
+     else {
+-        setvbuf (stdout, (char *)NULL, _IOLBF, BUFSIZ);
++        setvbuf (thread_stdout, (char *)NULL, _IOLBF, BUFSIZ);
+     }
+ #endif /* __VMS */
+ 
+@@ -544,13 +568,18 @@
      Py_SetProgramName(argv[0]);
  #endif
      Py_Initialize();
 -
 +    // We couldn't Initialize, need to return before we crash.
 +    if (_PyThreadState_Current == NULL) {
-+        fprintf(stderr, "We could not initialize python, sorry\n"); fflush(stderr);
++        fprintf(thread_stderr, "We could not initialize python, sorry\n"); fflush(thread_stderr);
 +        pthread_exit(NULL); 
 +    }
 +    
      if (Py_VerboseFlag ||
          (command == NULL && filename == NULL && module == NULL && stdin_is_interactive)) {
-         fprintf(stderr, "Python %s on %s\n",
-@@ -581,6 +609,7 @@
+-        fprintf(stderr, "Python %s on %s\n",
++        fprintf(thread_stderr, "Python %s on %s\n",
+             Py_GetVersion(), Py_GetPlatform());
+         if (!Py_NoSiteFlag)
+-            fprintf(stderr, "%s\n", COPYRIGHT);
++            fprintf(thread_stderr, "%s\n", COPYRIGHT);
+     }
+ 
+     if (command != NULL) {
+@@ -571,7 +600,7 @@
+     PySys_SetArgv(argc-_PyOS_optind, argv+_PyOS_optind);
+ 
+     if ((Py_InspectFlag || (command == NULL && filename == NULL && module == NULL)) &&
+-        isatty(fileno(stdin))) {
++        isatty(fileno(thread_stdin))) {
+         PyObject *v;
+         v = PyImport_ImportModule("readline");
+         if (v == NULL)
+@@ -581,6 +610,7 @@
      }
  
      if (command) {
-+        fflush(stderr); fflush(stdout);
++        fflush(thread_stderr); fflush(thread_stdout);
          sts = PyRun_SimpleStringFlags(command, &cf) != 0;
          free(command);
      } else if (module) {
-diff -Naur ../Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
---- ../Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/posixmodule.c	2017-12-06 17:19:53.000000000 +0100
-@@ -161,7 +161,9 @@
- #endif  /* __BORLANDC__ */
- #endif  /* ! __WATCOMC__ || __QNX__ */
- #endif /* ! __IBMC__ */
--
-+// iOS -- new version
-+// #undef HAVE_SYSTEM
-+    
- #ifndef _MSC_VER
+@@ -603,7 +633,7 @@
  
- #if defined(__sgi)&&_COMPILER_VERSION>=700
-@@ -349,7 +351,606 @@
- #include <sys/mkdev.h>
- #endif
- #endif
--
-+    
-+    
-+// iOS specifics -- fork() and exec() inside a sandbox.
-+#include "TargetConditionals.h"
-+#ifdef TARGET_OS_IPHONE
-+    
-+#include <libssh2/libssh2.h>
-+#include <sys/types.h>
-+#include <sys/socket.h>
-+#include <netdb.h>
-+#include <sys/poll.h>
-+    
-+FILE *child_stdin, *child_stdout, *child_stderr;
-+    
-+static int ssh_waitsocket(int socket_fd, LIBSSH2_SESSION *session) {
-+    struct timeval timeout;
-+    int rc;
-+    fd_set fd;
-+    fd_set *writefd = NULL;
-+    fd_set *readfd = NULL;
-+    int dir;
-+    
-+    timeout.tv_sec = 10;
-+    timeout.tv_usec = 0;
-+    
-+    FD_ZERO(&fd);
-+    
-+    FD_SET(socket_fd, &fd);
-+    
-+    /* now make sure we wait in the correct direction */
-+    dir = libssh2_session_block_directions(session);
-+    
-+    if (dir & LIBSSH2_SESSION_BLOCK_INBOUND)
-+        readfd = &fd;
-+    
-+    if (dir & LIBSSH2_SESSION_BLOCK_OUTBOUND)
-+        writefd = &fd;
-+    
-+    rc = select(socket_fd + 1, readfd, writefd, NULL, &timeout);
-+    return rc;
-+}
-+    
-+static int ssh_verify_host(char* addr, LIBSSH2_SESSION* _session, char* hostname, int port) {
-+    LIBSSH2_KNOWNHOSTS *kh;
-+    const char *key;
-+    size_t key_len;
-+    int key_type;
-+    char *type_str;
-+    
-+    if (!(kh = libssh2_knownhost_init(_session))) {
-+        return -1;
-+    }
-+    
-+    // Path = getenv(SSH_HOME) or ~/Documents
-+    char path[PATH_MAX];
-+    if (getenv("SSH_HOME")) strcpy(path, getenv("SSH_HOME"));
-+    else sprintf(path, "%s/Documents/", getenv("HOME"));
-+    char khFilePath[PATH_MAX];
-+    // known_hosts is shared with Blink
-+    sprintf(khFilePath, "%s/known_hosts", path);
-+    libssh2_knownhost_readfile(kh, khFilePath, LIBSSH2_KNOWNHOST_FILE_OPENSSH);
-+    
-+    key = libssh2_session_hostkey(_session, &key_len, &key_type);
-+    int kh_key_type = (key_type == LIBSSH2_HOSTKEY_TYPE_RSA) ? LIBSSH2_KNOWNHOST_KEY_SSHRSA : LIBSSH2_KNOWNHOST_KEY_SSHDSS;
-+    type_str = strdup((key_type == LIBSSH2_HOSTKEY_TYPE_RSA) ? "RSA" : "DSS");
-+    
-+    int succ = 0;
-+    if (key) {
-+        struct libssh2_knownhost *knownHost;
-+        int check = libssh2_knownhost_checkp(kh, hostname, port, key, key_len,
-+                                             LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW | kh_key_type,
-+                                             &knownHost);
-+        if (check == LIBSSH2_KNOWNHOST_CHECK_FAILURE) {
-+            fprintf(stderr, "Known host check failed\n");
-+        } else if (check == LIBSSH2_KNOWNHOST_CHECK_NOTFOUND) {
-+            fprintf(stderr, "The authenticity of host %.200s (%s) can't be established.\n", hostname, addr);
-+        } else if (check == LIBSSH2_KNOWNHOST_CHECK_MISMATCH) {
-+            fprintf(stderr, "@@@@@@ REMOTE HOST IDENTIFICATION HAS CHANGED @@@@@@\n%s host key for %.200s (%s) has changed.\nThis might be due to someone doing something nasty or just a change in the host.\n", type_str, hostname, addr);
-+        } else if (check == LIBSSH2_KNOWNHOST_CHECK_MATCH) {
-+            succ = 1;
-+        }
-+        free(type_str); 
-+    }
-+    // Automatically add host to list of authorized hosts
-+    if (!succ) {
-+        // [self authorize_new_key:key length:key_len type:kh_key_type knownHosts:kh filePath:khFilePath];
-+        // Add key to the server
-+        int rc = libssh2_knownhost_addc(kh, hostname,
-+                                    NULL, // No hashed addr, no salt
-+                                    key, key_len,
-+                                    NULL, 0,                                                                // No comment
-+                                    LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW | LIBSSH2_KNOWNHOST_KEY_SSHRSA, // kh_key_type, 
-+                                    NULL);                                                                  // No pointer to the stored structure
-+        if (rc < 0) {
-+            char *errmsg;
-+            libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+            fprintf(stderr, "Error adding to the list of known hosts: %s\n", errmsg);
-+        }
-+        
-+        rc = libssh2_knownhost_writefile(kh, khFilePath, LIBSSH2_KNOWNHOST_FILE_OPENSSH);
-+        if (rc < 0) {
-+            char *errmsg;
-+            libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+            fprintf(stderr, "Error writing known host: %s\n", errmsg);
-+        } else {
-+            fprintf(stderr, "Permanently added key for %s to list of known hosts.\n", hostname);
-+        }
-+    }
-+    libssh2_knownhost_free(kh);
-+    return succ;
-+}
-+    
-+static int ssh_set_nonblock(int fd) {
-+    int arg;
-+    if ((arg = fcntl(fd, F_GETFL, NULL)) < 0) {
-+        fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-+        return -1;
-+    }
-+    arg |= O_NONBLOCK;
-+    if (fcntl(fd, F_SETFL, arg) < 0) {
-+        fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-+        return -1;
-+    }
-+    return 0;
-+}
-+    
-+static int ssh_unset_nonblock(int fd) {
-+    int arg;
-+    
-+    if ((arg = fcntl(fd, F_GETFL, NULL)) < 0) {
-+        fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-+        return -1;
-+    }
-+    arg &= (~O_NONBLOCK);
-+    if (fcntl(fd, F_SETFL, arg) < 0) {
-+        fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-+        return -1;
-+    }
-+    return 0;
-+}
-+    
-+static int ssh_client_loop(LIBSSH2_SESSION *_session, LIBSSH2_CHANNEL *_channel, int _sock) {
-+    int numfds = 2;
-+    struct pollfd pfds[numfds];
-+    ssize_t rc;
-+    char inputbuf[BUFSIZ];
-+    char streambuf[BUFSIZ];
-+    
-+    ssh_set_nonblock(_sock);
-+    ssh_set_nonblock(fileno(child_stdin));
-+    
-+    libssh2_channel_set_blocking(_channel, 0);
-+    
-+    memset(pfds, 0, sizeof(struct pollfd) * numfds);
-+    
-+    pfds[0].fd = _sock;
-+    pfds[0].events = 0;
-+    pfds[0].revents = 0;
-+    
-+    pfds[1].fd = fileno(child_stdin);
-+    pfds[1].events = POLLIN;
-+    pfds[1].revents = 0;
-+    
-+    // Wait for stream->in or socket while not ready for reading
-+    do {
-+        if (!pfds[0].events || pfds[0].revents & (POLLIN)) {
-+            // Read from socket
-+            do {
-+                rc = libssh2_channel_read(_channel, inputbuf, BUFSIZ);
-+                if (rc > 0) {
-+                    fwrite(inputbuf, rc, 1, child_stdout);
-+                    fflush(child_stdout);
-+                    pfds[0].events = 0;
-+                } else if (rc == LIBSSH2_ERROR_EAGAIN) {
-+                    // Request the socket for input
-+                    pfds[0].events = POLLIN;
-+                }
-+                memset(inputbuf, 0, BUFSIZ);
-+            } while (LIBSSH2_ERROR_EAGAIN != rc && rc > 0);
-+            
-+            do {
-+                rc = libssh2_channel_read_stderr(_channel, inputbuf, BUFSIZ);
-+                if (rc > 0) {
-+                    fwrite(inputbuf, rc, 1, child_stderr);
-+                    pfds[0].events |= 0;
-+                } else if (rc == LIBSSH2_ERROR_EAGAIN) {
-+                    pfds[0].events = POLLIN;
-+                }
-+                
-+                memset(inputbuf, 0, BUFSIZ);
-+                
-+            } while (LIBSSH2_ERROR_EAGAIN != rc && rc > 0);
-+        }
-+        if (rc < 0 && LIBSSH2_ERROR_EAGAIN != rc) {
-+            fprintf(stderr, "error reading from socket. exiting...\n");
-+            break;
-+        }
-+        
-+        if (libssh2_channel_eof(_channel)) {
-+            break;
-+        }
-+        
-+        rc = poll(pfds, numfds, 15000);
-+        if (-1 == rc) {
-+            break;
-+        }
-+        
-+        ssize_t towrite = 0;
-+        
-+        if (!child_stdin || feof(child_stdin)) {
-+            // Propagate the EOF to the other end
-+            libssh2_channel_send_eof(_channel);
-+            break;
-+        }
-+        // Input from stream
-+        if (pfds[1].revents & POLLIN) {
-+            towrite = fread(streambuf, 1, BUFSIZ, child_stdin);
-+            rc = 0;
-+            do {
-+                rc = libssh2_channel_write(_channel, streambuf + rc, towrite);
-+                if (rc > 0) {
-+                    towrite -= rc;
-+                }
-+            } while (LIBSSH2_ERROR_EAGAIN != rc && rc > 0 && towrite > 0);
-+            memset(streambuf, 0, BUFSIZ);
-+        }
-+        if (rc < 0 && LIBSSH2_ERROR_EAGAIN != rc) {
-+            char *errmsg;
-+            libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+            fprintf(stderr, "%s\n", errmsg);
-+            fprintf(stderr, "error writing to socket. exiting...\n");
-+            break;
-+        }
-+    } while (1);
-+    
-+    // We got out of the main loop.
-+    // Free resources and try to cleanup
-+    ssh_unset_nonblock(_sock);
-+    if (child_stdin) {
-+        ssh_unset_nonblock(fileno(child_stdin));
-+    }
-+    
-+    while ((rc = libssh2_channel_close(_channel)) == LIBSSH2_ERROR_EAGAIN)
-+        ssh_waitsocket(_sock, _session);
-+    // close files if it's not a pipe
-+    if (fileno(child_stdin) != fileno(stdin)) { fclose(child_stdin);}
-+    if (fileno(child_stdout) != fileno(stdout)) { fclose(child_stdout);}
-+    if (fileno(child_stderr) != fileno(stderr)) { fclose(child_stderr);}
-+    
-+    if (rc < 0) {
-+        return -1;
-+    }
-+    return 0;
-+}
-+    
-+static int ssh_timeout_connect(int _sock, const struct sockaddr *addr, socklen_t len, int * timeoutp) {
-+    struct timeval tv;
-+    fd_set fdset;
-+    int res;
-+    int valopt = 0;
-+    socklen_t lon;
-+    
-+    if (ssh_set_nonblock(_sock) != 0) {
-+        return -1;
-+    }
-+    
-+    // Trying to initiate connection as nonblock
-+    res = connect(_sock, addr, len);
-+    if (res == 0) {
-+        return ssh_unset_nonblock(_sock);
-+    }
-+    if (errno != EINPROGRESS) {
-+        return -1;
-+    }
-+    
-+    do {
-+        // Set timeout params
-+        tv.tv_sec = *timeoutp;
-+        tv.tv_usec = 0;
-+        FD_ZERO(&fdset);
-+        FD_SET(_sock, &fdset);
-+        // Try to select it to write
-+        res = select(_sock + 1, NULL, &fdset, NULL, &tv);
-+        
-+        if (res != -1 || errno != EINTR) {
-+            //fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-+            break;
-+        }
-+    } while (1);
-+    
-+    switch (res) {
-+        case 0:
-+            // Timed out message
-+            errno = ETIMEDOUT;
-+            return -1;
-+        case -1:
-+            // Select failed
-+            return -1;
-+        case 1:
-+            // Completed or failed. Socket selected for write
-+            valopt = 0;
-+            lon = sizeof(valopt);
-+            
-+            lon = sizeof(int);
-+            if (getsockopt(_sock, SOL_SOCKET, SO_ERROR, &valopt, &lon) == -1) {
-+                return -1;
-+            }
-+            if (valopt != 0) {
-+                errno = valopt;
-+                return -1;
-+            }
-+            return ssh_unset_nonblock(_sock);
-+            
-+        default:
-+            return -1;
-+    }
-+}
-+    
-+    
-+int ssh_main(int argc, char** argv) {
-+    // TODO: extract options
-+    char* passphrase;
-+    int port = 22;
-+    int connection_timeout = 10;
-+    char strport[NI_MAXSERV];
-+    snprintf(strport, sizeof strport, "%d", port);
-+    // What is the *real* number of arguments?
-+    // argv[0] = "ssh hg@bitbucket.org 'hg -R repository'" happens. Other variants too.
-+    char* user;
-+    char* host;
-+    char* commandLine;
-+    if (argc == 1) {
-+        // Single argument, all in one command line
-+        user = argv[0] + 4; // skip past "ssh "
-+        host = strchr(user, '@') + 1; // host = after the "@"
-+        *(host - 1) = 0x00; // null-terminate user
-+        commandLine = strchr(host, ' ') + 1; // commandline = after the ' '
-+        *(commandLine -1) = 0x00; // null-terminate host
-+        if ((commandLine[0] == '\'') || (commandLine[0] == '\"')) {
-+            commandLine += 1; // skip past the opening quote
-+            unsigned long l = strlen(commandLine);
-+            commandLine[l - 1] = 0x00; // null-terminate and remove closing quote
-+        }
-+    } else {
-+        // Assume several arguments, making sense
-+        // argv[0] = ssh
-+        // argv[1] = user@host
-+        user = argv[1];
-+        host = strchr(user, '@') + 1;
-+        *(host - 1) = 0x00; // null-terminate host
-+        // Concatenate all remaining options to form the command string:
-+        int bufferLength = 0;
-+        int removeQuotes = 0;
-+        for (int i = 2; i < argc; i++) bufferLength += strlen(argv[i]) + 1;
-+        if ((argv[2][0] == '\'') || (argv[2][0] == '\"')) { removeQuotes = 1; bufferLength -= 2;} // remove the quotes
-+        char* commandLine = (char*) malloc(bufferLength * sizeof(char));
-+        int position = 0;
-+        strcpy(commandLine + position, argv[optind] + removeQuotes);
-+        position += strlen(argv[optind]) + 1 - removeQuotes;
-+        commandLine[position - 1] = ' ';
-+        for (int i = optind + 1; i < argc; i++) {
-+            strcpy(commandLine + position, argv[i]);
-+            position += strlen(argv[i]) + 1;
-+            commandLine[position - 1] = ' ';
-+        }
-+        commandLine[bufferLength - 1] = 0x0; // null-terminate the command
-+    }
-+    // Does the hostname exist?
-+    struct addrinfo hints, *addrs;
-+    struct sockaddr_storage hostaddr;
-+    // TODO: Use Python error reporting system.
-+    // ssh_connect
-+    memset(&hints, 0, sizeof(hints));
-+    hints.ai_family = PF_UNSPEC;
-+    hints.ai_socktype = SOCK_STREAM;
-+    int res;
-+    if ((res = getaddrinfo(host, strport, &hints, &addrs)) != 0) { fprintf(stderr, "Host %s not found on port %s, error= %s.\n", host, strport, gai_strerror(res));  return 0;}
-+    struct addrinfo *ai;
-+    char ntop[NI_MAXHOST];
-+    int _sock = -1;
-+    for (ai = addrs; ai; ai = ai->ai_next) {
-+        if (ai->ai_family != AF_INET && ai->ai_family != AF_INET6) {continue;}
-+        if (getnameinfo(ai->ai_addr, ai->ai_addrlen,
-+                        ntop, sizeof(ntop), strport,
-+                        sizeof(strport), NI_NUMERICHOST | NI_NUMERICSERV) != 0) {
-+            fprintf(stderr, "ssh_connect: getnameinfo failed\n");
-+            continue;
-+        }
-+        _sock = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
-+        if (_sock < 0) {
-+            fprintf(stderr, "ssh: %s", strerror(errno));
-+            if (!ai->ai_next) {
-+                fprintf(stderr, "ssh: connect to host %s port %s: %s", host, strport, strerror(errno));
-+                return 0;
-+            }
-+            continue;
-+        }
-+        // TODO: check timeout_connect
-+        if (ssh_timeout_connect(_sock, ai->ai_addr, ai->ai_addrlen, &connection_timeout) >= 0) {
-+            // Successful connection. Save host address
-+            memcpy(&hostaddr, ai->ai_addr, ai->ai_addrlen);
-+            break;
-+        } else {
-+            fprintf(stderr, "connect to host %s port %s: %s\n", ntop, strport, strerror(errno));
-+            _sock = -1;
-+        }
-+    }
-+    // ssh_set_session
-+    LIBSSH2_SESSION *_session = libssh2_session_init();
-+    if (!_session) {fprintf(stderr, "Could not establish connection with %s.\n", host);  return 0;}
-+    libssh2_session_set_blocking(_session, 0);
-+    libssh2_session_set_timeout(_session, connection_timeout);
-+    LIBSSH2_CHANNEL *_channel;
-+    char *errmsg;
-+    int rc;
-+    while ((rc = libssh2_session_handshake(_session, _sock)) ==
-+           LIBSSH2_ERROR_EAGAIN);
-+    if (rc) {
-+        libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+        fprintf(stderr, "SSH error: %s\n", errmsg);
-+        return -1;
-+    }
-+    // Set object as handler
-+    // void **handler = libssh2_session_abstract(_session);
-+    // Verify host key
-+    if (ssh_verify_host(ntop, _session, host, port) <= 0) {fprintf(stderr, "Could not check host key %s.\n", host);  return 0;}
-+    // Connect: ssh_login
-+    char *userauthlist = NULL;
-+    int auth_type;
-+    do {
-+        userauthlist = libssh2_userauth_list(_session, user, (int)strlen(user));
-+        if (!userauthlist) {
-+            if (libssh2_session_last_errno(_session) != LIBSSH2_ERROR_EAGAIN) {
-+                fprintf(stderr, "No userauth list\n");
-+                return 0;
-+            } else {
-+                ssh_waitsocket(_sock, _session); /* now we wait */
-+            }
-+        }
-+    } while (!userauthlist);
-+    if (strstr(userauthlist, "password") != NULL) {
-+        auth_type |= 1;
-+    }
-+    if (strstr(userauthlist, "keyboard-interactive") != NULL) {
-+        auth_type |= 2;
-+    }
-+    if (strstr(userauthlist, "publickey") != NULL) {
-+        auth_type |= 4;
-+    }
-+    if (auth_type & 4) {
-+        // Most common case.
-+        // Path = getenv(SSH_HOME) or ~/Documents
-+        char path[PATH_MAX];
-+        if (getenv("SSH_HOME")) strcpy(path, getenv("SSH_HOME"));
-+        else sprintf(path, "%s/Documents", getenv("HOME"));
-+        char keypath[PATH_MAX];
-+        sprintf(keypath, "%s/.ssh/", path);
-+        // Loop over all keys in .ssh directory
-+        DIR* dirp = opendir(keypath);
-+        if (!dirp) dirp = opendir(path);
-+        if (!dirp) {fprintf(stderr, "Can't open directory %s\n", keypath); return 0;}
-+        struct dirent *dp;
-+        char* suffix = ".pub";
-+        long suffix_len = strlen(suffix);
-+        while ((dp = readdir(dirp)) != NULL) {
-+            // does this file end in ".pub"?
-+            char* publickeyName = dp->d_name;
-+            if (strncmp( publickeyName + strlen(publickeyName) - suffix_len, suffix, suffix_len ) != 0) continue;
-+            // is there a file with same name, without .pub?
-+            char* privatekeyName = strdup(publickeyName);
-+            privatekeyName[strlen(publickeyName) - suffix_len] = 0x0;
-+            char publickeypath[PATH_MAX];
-+            char privatekeypath[PATH_MAX];
-+            sprintf(publickeypath, "%s%s", keypath, publickeyName);
-+            sprintf(privatekeypath, "%s%s", keypath, privatekeyName);
-+            if (access( privatekeypath, F_OK ) == -1) continue;
-+            while ((rc = libssh2_userauth_publickey_fromfile_ex(_session,
-+                                                   user,
-+                                                   strlen(user),
-+                                                   publickeypath,
-+                                                   privatekeypath, passphrase))  == LIBSSH2_ERROR_EAGAIN);
-+            if (rc != 0) { fprintf(stderr, "Authentification failure with passphrase.\n"); continue; } // try another key
-+            // We are connected
-+            rc = 0;
-+            char *errmsg;
-+            while ((_channel = libssh2_channel_open_session(_session)) == NULL &&
-+                   libssh2_session_last_error(_session, NULL, NULL, 0) == LIBSSH2_ERROR_EAGAIN) {
-+                ssh_waitsocket(_sock, _session);
-+            }
-+            if (_channel == NULL) {
-+                libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+                fprintf(stderr, "ssh: error creating channel: %s\n", errmsg);
-+                rc = -1;
-+                break;
-+            }
-+            while ((rc = libssh2_channel_exec(_channel, commandLine)) == LIBSSH2_ERROR_EAGAIN) {
-+                    ssh_waitsocket(_sock, _session);
-+            }
-+            if (rc != 0) {
-+                libssh2_session_last_error(_session, &errmsg, NULL, 0);
-+                fprintf(stderr, "ssh: error exec: %s\n", errmsg);
-+                rc = -1;
-+                break;
-+            }
-+            rc = ssh_client_loop(_session, _channel, _sock); // data transmission
-+            break;
-+        }
-+        // cleanup:
-+        (void)closedir(dirp);
-+        if (rc >= 0) {
-+            libssh2_channel_free(_channel);
-+            libssh2_session_free(_session);
-+            _channel = NULL;
-+            return rc;
-+        }
-+        fprintf(stderr, "Authentification with public key failed\n");
-+    }
-+    // public key auth failed
-+    fprintf(stderr, "Password authentification not supported\n");
-+    // libssh2_channel_free(_channel);
-+    libssh2_session_free(_session);
-+    _channel = NULL;
-+    
-+    return -1;
-+}
-+    
-+#ifdef BLINKSHELL
-+#include <Foundation/Foundation.h>
-+#include <UIKit/UIKit.h>
-+#endif
-+extern int ios_system(char* cmd);
-+
-+void* exec_thread(void* param) {
-+    char** argv = (char**) param;
-+    // path and argv[0] are the same (not in theory, but in practice since Python wrote the command)
-+    // If this is a ssh command, it's probably a socket (for mercurial), so we keep it local.
-+    int argc = 0;
-+    if ((strncmp(argv[0], "ssh", 3) == 0) && ((strlen(argv[0]) == 3) || (argv[0][3] == ' '))) {
-+        while (argv[argc] != NULL) argc++;
-+        ssh_main(argc, argv);
-+        return NULL;
-+    }
-+#ifndef BLINKSHELL
-+    int cmdLength = 0;
-+    while(argv[argc] != NULL) { cmdLength += strlen(argv[argc]) + 1; argc++;}
-+    char* cmd = malloc(cmdLength * sizeof(char));
-+    strcpy(cmd, argv[0]);
-+    argc = 1;
-+    while (argv[argc] != NULL) {
-+        strcat(cmd, " ");
-+        strcat(cmd, argv[argc]);
-+        argc++;
-+    }
-+    ios_system(cmd);
-+    free(cmd);
-+#else
-+    // Otherwise, we send it to blinkshell:
-+    // a) concatenate everything into a single string. BlinkShell will do the parsing.
-+    NSString* command = @"blinkshell://";
-+    argc = 0;
-+    while (argv[argc] != NULL) {
-+        // arguments in python can have spaces inside them
-+        // use %1E to separate arguments:
-+        if (argc != 0) command = [command stringByAppendingString:[NSString stringWithFormat:@"%%1E"]];
-+        // convert spaces to percents, add argument to URL string:
-+        command = [command stringByAppendingString:[[NSString stringWithFormat:@"%s", argv[argc]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
-+        argc++;
-+    }
-+    NSURL *commandURL = [NSURL URLWithString:command];
-+    dispatch_async(dispatch_get_main_queue(), ^{ // iOS 11, sending openURL to main application
-+        [[UIApplication sharedApplication] openURL:commandURL options:@{} completionHandler:nil];
-+    });
-+#endif
-+    return NULL;
-+}
-+    
-+int execv(const char *path, char* const argv[]) {
-+    pthread_t _tid;
-+    pthread_attr_t attr;
-+    pthread_attr_init(&attr);
-+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-+    pthread_create(&_tid, &attr, exec_thread, argv);
-+    return 0;
-+}
-+    
-+int execve(const char *path, char* const argv[], char *const envp[]) {
-+    // TODO: save the environment (HOW?) and current dir
-+    // TODO: replace environment with envp. envp looks a lot like environment, though.
-+    pthread_t _tid;
-+    pthread_attr_t attr;
-+    pthread_attr_init(&attr);
-+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-+    pthread_create(&_tid, &attr, exec_thread, argv);
-+    // TODO: restore the environment (HOW?)
-+    return 0;
-+}
-+    
-+#endif // TARGET_OS_IPHONE
-+    
-+    
+         if (sts==-1 && filename!=NULL) {
+             if ((fp = fopen(filename, "r")) == NULL) {
+-                fprintf(stderr, "%s: can't open file '%s': [Errno %d] %s\n",
++                fprintf(thread_stderr, "%s: can't open file '%s': [Errno %d] %s\n",
+                     argv[0], filename, errno, strerror(errno));
  
+                 return 2;
+@@ -624,7 +654,7 @@
+                 struct stat sb;
+                 if (fstat(fileno(fp), &sb) == 0 &&
+                     S_ISDIR(sb.st_mode)) {
+-                    fprintf(stderr, "%s: '%s' is a directory, cannot continue\n", argv[0], filename);
++                    fprintf(thread_stderr, "%s: '%s' is a directory, cannot continue\n", argv[0], filename);
+                     fclose(fp);
+                     return 1;
+                 }
+@@ -659,13 +689,13 @@
+         (filename != NULL || command != NULL || module != NULL)) {
+         Py_InspectFlag = 0;
+         /* XXX */
+-        sts = PyRun_AnyFileFlags(stdin, "<stdin>", &cf) != 0;
++        sts = PyRun_AnyFileFlags(thread_stdin, "<stdin>", &cf) != 0;
+     }
+ 
+     Py_Finalize();
+ #ifdef RISCOS
+     if (Py_RISCOSWimpFlag)
+-        fprintf(stderr, "\x0cq\x0c"); /* make frontend quit */
++        fprintf(thread_stderr, "\x0cq\x0c"); /* make frontend quit */
+ #endif
+ 
+ #ifdef __INSURE__
+diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parsermodule.c
+--- tmp/Python-2.7.13/Modules/parsermodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/parsermodule.c	2018-01-22 16:15:00.000000000 +0100
+@@ -39,7 +39,7 @@
+ #include "ast.h"
+ #include "pyarena.h"
+ 
+-extern grammar _PyParser_Grammar; /* From graminit.c */
++extern __thread grammar _PyParser_Grammar; /* From graminit.c */
+ 
+ #ifdef lint
+ #include <note.h>
+diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
+--- tmp/Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/posixmodule.c	2018-01-23 15:34:53.000000000 +0100
+@@ -30,6 +30,8 @@
  #ifndef MS_WINDOWS
- PyObject *
-@@ -629,7 +1230,6 @@
- ** man environ(7).
- */
- #include <crt_externs.h>
--static char **environ;
- #elif !defined(_MSC_VER) && ( !defined(__WATCOMC__) || defined(__QNX__) )
- extern char **environ;
- #endif /* !_MSC_VER */
-@@ -2175,7 +2775,7 @@
-     Py_BEGIN_ALLOW_THREADS
-     do {
-         bufsize = bufsize + bufsize_incr;
--        tmpbuf = malloc(bufsize);
-+        tmpbuf = (char*) malloc(bufsize);
-         if (tmpbuf == NULL) {
-             break;
-         }
-@@ -2841,7 +3441,22 @@
-     if (!PyArg_ParseTuple(args, "s:system", &command))
-         return NULL;
-     Py_BEGIN_ALLOW_THREADS
-+#ifdef TARGET_OS_IPHONE
-+#ifndef BLINKSHELL
-+    ios_system(command);
-+#else
-+    // Otherwise, we send it to blinkshell:
-+    NSString* myCommand = @"blinkshell://";
-+    myCommand = [myCommand stringByAppendingString:[NSString stringWithFormat:@"%s", command]];
-+    NSURL *commandURL = [NSURL URLWithString:[myCommand stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
-+    dispatch_async(dispatch_get_main_queue(), ^{ // iOS 11, sending openURL to main application
-+        [[UIApplication sharedApplication] openURL:commandURL options:@{} completionHandler:nil];
-+    });
-+    sts = true;
-+#endif
-+#else
-     sts = system(command);
-+#endif
-     Py_END_ALLOW_THREADS
-     return PyInt_FromLong(sts);
- }
-@@ -3123,7 +3738,8 @@
+ #include "posixmodule.h"
+ #endif
++#include "ios_error.h"
++#define TARGET_OS_IPHONE
+ 
+ #if defined(__VMS)
+ #    include <unixio.h>
+@@ -3123,7 +3125,8 @@
      int sts;
      if (!PyArg_ParseTuple(args, "i:_exit", &sts))
          return NULL;
@@ -2545,24 +2223,9 @@ diff -Naur ../Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmod
      return NULL; /* Make gcc -Wall happy */
  }
  
-@@ -3155,7 +3771,7 @@
-     char **argvlist;
-     Py_ssize_t i, argc;
-     PyObject *(*getitem)(PyObject *, Py_ssize_t);
--
-+    
-     /* execv has two arguments: (path, argv), where
-        argv is a list or tuple of strings. */
- 
-@@ -3196,15 +3812,17 @@
-                             "execv() arg 2 must contain only strings");
-             PyMem_Free(path);
-             return NULL;
--
-         }
-     }
+@@ -3202,7 +3205,12 @@
      argvlist[argc] = NULL;
--
+ 
      execv(path, argvlist);
 -
 +#ifdef TARGET_OS_IPHONE
@@ -2572,34 +2235,11 @@ diff -Naur ../Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmod
 +#endif
 +    
      /* If we get here it's definitely an error */
--
+ 
      free_string_array(argvlist, argc);
-     PyMem_Free(path);
-     return posix_error();
-@@ -3218,7 +3836,7 @@
-     path: path of executable file\n\
-     args: tuple or list of arguments\n\
-     env: dictionary of strings mapping to strings");
--
-+    
- static PyObject *
- posix_execve(PyObject *self, PyObject *args)
- {
-@@ -3230,7 +3848,7 @@
-     Py_ssize_t i, pos, argc, envc;
-     PyObject *(*getitem)(PyObject *, Py_ssize_t);
-     Py_ssize_t lastarg = 0;
--
-+    
-     /* execve has three arguments: (path, argv, env), where
-        argv is a list or tuple of strings and env is a dictionary
-        like posix.environ. */
-@@ -3333,8 +3951,12 @@
- #endif
-     }
+@@ -3335,6 +3343,10 @@
      envlist[envc] = 0;
--
-+    
+ 
      execve(path, argvlist, envlist);
 +#ifdef TARGET_OS_IPHONE
 +        Py_INCREF(Py_None);
@@ -2608,7 +2248,7 @@ diff -Naur ../Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmod
  
      /* If we get here it's definitely an error */
  
-@@ -3866,9 +4488,14 @@
+@@ -3866,6 +3878,10 @@
  static PyObject *
  posix_fork(PyObject *self, PyObject *noargs)
  {
@@ -2619,51 +2259,36 @@ diff -Naur ../Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmod
      pid_t pid;
      int result = 0;
      _PyImport_AcquireLock();
-+    
-     pid = fork();
-     if (pid == 0) {
-         /* child: this clobbers and resets the import lock. */
-@@ -4107,7 +4734,7 @@
-         /* groups will fit in existing array */
-         alt_grouplist = grouplist;
-     } else {
--        alt_grouplist = PyMem_Malloc(n * sizeof(gid_t));
-+        alt_grouplist = (gid_t*) PyMem_Malloc(n * sizeof(gid_t));
-         if (alt_grouplist == NULL) {
-             errno = EINVAL;
-             return posix_error();
-@@ -6690,9 +7317,19 @@
-         return NULL;
-     if (!_PyVerify_fd_dup2(fd, fd2))
-         return posix_error();
-+#ifdef TARGET_OS_IPHONE
-+    res = 1;
-+    if (fd2 == 0) { child_stdin = fdopen(fd, "rb"); }
-+    else if (fd2 == 1) { child_stdout = fdopen(fd, "wb"); }
-+    else if (fd2 == 2) { child_stderr = fdopen(fd, "wb"); }
-+    else res = dup2(fd, fd2);
-+    // TODO: rewrite "*_main" to include child_stdin/child_stdout to be more thread friendly
-+    // TODO: test again with p2cread open in the right direction ("r") -- sinon ça va marcher moins bien
-+#else
-     Py_BEGIN_ALLOW_THREADS
-     res = dup2(fd, fd2);
-     Py_END_ALLOW_THREADS
-+#endif
-     if (res < 0)
-         return posix_error();
-     Py_INCREF(Py_None);
-@@ -6874,7 +7511,7 @@
-         return NULL;
+@@ -6077,7 +6093,7 @@
+ static PyObject *
+ posix_setgroups(PyObject *self, PyObject *groups)
+ {
+-    int i, len;
++    Py_ssize_t i, len;
+     gid_t grouplist[MAX_GROUPS];
  
-     /* Sanitize mode.  See fileobject.c */
--    mode = PyMem_MALLOC(strlen(orgmode)+3);
-+    mode = (char*) PyMem_MALLOC(strlen(orgmode)+3);
-     if (!mode) {
-         PyErr_NoMemory();
+     if (!PySequence_Check(groups)) {
+@@ -6085,6 +6101,9 @@
          return NULL;
-diff -Naur ../Python-2.7.13/Modules/python.c Python-2.7.13/Modules/python.c
---- ../Python-2.7.13/Modules/python.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/python.c	2017-12-04 14:15:31.000000000 +0100
+     }
+     len = PySequence_Size(groups);
++    if (len < 0) {
++        return NULL;
++    }
+     if (len > MAX_GROUPS) {
+         PyErr_SetString(PyExc_ValueError, "too many groups");
+         return NULL;
+@@ -6681,6 +6700,7 @@
+ PyDoc_STRVAR(posix_dup2__doc__,
+ "dup2(old_fd, new_fd)\n\n\
+ Duplicate file descriptor.");
++    FILE *child_stdin, *child_stdout, *child_stderr;
+ 
+ static PyObject *
+ posix_dup2(PyObject *self, PyObject *args)
+diff -Naur tmp/Python-2.7.13/Modules/python.c Python-2.7.13/Modules/python.c
+--- tmp/Python-2.7.13/Modules/python.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/python.c	2018-01-07 17:01:59.000000000 +0100
 @@ -7,7 +7,7 @@
  #endif
  
@@ -2673,3 +2298,45 @@ diff -Naur ../Python-2.7.13/Modules/python.c Python-2.7.13/Modules/python.c
  {
  	/* 754 requires that FP exceptions run in "no stop" mode by default,
  	 * and until C vendors implement C99's ways to control FP exceptions,
+diff -Naur tmp/Python-2.7.13/Modules/threadmodule.c Python-2.7.13/Modules/threadmodule.c
+--- tmp/Python-2.7.13/Modules/threadmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/threadmodule.c	2018-01-21 17:47:32.000000000 +0100
+@@ -12,6 +12,7 @@
+ #endif
+ 
+ #include "pythread.h"
++#include "ios_error.h"
+ 
+ static PyObject *ThreadError;
+ static PyObject *str_dict;
+@@ -632,7 +633,7 @@
+             if (file)
+                 PyFile_WriteObject(boot->func, file, 0);
+             else
+-                PyObject_Print(boot->func, stderr, 0);
++                PyObject_Print(boot->func, thread_stderr, 0);
+             PySys_WriteStderr("\n");
+             PyErr_Restore(exc, value, tb);
+             PyErr_PrintEx(0);
+diff -Naur tmp/Python-2.7.13/Modules/xxmodule.c Python-2.7.13/Modules/xxmodule.c
+--- tmp/Python-2.7.13/Modules/xxmodule.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Modules/xxmodule.c	2018-01-21 18:11:19.000000000 +0100
+@@ -15,6 +15,7 @@
+ /* Xxo objects */
+ 
+ #include "Python.h"
++#include "ios_error.h"
+ 
+ static PyObject *ErrorObject;
+ 
+@@ -188,8 +189,8 @@
+     item = PyList_GetItem(list, 0);
+     /* Py_INCREF(item); */
+     PyList_SetItem(list, 1, PyInt_FromLong(0L));
+-    PyObject_Print(item, stdout, 0);
+-    printf("\n");
++    PyObject_Print(item, thread_stdout, 0);
++    fprintf(thread_stdout, "\n");
+     /* Py_DECREF(item); */
+ 
+     Py_INCREF(Py_None);
