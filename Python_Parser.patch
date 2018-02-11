@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Parser/acceler.c Python-2.7.13/Parser/acceler.c
 --- tmp/Python-2.7.13/Parser/acceler.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/acceler.c	2018-01-21 18:11:19.000000000 +0100
++++ Python-2.7.13/Parser/acceler.c	2018-02-11 17:27:47.000000000 +0100
 @@ -15,6 +15,7 @@
  #include "node.h"
  #include "token.h"
@@ -59,7 +59,7 @@ diff -Naur tmp/Python-2.7.13/Parser/acceler.c Python-2.7.13/Parser/acceler.c
          s->s_upper = nl;
 diff -Naur tmp/Python-2.7.13/Parser/firstsets.c Python-2.7.13/Parser/firstsets.c
 --- tmp/Python-2.7.13/Parser/firstsets.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/firstsets.c	2018-01-22 16:10:27.000000000 +0100
++++ Python-2.7.13/Parser/firstsets.c	2018-02-11 17:27:47.000000000 +0100
 @@ -4,8 +4,9 @@
  #include "pgenheaders.h"
  #include "grammar.h"
@@ -127,7 +127,7 @@ diff -Naur tmp/Python-2.7.13/Parser/firstsets.c Python-2.7.13/Parser/firstsets.c
      PyObject_FREE(sym);
 diff -Naur tmp/Python-2.7.13/Parser/grammar.c Python-2.7.13/Parser/grammar.c
 --- tmp/Python-2.7.13/Parser/grammar.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/grammar.c	2018-01-22 16:10:32.000000000 +0100
++++ Python-2.7.13/Parser/grammar.c	2018-02-11 17:27:47.000000000 +0100
 @@ -12,8 +12,9 @@
  #ifdef RISCOS
  #include <unixlib.h>
@@ -256,7 +256,7 @@ diff -Naur tmp/Python-2.7.13/Parser/grammar.c Python-2.7.13/Parser/grammar.c
  }
 diff -Naur tmp/Python-2.7.13/Parser/listnode.c Python-2.7.13/Parser/listnode.c
 --- tmp/Python-2.7.13/Parser/listnode.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/listnode.c	2018-01-21 17:44:05.000000000 +0100
++++ Python-2.7.13/Parser/listnode.c	2018-02-11 17:27:47.000000000 +0100
 @@ -4,6 +4,7 @@
  #include "pgenheaders.h"
  #include "token.h"
@@ -276,7 +276,7 @@ diff -Naur tmp/Python-2.7.13/Parser/listnode.c Python-2.7.13/Parser/listnode.c
  static int level, atbol;
 diff -Naur tmp/Python-2.7.13/Parser/myreadline.c Python-2.7.13/Parser/myreadline.c
 --- tmp/Python-2.7.13/Parser/myreadline.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/myreadline.c	2018-01-22 16:14:35.000000000 +0100
++++ Python-2.7.13/Parser/myreadline.c	2018-02-11 17:27:47.000000000 +0100
 @@ -14,6 +14,7 @@
  #define WIN32_LEAN_AND_MEAN
  #include "windows.h"
@@ -317,7 +317,7 @@ diff -Naur tmp/Python-2.7.13/Parser/myreadline.c Python-2.7.13/Parser/myreadline
          break;
 diff -Naur tmp/Python-2.7.13/Parser/parser.c Python-2.7.13/Parser/parser.c
 --- tmp/Python-2.7.13/Parser/parser.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/parser.c	2018-01-22 16:11:35.000000000 +0100
++++ Python-2.7.13/Parser/parser.c	2018-02-11 17:27:47.000000000 +0100
 @@ -12,10 +12,10 @@
  #include "node.h"
  #include "parser.h"
@@ -511,7 +511,7 @@ diff -Naur tmp/Python-2.7.13/Parser/parser.c Python-2.7.13/Parser/parser.c
  #endif /* Py_DEBUG */
 diff -Naur tmp/Python-2.7.13/Parser/parsetok.c Python-2.7.13/Parser/parsetok.c
 --- tmp/Python-2.7.13/Parser/parsetok.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/parsetok.c	2018-01-22 16:11:43.000000000 +0100
++++ Python-2.7.13/Parser/parsetok.c	2018-02-11 17:27:47.000000000 +0100
 @@ -9,8 +9,9 @@
  #include "parsetok.h"
  #include "errcode.h"
@@ -543,7 +543,7 @@ diff -Naur tmp/Python-2.7.13/Parser/parsetok.c Python-2.7.13/Parser/parsetok.c
          }
 diff -Naur tmp/Python-2.7.13/Parser/pgen.c Python-2.7.13/Parser/pgen.c
 --- tmp/Python-2.7.13/Parser/pgen.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/pgen.c	2018-01-22 16:11:35.000000000 +0100
++++ Python-2.7.13/Parser/pgen.c	2018-02-11 17:27:47.000000000 +0100
 @@ -9,9 +9,10 @@
  #include "grammar.h"
  #include "metagrammar.h"
@@ -672,7 +672,7 @@ diff -Naur tmp/Python-2.7.13/Parser/pgen.c Python-2.7.13/Parser/pgen.c
          makedfa(gr, gr->gr_nfa[i], d);
 diff -Naur tmp/Python-2.7.13/Parser/tokenizer.c Python-2.7.13/Parser/tokenizer.c
 --- tmp/Python-2.7.13/Parser/tokenizer.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/tokenizer.c	2018-01-21 18:11:19.000000000 +0100
++++ Python-2.7.13/Parser/tokenizer.c	2018-02-11 17:27:47.000000000 +0100
 @@ -17,6 +17,7 @@
  #include "codecs.h"
  #include "abstract.h"

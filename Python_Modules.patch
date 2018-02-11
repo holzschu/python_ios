@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Modules/Setup Python-2.7.13/Modules/Setup
 --- tmp/Python-2.7.13/Modules/Setup	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/Setup	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,499 @@
 +# -*- makefile -*-
 +# The file Setup is used by the makesetup script to construct the files
@@ -503,7 +503,7 @@ diff -Naur tmp/Python-2.7.13/Modules/Setup Python-2.7.13/Modules/Setup
 +xxsubtype xxsubtype.c
 diff -Naur tmp/Python-2.7.13/Modules/Setup.config Python-2.7.13/Modules/Setup.config
 --- tmp/Python-2.7.13/Modules/Setup.config	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.config	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/Setup.config	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,13 @@
 +# This file is transmogrified into Setup.config by config.status.
 +
@@ -520,7 +520,7 @@ diff -Naur tmp/Python-2.7.13/Modules/Setup.config Python-2.7.13/Modules/Setup.co
 +# by the setup.py script in Python 2.1 and later.
 diff -Naur tmp/Python-2.7.13/Modules/Setup.dist Python-2.7.13/Modules/Setup.dist
 --- tmp/Python-2.7.13/Modules/Setup.dist	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.dist	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/Setup.dist	2018-02-11 17:27:47.000000000 +0100
 @@ -215,10 +215,10 @@
  
  # Socket module helper for SSL support; you must comment out the other
@@ -538,12 +538,12 @@ diff -Naur tmp/Python-2.7.13/Modules/Setup.dist Python-2.7.13/Modules/Setup.dist
  # on many systems (where -lcrypt is needed), e.g. Linux (I believe).
 diff -Naur tmp/Python-2.7.13/Modules/Setup.local Python-2.7.13/Modules/Setup.local
 --- tmp/Python-2.7.13/Modules/Setup.local	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/Setup.local	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/Setup.local	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1 @@
 +# Edit this file for local setup changes
 diff -Naur tmp/Python-2.7.13/Modules/_ctypes/malloc_closure.c Python-2.7.13/Modules/_ctypes/malloc_closure.c
 --- tmp/Python-2.7.13/Modules/_ctypes/malloc_closure.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_ctypes/malloc_closure.c	2018-01-21 18:11:18.000000000 +0100
++++ Python-2.7.13/Modules/_ctypes/malloc_closure.c	2018-02-11 17:27:47.000000000 +0100
 @@ -75,7 +75,7 @@
  #endif
  
@@ -555,7 +555,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_ctypes/malloc_closure.c Python-2.7.13/Modu
      /* put them into the free list */
 diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/connection.h Python-2.7.13/Modules/_multiprocessing/connection.h
 --- tmp/Python-2.7.13/Modules/_multiprocessing/connection.h	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_multiprocessing/connection.h	2018-01-22 16:08:26.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/connection.h	2018-02-11 17:27:47.000000000 +0100
 @@ -474,7 +474,7 @@
               "    Connection(handle, readable=True, writable=True).\n\n"
               "The constructor does *not* duplicate the handle.");
@@ -567,7 +567,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/connection.h Python-2.7.13
      /* tp_basicsize      */ sizeof(ConnectionObject),
 diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.c Python-2.7.13/Modules/_multiprocessing/multiprocessing.c
 --- tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.c	2018-01-22 16:08:04.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.c	2018-02-11 17:27:47.000000000 +0100
 @@ -16,8 +16,8 @@
  
  PyObject *create_win32_namespace(void);
@@ -581,7 +581,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.c Python-2
   * Function which raises exceptions based on error codes
 diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.h Python-2.7.13/Modules/_multiprocessing/multiprocessing.h
 --- tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.h	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.h	2018-01-22 16:08:16.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/multiprocessing.h	2018-02-11 17:27:47.000000000 +0100
 @@ -130,14 +130,14 @@
   * Externs - not all will really exist on all platforms
   */
@@ -607,7 +607,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/multiprocessing.h Python-2
   * Py3k compatibility
 diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/semaphore.c Python-2.7.13/Modules/_multiprocessing/semaphore.c
 --- tmp/Python-2.7.13/Modules/_multiprocessing/semaphore.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_multiprocessing/semaphore.c	2018-01-22 16:08:34.000000000 +0100
++++ Python-2.7.13/Modules/_multiprocessing/semaphore.c	2018-02-11 17:27:47.000000000 +0100
 @@ -598,7 +598,7 @@
   * Semaphore type
   */
@@ -619,7 +619,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_multiprocessing/semaphore.c Python-2.7.13/
      /* tp_basicsize      */ sizeof(SemLockObject),
 diff -Naur tmp/Python-2.7.13/Modules/_ssl.c Python-2.7.13/Modules/_ssl.c
 --- tmp/Python-2.7.13/Modules/_ssl.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/_ssl.c	2018-01-21 16:22:38.000000000 +0100
++++ Python-2.7.13/Modules/_ssl.c	2018-02-11 17:27:47.000000000 +0100
 @@ -776,7 +776,7 @@
          value = X509_NAME_ENTRY_get_data(entry);
          attr = _create_tuple_for_attribute(name, value);
@@ -631,7 +631,7 @@ diff -Naur tmp/Python-2.7.13/Modules/_ssl.c Python-2.7.13/Modules/_ssl.c
              PyBytes_AS_STRING(PyTuple_GET_ITEM(attr, 1)));
 diff -Naur tmp/Python-2.7.13/Modules/bsddbmodule.c Python-2.7.13/Modules/bsddbmodule.c
 --- tmp/Python-2.7.13/Modules/bsddbmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/bsddbmodule.c	2018-01-25 12:00:58.000000000 +0100
++++ Python-2.7.13/Modules/bsddbmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -17,6 +17,7 @@
  #ifdef WITH_THREAD
  #include "pythread.h"
@@ -660,7 +660,7 @@ diff -Naur tmp/Python-2.7.13/Modules/bsddbmodule.c Python-2.7.13/Modules/bsddbmo
      else {
 diff -Naur tmp/Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
 --- tmp/Python-2.7.13/Modules/config.c	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/config.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/config.c	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,187 @@
 +/* Generated automatically from ./Modules/config.c.in by makesetup. */
 +/* -*- C -*- ***********************************************
@@ -851,7 +851,7 @@ diff -Naur tmp/Python-2.7.13/Modules/config.c Python-2.7.13/Modules/config.c
 +#endif
 diff -Naur tmp/Python-2.7.13/Modules/config_sharedlibs.c Python-2.7.13/Modules/config_sharedlibs.c
 --- tmp/Python-2.7.13/Modules/config_sharedlibs.c	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/config_sharedlibs.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/config_sharedlibs.c	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,97 @@
 +/* Generated automatically from ./Modules/config.c.in by makesetup. */
 +/* -*- C -*- ***********************************************
@@ -952,7 +952,7 @@ diff -Naur tmp/Python-2.7.13/Modules/config_sharedlibs.c Python-2.7.13/Modules/c
 +#endif
 diff -Naur tmp/Python-2.7.13/Modules/expat/xmlparse.c Python-2.7.13/Modules/expat/xmlparse.c
 --- tmp/Python-2.7.13/Modules/expat/xmlparse.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmlparse.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmlparse.c	2018-02-11 17:27:47.000000000 +0100
 @@ -13,7 +13,7 @@
  #elif defined(__WATCOMC__)
  #include "watcomconfig.h"
@@ -964,7 +964,7 @@ diff -Naur tmp/Python-2.7.13/Modules/expat/xmlparse.c Python-2.7.13/Modules/expa
  #include <stddef.h>
 diff -Naur tmp/Python-2.7.13/Modules/expat/xmlrole.c Python-2.7.13/Modules/expat/xmlrole.c
 --- tmp/Python-2.7.13/Modules/expat/xmlrole.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmlrole.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmlrole.c	2018-02-11 17:27:47.000000000 +0100
 @@ -14,7 +14,7 @@
  #include "watcomconfig.h"
  #else
@@ -976,7 +976,7 @@ diff -Naur tmp/Python-2.7.13/Modules/expat/xmlrole.c Python-2.7.13/Modules/expat
  
 diff -Naur tmp/Python-2.7.13/Modules/expat/xmltok.c Python-2.7.13/Modules/expat/xmltok.c
 --- tmp/Python-2.7.13/Modules/expat/xmltok.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/expat/xmltok.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/expat/xmltok.c	2018-02-11 17:27:47.000000000 +0100
 @@ -14,7 +14,7 @@
  #include "watcomconfig.h"
  #else
@@ -988,7 +988,7 @@ diff -Naur tmp/Python-2.7.13/Modules/expat/xmltok.c Python-2.7.13/Modules/expat/
  
 diff -Naur tmp/Python-2.7.13/Modules/fpectlmodule.c Python-2.7.13/Modules/fpectlmodule.c
 --- tmp/Python-2.7.13/Modules/fpectlmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/fpectlmodule.c	2018-01-21 17:55:05.000000000 +0100
++++ Python-2.7.13/Modules/fpectlmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -75,7 +75,8 @@
  #include <starlet.h>
  #include <ieeedef.h>
@@ -1019,7 +1019,7 @@ diff -Naur tmp/Python-2.7.13/Modules/fpectlmodule.c Python-2.7.13/Modules/fpectl
      return Py_None;
 diff -Naur tmp/Python-2.7.13/Modules/gcmodule.c Python-2.7.13/Modules/gcmodule.c
 --- tmp/Python-2.7.13/Modules/gcmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/gcmodule.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/gcmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -1437,7 +1437,7 @@
          n = 0; /* already collecting, don't do anything */
      else {
@@ -1031,7 +1031,7 @@ diff -Naur tmp/Python-2.7.13/Modules/gcmodule.c Python-2.7.13/Modules/gcmodule.c
  
 diff -Naur tmp/Python-2.7.13/Modules/getpath.c Python-2.7.13/Modules/getpath.c
 --- tmp/Python-2.7.13/Modules/getpath.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/getpath.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/getpath.c	2018-02-11 17:27:47.000000000 +0100
 @@ -448,9 +448,14 @@
          ** which is in the framework, not relative to the executable, which may
          ** be outside of the framework. Except when we're in the build directory...
@@ -1051,7 +1051,7 @@ diff -Naur tmp/Python-2.7.13/Modules/getpath.c Python-2.7.13/Modules/getpath.c
          /* See if we might be in the build directory. The framework in the
 diff -Naur tmp/Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 --- tmp/Python-2.7.13/Modules/getpath.m	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/getpath.m	2018-01-21 17:37:26.000000000 +0100
++++ Python-2.7.13/Modules/getpath.m	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,708 @@
 +/* Return the initial module search path. */
 +
@@ -1763,7 +1763,7 @@ diff -Naur tmp/Python-2.7.13/Modules/getpath.m Python-2.7.13/Modules/getpath.m
 +
 diff -Naur tmp/Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
 --- tmp/Python-2.7.13/Modules/ld_so_aix	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Modules/ld_so_aix	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/ld_so_aix	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,195 @@
 +#!/bin/sh
 +#
@@ -1962,7 +1962,7 @@ diff -Naur tmp/Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
 +exit $retval
 diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
 --- tmp/Python-2.7.13/Modules/main.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/main.c	2018-01-22 16:14:21.000000000 +0100
++++ Python-2.7.13/Modules/main.c	2018-02-11 17:27:47.000000000 +0100
 @@ -4,10 +4,13 @@
  #include "osdefs.h"
  #include "code.h" /* For CO_FUTURE_DIVISION */
@@ -2200,7 +2200,7 @@ diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
  #ifdef __INSURE__
 diff -Naur tmp/Python-2.7.13/Modules/operator.c Python-2.7.13/Modules/operator.c
 --- tmp/Python-2.7.13/Modules/operator.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/operator.c	2018-01-25 11:59:41.000000000 +0100
++++ Python-2.7.13/Modules/operator.c	2018-02-11 17:27:47.000000000 +0100
 @@ -259,7 +259,7 @@
      volatile const unsigned char *left;
      volatile const unsigned char *right;
@@ -2212,7 +2212,7 @@ diff -Naur tmp/Python-2.7.13/Modules/operator.c Python-2.7.13/Modules/operator.c
      length = len_b;
 diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parsermodule.c
 --- tmp/Python-2.7.13/Modules/parsermodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/parsermodule.c	2018-01-22 16:15:00.000000000 +0100
++++ Python-2.7.13/Modules/parsermodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -39,7 +39,7 @@
  #include "ast.h"
  #include "pyarena.h"
@@ -2224,7 +2224,7 @@ diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parser
  #include <note.h>
 diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
 --- tmp/Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/posixmodule.c	2018-01-25 11:57:20.000000000 +0100
++++ Python-2.7.13/Modules/posixmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -30,6 +30,8 @@
  #ifndef MS_WINDOWS
  #include "posixmodule.h"
@@ -2312,7 +2312,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
  posix_dup2(PyObject *self, PyObject *args)
 diff -Naur tmp/Python-2.7.13/Modules/python.c Python-2.7.13/Modules/python.c
 --- tmp/Python-2.7.13/Modules/python.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/python.c	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Modules/python.c	2018-02-11 17:27:47.000000000 +0100
 @@ -7,7 +7,7 @@
  #endif
  
@@ -2324,7 +2324,7 @@ diff -Naur tmp/Python-2.7.13/Modules/python.c Python-2.7.13/Modules/python.c
  	 * and until C vendors implement C99's ways to control FP exceptions,
 diff -Naur tmp/Python-2.7.13/Modules/threadmodule.c Python-2.7.13/Modules/threadmodule.c
 --- tmp/Python-2.7.13/Modules/threadmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/threadmodule.c	2018-01-21 17:47:32.000000000 +0100
++++ Python-2.7.13/Modules/threadmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -12,6 +12,7 @@
  #endif
  
@@ -2344,7 +2344,7 @@ diff -Naur tmp/Python-2.7.13/Modules/threadmodule.c Python-2.7.13/Modules/thread
              PyErr_PrintEx(0);
 diff -Naur tmp/Python-2.7.13/Modules/xxmodule.c Python-2.7.13/Modules/xxmodule.c
 --- tmp/Python-2.7.13/Modules/xxmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/xxmodule.c	2018-01-21 18:11:19.000000000 +0100
++++ Python-2.7.13/Modules/xxmodule.c	2018-02-11 17:27:47.000000000 +0100
 @@ -15,6 +15,7 @@
  /* Xxo objects */
  

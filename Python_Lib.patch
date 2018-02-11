@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Lib/CGIHTTPServer.py Python-2.7.13/Lib/CGIHTTPServer.py
 --- tmp/Python-2.7.13/Lib/CGIHTTPServer.py	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Lib/CGIHTTPServer.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/CGIHTTPServer.py	2018-02-11 17:27:47.000000000 +0100
 @@ -246,9 +246,13 @@
                  os.dup2(self.rfile.fileno(), 0)
                  os.dup2(self.wfile.fileno(), 1)
@@ -18,7 +18,7 @@ diff -Naur tmp/Python-2.7.13/Lib/CGIHTTPServer.py Python-2.7.13/Lib/CGIHTTPServe
              # Non Unix - use subprocess
 diff -Naur tmp/Python-2.7.13/Lib/SocketServer.py Python-2.7.13/Lib/SocketServer.py
 --- tmp/Python-2.7.13/Lib/SocketServer.py	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Lib/SocketServer.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/SocketServer.py	2018-02-11 17:27:47.000000000 +0100
 @@ -570,13 +570,17 @@
              try:
                  self.finish_request(request, client_address)
@@ -41,7 +41,7 @@ diff -Naur tmp/Python-2.7.13/Lib/SocketServer.py Python-2.7.13/Lib/SocketServer.
  class ThreadingMixIn:
 diff -Naur tmp/Python-2.7.13/Lib/_osx_support.py Python-2.7.13/Lib/_osx_support.py
 --- tmp/Python-2.7.13/Lib/_osx_support.py	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Lib/_osx_support.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/_osx_support.py	2018-02-11 17:27:47.000000000 +0100
 @@ -442,7 +442,7 @@
  
      if macver:
@@ -128,7 +128,7 @@ diff -Naur tmp/Python-2.7.13/Lib/_osx_support.py Python-2.7.13/Lib/_osx_support.
      return (osname, release, machine)
 diff -Naur tmp/Python-2.7.13/Lib/_sysconfigdata.py Python-2.7.13/Lib/_sysconfigdata.py
 --- tmp/Python-2.7.13/Lib/_sysconfigdata.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/_sysconfigdata.py	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Lib/_sysconfigdata.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,535 @@
 +# system configuration generated and used by the sysconfig module
 +build_time_vars = {'AC_APPLE_UNIVERSAL_BUILD': 1,
@@ -667,7 +667,7 @@ diff -Naur tmp/Python-2.7.13/Lib/_sysconfigdata.py Python-2.7.13/Lib/_sysconfigd
 + 'srcdir': '~/Documents/'}
 diff -Naur tmp/Python-2.7.13/Lib/distutils/spawn.py Python-2.7.13/Lib/distutils/spawn.py
 --- tmp/Python-2.7.13/Lib/distutils/spawn.py	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Lib/distutils/spawn.py	2018-01-07 17:01:57.000000000 +0100
++++ Python-2.7.13/Lib/distutils/spawn.py	2018-02-11 17:27:47.000000000 +0100
 @@ -148,17 +148,24 @@
                  exec_fn(executable, cmd)
              else:
@@ -697,7 +697,7 @@ diff -Naur tmp/Python-2.7.13/Lib/distutils/spawn.py Python-2.7.13/Lib/distutils/
          # (ie. keep waiting if it's merely stopped)
 diff -Naur tmp/Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle
 --- tmp/Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,430 @@
 +€ccollections
 +OrderedDict
@@ -1132,7 +1132,7 @@ diff -Naur tmp/Python-2.7.13/Lib/lib2to3/Grammar2.7.13.final.0.pickle Python-2.7
 \ No newline at end of file
 diff -Naur tmp/Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle
 --- tmp/Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,10 @@
 +€ccollections
 +OrderedDict
@@ -1147,7 +1147,7 @@ diff -Naur tmp/Python-2.7.13/Lib/lib2to3/PatternGrammar2.7.13.final.0.pickle Pyt
 \ No newline at end of file
 diff -Naur tmp/Python-2.7.13/Lib/multiprocessing/forking.py Python-2.7.13/Lib/multiprocessing/forking.py
 --- tmp/Python-2.7.13/Lib/multiprocessing/forking.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/multiprocessing/forking.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/multiprocessing/forking.py	2018-02-11 17:27:47.000000000 +0100
 @@ -126,7 +126,9 @@
                  code = process_obj._bootstrap()
                  sys.stdout.flush()
@@ -1161,7 +1161,7 @@ diff -Naur tmp/Python-2.7.13/Lib/multiprocessing/forking.py Python-2.7.13/Lib/mu
              if self.returncode is None:
 diff -Naur tmp/Python-2.7.13/Lib/os.py Python-2.7.13/Lib/os.py
 --- tmp/Python-2.7.13/Lib/os.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/os.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/os.py	2018-02-11 17:27:47.000000000 +0100
 @@ -368,7 +368,7 @@
      head, tail = path.split(file)
      if head:
@@ -1196,7 +1196,7 @@ diff -Naur tmp/Python-2.7.13/Lib/os.py Python-2.7.13/Lib/os.py
              if mode == P_NOWAIT:
 diff -Naur tmp/Python-2.7.13/Lib/popen2.py Python-2.7.13/Lib/popen2.py
 --- tmp/Python-2.7.13/Lib/popen2.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/popen2.py	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Lib/popen2.py	2018-02-11 17:27:47.000000000 +0100
 @@ -52,24 +52,29 @@
          p2cread, p2cwrite = os.pipe()
          c2pread, c2pwrite = os.pipe()
@@ -1269,7 +1269,7 @@ diff -Naur tmp/Python-2.7.13/Lib/popen2.py Python-2.7.13/Lib/popen2.py
  
 diff -Naur tmp/Python-2.7.13/Lib/pty.py Python-2.7.13/Lib/pty.py
 --- tmp/Python-2.7.13/Lib/pty.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/pty.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/pty.py	2018-02-11 17:27:47.000000000 +0100
 @@ -99,6 +99,9 @@
          if pid == CHILD:
              try:
@@ -1300,7 +1300,7 @@ diff -Naur tmp/Python-2.7.13/Lib/pty.py Python-2.7.13/Lib/pty.py
          tty.setraw(STDIN_FILENO)
 diff -Naur tmp/Python-2.7.13/Lib/subprocess.py Python-2.7.13/Lib/subprocess.py
 --- tmp/Python-2.7.13/Lib/subprocess.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/subprocess.py	2018-01-23 18:44:05.000000000 +0100
++++ Python-2.7.13/Lib/subprocess.py	2018-02-11 17:27:47.000000000 +0100
 @@ -381,6 +381,29 @@
           c2pread, c2pwrite,
           errread, errwrite), to_close = self._get_handles(stdin, stdout, stderr)
@@ -1484,7 +1484,7 @@ diff -Naur tmp/Python-2.7.13/Lib/subprocess.py Python-2.7.13/Lib/subprocess.py
  
 diff -Naur tmp/Python-2.7.13/Lib/urllib.py Python-2.7.13/Lib/urllib.py
 --- tmp/Python-2.7.13/Lib/urllib.py	2016-12-17 21:05:06.000000000 +0100
-+++ Python-2.7.13/Lib/urllib.py	2018-01-07 17:01:59.000000000 +0100
++++ Python-2.7.13/Lib/urllib.py	2018-02-11 17:27:47.000000000 +0100
 @@ -1436,92 +1436,94 @@
      return 0
  
@@ -1668,7 +1668,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib.py Python-2.7.13/Lib/urllib.py
  
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/__init__.py Python-2.7.13/Lib/urllib3/__init__.py
 --- tmp/Python-2.7.13/Lib/urllib3/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/__init__.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/__init__.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,96 @@
 +"""
 +urllib3 - Thread-safe connection pooling and re-using.
@@ -1768,7 +1768,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/__init__.py Python-2.7.13/Lib/urllib3/_
 +    warnings.simplefilter('ignore', category)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/_collections.py Python-2.7.13/Lib/urllib3/_collections.py
 --- tmp/Python-2.7.13/Lib/urllib3/_collections.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/_collections.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/_collections.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,314 @@
 +from __future__ import absolute_import
 +from collections import Mapping, MutableMapping
@@ -2086,7 +2086,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/_collections.py Python-2.7.13/Lib/urlli
 +        return cls(headers)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/connection.py Python-2.7.13/Lib/urllib3/connection.py
 --- tmp/Python-2.7.13/Lib/urllib3/connection.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/connection.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/connection.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,373 @@
 +from __future__ import absolute_import
 +import datetime
@@ -2463,7 +2463,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/connection.py Python-2.7.13/Lib/urllib3
 +    HTTPSConnection = DummyConnection
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/connectionpool.py Python-2.7.13/Lib/urllib3/connectionpool.py
 --- tmp/Python-2.7.13/Lib/urllib3/connectionpool.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/connectionpool.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/connectionpool.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,905 @@
 +from __future__ import absolute_import
 +import errno
@@ -3372,7 +3372,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/connectionpool.py Python-2.7.13/Lib/url
 +    return host
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,593 @@
 +"""
 +This module uses ctypes to bind a whole bunch of functions and constants from
@@ -3969,7 +3969,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/bindings.py Py
 +    TLS_CHACHA20_POLY1305_SHA256 = 0x1303
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,343 @@
 +"""
 +Low-level helpers for the SecureTransport bindings.
@@ -4316,7 +4316,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/_securetransport/low_level.py P
 +            CoreFoundation.CFRelease(obj)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/appengine.py Python-2.7.13/Lib/urllib3/contrib/appengine.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/appengine.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/appengine.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/appengine.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,296 @@
 +"""
 +This module provides a pool manager that uses Google App Engine's
@@ -4616,7 +4616,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/appengine.py Python-2.7.13/Lib/
 +    return os.environ.get('GAE_VM', False) == 'true'
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,112 @@
 +"""
 +NTLM authenticating pool, contributed by erikcederstran
@@ -4732,7 +4732,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/ntlmpool.py Python-2.7.13/Lib/u
 +                                                       assert_same_host)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,455 @@
 +"""
 +SSL with SNI_-support for Python 2. Follow these instructions if you would
@@ -5191,7 +5191,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/pyopenssl.py Python-2.7.13/Lib/
 +    return err_no == 0
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/securetransport.py Python-2.7.13/Lib/urllib3/contrib/securetransport.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/securetransport.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/securetransport.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/securetransport.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,810 @@
 +"""
 +SecureTranport support for urllib3 via ctypes.
@@ -6005,7 +6005,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/securetransport.py Python-2.7.1
 +        return wrapped_socket
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/socks.py Python-2.7.13/Lib/urllib3/contrib/socks.py
 --- tmp/Python-2.7.13/Lib/urllib3/contrib/socks.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/contrib/socks.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/contrib/socks.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,188 @@
 +# -*- coding: utf-8 -*-
 +"""
@@ -6197,7 +6197,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/contrib/socks.py Python-2.7.13/Lib/urll
 +        self.pool_classes_by_scheme = SOCKSProxyManager.pool_classes_by_scheme
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/exceptions.py Python-2.7.13/Lib/urllib3/exceptions.py
 --- tmp/Python-2.7.13/Lib/urllib3/exceptions.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/exceptions.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/exceptions.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,246 @@
 +from __future__ import absolute_import
 +from .packages.six.moves.http_client import (
@@ -6447,7 +6447,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/exceptions.py Python-2.7.13/Lib/urllib3
 +    pass
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/fields.py Python-2.7.13/Lib/urllib3/fields.py
 --- tmp/Python-2.7.13/Lib/urllib3/fields.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/fields.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/fields.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,178 @@
 +from __future__ import absolute_import
 +import email.utils
@@ -6629,7 +6629,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/fields.py Python-2.7.13/Lib/urllib3/fie
 +        self.headers['Content-Location'] = content_location
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/filepost.py Python-2.7.13/Lib/urllib3/filepost.py
 --- tmp/Python-2.7.13/Lib/urllib3/filepost.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/filepost.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/filepost.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,94 @@
 +from __future__ import absolute_import
 +import codecs
@@ -6727,7 +6727,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/filepost.py Python-2.7.13/Lib/urllib3/f
 +    return body.getvalue(), content_type
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/__init__.py Python-2.7.13/Lib/urllib3/packages/__init__.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/__init__.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/__init__.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,5 @@
 +from __future__ import absolute_import
 +
@@ -6736,7 +6736,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/__init__.py Python-2.7.13/Lib/
 +__all__ = ('ssl_match_hostname', )
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/backports/makefile.py Python-2.7.13/Lib/urllib3/packages/backports/makefile.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/backports/makefile.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/backports/makefile.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/backports/makefile.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,53 @@
 +# -*- coding: utf-8 -*-
 +"""
@@ -6793,7 +6793,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/backports/makefile.py Python-2
 +    return text
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ordered_dict.py Python-2.7.13/Lib/urllib3/packages/ordered_dict.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/ordered_dict.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/ordered_dict.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/ordered_dict.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,259 @@
 +# Backport of OrderedDict() class that runs on Python 2.4, 2.5, 2.6, 2.7 and pypy.
 +# Passes Python2.7's test suite and incorporates all the latest updates.
@@ -7056,7 +7056,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ordered_dict.py Python-2.7.13/
 +        return ItemsView(self)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/six.py Python-2.7.13/Lib/urllib3/packages/six.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/six.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/six.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/six.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,868 @@
 +"""Utilities for writing code that runs on Python 2 and 3"""
 +
@@ -7928,7 +7928,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/six.py Python-2.7.13/Lib/urlli
 +sys.meta_path.append(_importer)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,19 @@
 +import sys
 +
@@ -7951,7 +7951,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/__init__.py
 +__all__ = ('CertificateError', 'match_hostname')
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementation.py Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementation.py
 --- tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementation.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementation.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementation.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,157 @@
 +"""The match_hostname() function from Python 3.3.3, essential when using SSL."""
 +
@@ -8112,7 +8112,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/packages/ssl_match_hostname/_implementa
 +            "subjectAltName fields were found")
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/poolmanager.py Python-2.7.13/Lib/urllib3/poolmanager.py
 --- tmp/Python-2.7.13/Lib/urllib3/poolmanager.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/poolmanager.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/poolmanager.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,440 @@
 +from __future__ import absolute_import
 +import collections
@@ -8556,7 +8556,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/poolmanager.py Python-2.7.13/Lib/urllib
 +    return ProxyManager(proxy_url=url, **kw)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/request.py Python-2.7.13/Lib/urllib3/request.py
 --- tmp/Python-2.7.13/Lib/urllib3/request.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/request.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/request.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,148 @@
 +from __future__ import absolute_import
 +
@@ -8708,7 +8708,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/request.py Python-2.7.13/Lib/urllib3/re
 +        return self.urlopen(method, url, **extra_kw)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/response.py Python-2.7.13/Lib/urllib3/response.py
 --- tmp/Python-2.7.13/Lib/urllib3/response.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/response.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/response.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,622 @@
 +from __future__ import absolute_import
 +from contextlib import contextmanager
@@ -9334,7 +9334,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/response.py Python-2.7.13/Lib/urllib3/r
 +                self._original_response.close()
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/__init__.py Python-2.7.13/Lib/urllib3/util/__init__.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/__init__.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/__init__.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,54 @@
 +from __future__ import absolute_import
 +# For backwards compatibility, provide imports that used to be here.
@@ -9392,7 +9392,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/__init__.py Python-2.7.13/Lib/urll
 +)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/connection.py Python-2.7.13/Lib/urllib3/util/connection.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/connection.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/connection.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/connection.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,130 @@
 +from __future__ import absolute_import
 +import socket
@@ -9526,7 +9526,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/connection.py Python-2.7.13/Lib/ur
 +HAS_IPV6 = _has_ipv6('::1')
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/request.py Python-2.7.13/Lib/urllib3/util/request.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/request.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/request.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/request.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,118 @@
 +from __future__ import absolute_import
 +from base64 import b64encode
@@ -9648,7 +9648,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/request.py Python-2.7.13/Lib/urlli
 +                         "instead it was %s." % type(body_pos))
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/response.py Python-2.7.13/Lib/urllib3/util/response.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/response.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/response.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/response.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,81 @@
 +from __future__ import absolute_import
 +from ..packages.six.moves import http_client as httplib
@@ -9733,7 +9733,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/response.py Python-2.7.13/Lib/urll
 +    return method.upper() == 'HEAD'
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/retry.py Python-2.7.13/Lib/urllib3/util/retry.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/retry.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/retry.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/retry.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,401 @@
 +from __future__ import absolute_import
 +import time
@@ -10138,7 +10138,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/retry.py Python-2.7.13/Lib/urllib3
 +Retry.DEFAULT = Retry(3)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/selectors.py Python-2.7.13/Lib/urllib3/util/selectors.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/selectors.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/selectors.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/selectors.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,581 @@
 +# Backport of selectors.py from Python 3.5+ to support Python < 3.4
 +# Also has the behavior specified in PEP 475 which is to retry syscalls
@@ -10723,7 +10723,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/selectors.py Python-2.7.13/Lib/url
 +    return _DEFAULT_SELECTOR()
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/ssl_.py Python-2.7.13/Lib/urllib3/util/ssl_.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/ssl_.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/ssl_.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/ssl_.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,341 @@
 +from __future__ import absolute_import
 +import errno
@@ -11068,7 +11068,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/ssl_.py Python-2.7.13/Lib/urllib3/
 +    return context.wrap_socket(sock)
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/timeout.py Python-2.7.13/Lib/urllib3/util/timeout.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/timeout.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/timeout.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/timeout.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,242 @@
 +from __future__ import absolute_import
 +# The default socket timeout, used by httplib to indicate that no timeout was
@@ -11314,7 +11314,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/timeout.py Python-2.7.13/Lib/urlli
 +            return self._read
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/url.py Python-2.7.13/Lib/urllib3/util/url.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/url.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/url.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/url.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,230 @@
 +from __future__ import absolute_import
 +from collections import namedtuple
@@ -11548,7 +11548,7 @@ diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/url.py Python-2.7.13/Lib/urllib3/u
 +    return p.scheme or 'http', p.hostname, p.port
 diff -Naur tmp/Python-2.7.13/Lib/urllib3/util/wait.py Python-2.7.13/Lib/urllib3/util/wait.py
 --- tmp/Python-2.7.13/Lib/urllib3/util/wait.py	1970-01-01 01:00:00.000000000 +0100
-+++ Python-2.7.13/Lib/urllib3/util/wait.py	2018-01-07 17:01:58.000000000 +0100
++++ Python-2.7.13/Lib/urllib3/util/wait.py	2018-02-11 17:27:47.000000000 +0100
 @@ -0,0 +1,40 @@
 +from .selectors import (
 +    HAS_SELECT,
