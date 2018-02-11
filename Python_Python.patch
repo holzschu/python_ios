@@ -804,7 +804,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  static void
 diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
 --- tmp/Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/sysmodule.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/sysmodule.c	2018-02-11 20:13:34.000000000 +0100
 @@ -21,6 +21,7 @@
  #include "eval.h"
  
@@ -830,13 +830,15 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      PyObject *sd = tstate->interp->sysdict;
      if (v == NULL) {
          if (PyDict_GetItemString(sd, name) == NULL)
-@@ -1378,12 +1382,13 @@
+@@ -1378,12 +1382,14 @@
  #if !defined(MS_WINDOWS)
      {
          struct stat sb;
 -        if (fstat(fileno(stdin), &sb) == 0 &&
-+        if (fstat(fileno(thread_stdin), &sb) == 0 &&
-             S_ISDIR(sb.st_mode)) {
+-            S_ISDIR(sb.st_mode)) {
++        // 
++        if ((thread_stdin != NULL) && (fstat(fileno(thread_stdin), &sb) == 0 &&
++            S_ISDIR(sb.st_mode))) {
              /* There's nothing more we can do. */
              /* Py_FatalError() will core dump, so just exit. */
              PySys_WriteStderr("Python error: <stdin> is a directory, cannot continue\n");
@@ -846,7 +848,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
          }
      }
  #endif
-@@ -1397,9 +1402,9 @@
+@@ -1397,9 +1403,9 @@
       * On OS X, fflush()ing stdin causes an error, so we exempt stdin
       * from that procedure.
       */
@@ -859,7 +861,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      if (PyErr_Occurred())
          return NULL;
  
-@@ -1785,7 +1790,7 @@
+@@ -1785,7 +1791,7 @@
      va_list va;
  
      va_start(va, format);
@@ -868,7 +870,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      va_end(va);
  }
  
-@@ -1795,6 +1800,6 @@
+@@ -1795,6 +1801,6 @@
      va_list va;
  
      va_start(va, format);
