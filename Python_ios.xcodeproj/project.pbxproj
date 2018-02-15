@@ -1097,9 +1097,7 @@
 					.,
 					"-DPy_BUILD_CORE",
 					"-I",
-					"../libssh2-for-iOS/include/",
-					"-I",
-					../ios_system/,
+					./Frameworks/libssh2.framework/Headers/,
 				);
 				OTHER_LDFLAGS = (
 					"-L",
@@ -1153,9 +1151,7 @@
 					.,
 					"-DPy_BUILD_CORE",
 					"-I",
-					"../libssh2-for-iOS/include/",
-					"-I",
-					../ios_system/,
+					./Frameworks/libssh2.framework/Headers/,
 				);
 				OTHER_LDFLAGS = (
 					"-L",
