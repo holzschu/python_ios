@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Parser/acceler.c Python-2.7.13/Parser/acceler.c
 --- tmp/Python-2.7.13/Parser/acceler.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Parser/acceler.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Parser/acceler.c	2018-02-25 10:32:55.000000000 +0100
 @@ -15,6 +15,7 @@
  #include "node.h"
  #include "token.h"
@@ -9,19 +9,16 @@ diff -Naur tmp/Python-2.7.13/Parser/acceler.c Python-2.7.13/Parser/acceler.c
  
  /* Forward references */
  static void fixdfa(grammar *, dfa *);
-@@ -70,8 +71,9 @@
+@@ -70,7 +71,7 @@
      s->s_accept = 0;
      accel = (int *) PyObject_MALLOC(nl * sizeof(int));
      if (accel == NULL) {
 -        fprintf(stderr, "no mem to build parser accelerators\n");
--        exit(1);
 +        fprintf(thread_stderr, "no mem to build parser accelerators\n");
-+        pthread_exit(NULL);
-+        // exit(1);
+         exit(1);
      }
      for (k = 0; k < nl; k++)
-         accel[k] = -1;
-@@ -81,20 +83,20 @@
+@@ -81,20 +82,20 @@
          label *l = &g->g_ll.ll_label[lbl];
          int type = l->lb_type;
          if (a->a_arrow >= (1 << 7)) {
@@ -45,18 +42,15 @@ diff -Naur tmp/Python-2.7.13/Parser/acceler.c Python-2.7.13/Parser/acceler.c
                      accel[ibit] = a->a_arrow | (1 << 7) |
                          ((type - NT_OFFSET) << 8);
                  }
-@@ -113,8 +115,9 @@
+@@ -113,7 +114,7 @@
          int i;
          s->s_accel = (int *) PyObject_MALLOC((nl-k) * sizeof(int));
          if (s->s_accel == NULL) {
 -            fprintf(stderr, "no mem to add parser accelerators\n");
--            exit(1);
 +            fprintf(thread_stderr, "no mem to add parser accelerators\n");
-+            pthread_exit(NULL);
-+            //exit(1);
+             exit(1);
          }
          s->s_lower = k;
-         s->s_upper = nl;
 diff -Naur tmp/Python-2.7.13/Parser/firstsets.c Python-2.7.13/Parser/firstsets.c
 --- tmp/Python-2.7.13/Parser/firstsets.c	2016-12-17 21:05:07.000000000 +0100
 +++ Python-2.7.13/Parser/firstsets.c	2018-02-11 17:27:47.000000000 +0100

@@ -150,14 +150,13 @@ diff -Naur tmp/Python-2.7.13/Python/compile.c Python-2.7.13/Python/compile.c
      }
 diff -Naur tmp/Python-2.7.13/Python/dtoa.c Python-2.7.13/Python/dtoa.c
 --- tmp/Python-2.7.13/Python/dtoa.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dtoa.c	2018-02-11 17:27:47.000000000 +0100
-@@ -172,7 +172,8 @@
++++ Python-2.7.13/Python/dtoa.c	2018-02-25 10:31:55.000000000 +0100
+@@ -172,7 +172,7 @@
  /* End Python #define linking */
  
  #ifdef DEBUG
 -#define Bug(x) {fprintf(stderr, "%s\n", x); exit(1);}
-+// #define Bug(x) {fprintf(thread_stderr, "%s\n", x); exit(1);}
-+#define Bug(x) {fprintf(thread_stderr, "%s\n", x); phtread_exit(NULL);}
++#define Bug(x) {fprintf(thread_stderr, "%s\n", x); exit(1);}
  #endif
  
  #ifndef PRIVATE_MEM
@@ -568,7 +567,7 @@ diff -Naur tmp/Python-2.7.13/Python/pystate.c Python-2.7.13/Python/pystate.c
      Py_CLEAR(tstate->frame);
 diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
 --- tmp/Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/pythonrun.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/pythonrun.c	2018-02-25 10:32:29.000000000 +0100
 @@ -2,6 +2,7 @@
  /* Python interpreter top-level routines, including init/exit */
  
@@ -651,17 +650,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  
      if ((p = Py_GETENV("PYTHONIOENCODING")) && *p != '\0') {
          p = icodeset = codeset = strdup(p);
-@@ -316,7 +319,8 @@
-                     loc_codeset = NULL;
-                 } else {
-                     PyErr_Print();
--                    exit(1);
-+                    pthread_exit(NULL);
-+                    // exit(1);
-                 }
-             }
-         } else
-@@ -481,7 +485,7 @@
+@@ -481,7 +484,7 @@
  
      /* Debugging stuff */
  #ifdef COUNT_ALLOCS
@@ -670,7 +659,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  #endif
  
      PRINT_TOTAL_REFS();
-@@ -493,7 +497,7 @@
+@@ -493,7 +496,7 @@
       * up later.
       */
      if (Py_GETENV("PYTHONDUMPREFS"))
@@ -679,7 +668,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  #endif /* Py_TRACE_REFS */
  
      /* Clear interpreter state */
-@@ -549,7 +553,7 @@
+@@ -549,7 +552,7 @@
       * above by _Py_PrintReferences.
       */
      if (Py_GETENV("PYTHONDUMPREFS"))
@@ -688,17 +677,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  #endif /* Py_TRACE_REFS */
  #ifdef PYMALLOC_DEBUG
      if (Py_GETENV("PYTHONMALLOCSTATS"))
-@@ -727,7 +731,8 @@
-     if (m == NULL) {
-         PyErr_Print();
-         Py_Finalize();
--        exit(1);
-+        pthread_exit(NULL);
-+        // exit(1);
-     }
-     else {
-         Py_DECREF(m);
-@@ -937,7 +942,7 @@
+@@ -937,7 +940,7 @@
          if (closeit)
              fclose(fp);
          if ((fp = fopen(filename, "rb")) == NULL) {
@@ -707,7 +686,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
              goto done;
          }
          /* Turn on optimization if a .pyo file is given */
-@@ -1112,7 +1117,7 @@
+@@ -1112,7 +1115,7 @@
      PyErr_Fetch(&exception, &value, &tb);
      if (Py_FlushLine())
          PyErr_Clear();
@@ -716,7 +695,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
      if (value == NULL || value == Py_None)
          goto done;
      if (PyExceptionInstance_Check(value)) {
-@@ -1134,8 +1139,8 @@
+@@ -1134,8 +1137,8 @@
          if (sys_stderr != NULL && sys_stderr != Py_None) {
              PyFile_WriteObject(value, sys_stderr, Py_PRINT_RAW);
          } else {
@@ -727,7 +706,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
          }
          PySys_WriteStderr("\n");
          exitcode = 1;
-@@ -1161,8 +1166,8 @@
+@@ -1161,8 +1164,8 @@
          handle_system_exit();
      }
      PyErr_Fetch(&exception, &v, &tb);
@@ -738,7 +717,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
      PyErr_NormalizeException(&exception, &v, &tb);
      if (exception == NULL)
          return;
-@@ -1197,7 +1202,7 @@
+@@ -1197,7 +1200,7 @@
              }
              if (Py_FlushLine())
                  PyErr_Clear();
@@ -747,7 +726,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
              PySys_WriteStderr("Error in sys.excepthook:\n");
              PyErr_Display(exception2, v2, tb2);
              PySys_WriteStderr("\nOriginal exception was:\n");
-@@ -1224,11 +1229,11 @@
+@@ -1224,11 +1227,11 @@
      PyObject *f = PySys_GetObject("stderr");
      Py_INCREF(value);
      if (f == NULL || f == Py_None)
@@ -761,7 +740,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
          if (tb && tb != Py_None)
              err = PyTraceBack_Print(tb, f);
          if (err == 0 &&
-@@ -1649,7 +1654,7 @@
+@@ -1649,7 +1652,7 @@
          msg = "unexpected character after line continuation character";
          break;
      default:
@@ -770,7 +749,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
          msg = "unknown parsing error";
          break;
      }
-@@ -1674,8 +1679,8 @@
+@@ -1674,8 +1677,8 @@
  void
  Py_FatalError(const char *msg)
  {
@@ -781,7 +760,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  
  #ifdef MS_WINDOWS
      {
-@@ -1773,16 +1778,16 @@
+@@ -1773,15 +1776,14 @@
      while (nexitfuncs > 0)
          (*exitfuncs[--nexitfuncs])();
  
@@ -796,15 +775,12 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  {
      Py_Finalize();
 -
--    exit(sts);
-+    pthread_exit(NULL);
-+    // exit(sts);
+     exit(sts);
  }
  
- static void
 diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
 --- tmp/Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/sysmodule.c	2018-02-11 20:13:34.000000000 +0100
++++ Python-2.7.13/Python/sysmodule.c	2018-02-25 10:32:40.000000000 +0100
 @@ -21,6 +21,7 @@
  #include "eval.h"
  
@@ -830,7 +806,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      PyObject *sd = tstate->interp->sysdict;
      if (v == NULL) {
          if (PyDict_GetItemString(sd, name) == NULL)
-@@ -1378,12 +1382,14 @@
+@@ -1378,8 +1382,9 @@
  #if !defined(MS_WINDOWS)
      {
          struct stat sb;
@@ -842,13 +818,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
              /* There's nothing more we can do. */
              /* Py_FatalError() will core dump, so just exit. */
              PySys_WriteStderr("Python error: <stdin> is a directory, cannot continue\n");
--            exit(EXIT_FAILURE);
-+            pthread_exit(NULL);
-+            // exit(EXIT_FAILURE);
-         }
-     }
- #endif
-@@ -1397,9 +1403,9 @@
+@@ -1397,9 +1402,9 @@
       * On OS X, fflush()ing stdin causes an error, so we exempt stdin
       * from that procedure.
       */
@@ -861,7 +831,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      if (PyErr_Occurred())
          return NULL;
  
-@@ -1785,7 +1791,7 @@
+@@ -1785,7 +1790,7 @@
      va_list va;
  
      va_start(va, format);
@@ -870,7 +840,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
      va_end(va);
  }
  
-@@ -1795,6 +1801,6 @@
+@@ -1795,6 +1800,6 @@
      va_list va;
  
      va_start(va, format);

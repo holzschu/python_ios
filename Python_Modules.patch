@@ -1962,7 +1962,7 @@ diff -Naur tmp/Python-2.7.13/Modules/ld_so_aix Python-2.7.13/Modules/ld_so_aix
 +exit $retval
 diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
 --- tmp/Python-2.7.13/Modules/main.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/main.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Modules/main.c	2018-02-25 10:33:32.000000000 +0100
 @@ -4,10 +4,13 @@
  #include "osdefs.h"
  #include "code.h" /* For CO_FUTURE_DIVISION */
@@ -2133,7 +2133,7 @@ diff -Naur tmp/Python-2.7.13/Modules/main.c Python-2.7.13/Modules/main.c
 +    // We couldn't Initialize, need to return before we crash.
 +    if (_PyThreadState_Current == NULL) {
 +        fprintf(thread_stderr, "We could not initialize python, sorry\n"); fflush(thread_stderr);
-+        pthread_exit(NULL); 
++        exit(1);
 +    }
 +    
      if (Py_VerboseFlag ||
@@ -2224,7 +2224,7 @@ diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parser
  #include <note.h>
 diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
 --- tmp/Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/posixmodule.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Modules/posixmodule.c	2018-02-25 10:33:05.000000000 +0100
 @@ -30,6 +30,8 @@
  #ifndef MS_WINDOWS
  #include "posixmodule.h"
@@ -2234,17 +2234,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
  
  #if defined(__VMS)
  #    include <unixio.h>
-@@ -3123,7 +3125,8 @@
-     int sts;
-     if (!PyArg_ParseTuple(args, "i:_exit", &sts))
-         return NULL;
--    _exit(sts);
-+    pthread_exit(NULL);
-+    // _exit(sts);
-     return NULL; /* Make gcc -Wall happy */
- }
- 
-@@ -3202,7 +3205,12 @@
+@@ -3202,7 +3204,12 @@
      argvlist[argc] = NULL;
  
      execv(path, argvlist);
@@ -2258,7 +2248,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      /* If we get here it's definitely an error */
  
      free_string_array(argvlist, argc);
-@@ -3335,6 +3343,13 @@
+@@ -3335,6 +3342,13 @@
      envlist[envc] = 0;
  
      execve(path, argvlist, envlist);
@@ -2272,7 +2262,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
  
      /* If we get here it's definitely an error */
  
-@@ -3866,6 +3881,10 @@
+@@ -3866,6 +3880,10 @@
  static PyObject *
  posix_fork(PyObject *self, PyObject *noargs)
  {
@@ -2283,7 +2273,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      pid_t pid;
      int result = 0;
      _PyImport_AcquireLock();
-@@ -6077,7 +6096,7 @@
+@@ -6077,7 +6095,7 @@
  static PyObject *
  posix_setgroups(PyObject *self, PyObject *groups)
  {
@@ -2292,7 +2282,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      gid_t grouplist[MAX_GROUPS];
  
      if (!PySequence_Check(groups)) {
-@@ -6085,6 +6104,9 @@
+@@ -6085,6 +6103,9 @@
          return NULL;
      }
      len = PySequence_Size(groups);
@@ -2302,7 +2292,7 @@ diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmo
      if (len > MAX_GROUPS) {
          PyErr_SetString(PyExc_ValueError, "too many groups");
          return NULL;
-@@ -6681,6 +6703,7 @@
+@@ -6681,6 +6702,7 @@
  PyDoc_STRVAR(posix_dup2__doc__,
  "dup2(old_fd, new_fd)\n\n\
  Duplicate file descriptor.");
