@@ -2,7 +2,7 @@
 
 
 HHROOT="https://github.com/holzschu"
-IOS_SYSTEM_VER="1.2"
+IOS_SYSTEM_VER="2.1"
 
 # Python-2.7.13
 echo "Downloading Python 2.7.13"
