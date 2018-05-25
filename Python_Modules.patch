@@ -2224,7 +2224,7 @@ diff -Naur tmp/Python-2.7.13/Modules/parsermodule.c Python-2.7.13/Modules/parser
  #include <note.h>
 diff -Naur tmp/Python-2.7.13/Modules/posixmodule.c Python-2.7.13/Modules/posixmodule.c
 --- tmp/Python-2.7.13/Modules/posixmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Modules/posixmodule.c	2018-02-25 10:33:05.000000000 +0100
++++ Python-2.7.13/Modules/posixmodule.c	2018-03-07 10:31:22.000000000 +0100
 @@ -30,6 +30,8 @@
  #ifndef MS_WINDOWS
  #include "posixmodule.h"

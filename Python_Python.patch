@@ -567,7 +567,7 @@ diff -Naur tmp/Python-2.7.13/Python/pystate.c Python-2.7.13/Python/pystate.c
      Py_CLEAR(tstate->frame);
 diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
 --- tmp/Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/pythonrun.c	2018-02-25 10:32:29.000000000 +0100
++++ Python-2.7.13/Python/pythonrun.c	2018-05-25 16:16:22.000000000 +0200
 @@ -2,6 +2,7 @@
  /* Python interpreter top-level routines, including init/exit */
  
@@ -602,18 +602,17 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
 -int Py_VerboseFlag; /* Needed by import.c */
 -int Py_InteractiveFlag; /* Needed by Py_FdIsInteractive() below */
 -int Py_InspectFlag; /* Needed to determine whether to exit at SystemExit */
--int Py_NoSiteFlag; /* Suppress 'import site' */
++__thread int Py_DebugFlag; /* Needed by parser.c */
++__thread int Py_VerboseFlag; /* Needed by import.c */
++__thread int Py_InteractiveFlag; /* Needed by Py_FdIsInteractive() below */
++__thread int Py_InspectFlag; /* Needed to determine whether to exit at SystemExit */
+ int Py_NoSiteFlag; /* Suppress 'import site' */
 -int Py_BytesWarningFlag; /* Warn on str(bytes) and str(buffer) */
 -int Py_DontWriteBytecodeFlag; /* Suppress writing bytecode files (*.py[co]) */
 -int Py_UseClassExceptionsFlag = 1; /* Needed by bltinmodule.c: deprecated */
 -int Py_FrozenFlag; /* Needed by getpath.c */
 -int Py_UnicodeFlag = 0; /* Needed by compile.c */
 -int Py_IgnoreEnvironmentFlag; /* e.g. PYTHONPATH, PYTHONHOME */
-+__thread int Py_DebugFlag; /* Needed by parser.c */
-+__thread int Py_VerboseFlag; /* Needed by import.c */
-+__thread int Py_InteractiveFlag; /* Needed by Py_FdIsInteractive() below */
-+__thread int Py_InspectFlag; /* Needed to determine whether to exit at SystemExit */
-+__thread int Py_NoSiteFlag; /* Suppress 'import site' */
 +__thread int Py_BytesWarningFlag; /* Warn on str(bytes) and str(buffer) */
 +__thread int Py_DontWriteBytecodeFlag; /* Suppress writing bytecode files (*.py[co]) */
 +__thread int Py_UseClassExceptionsFlag = 1; /* Needed by bltinmodule.c: deprecated */
