@@ -23,8 +23,7 @@ rm libffi-3.2.1.tar.gz
 echo "Applying patch to libffi-3.2.1:"
 (cd libffi-3.2.1 ; patch -p 1 < ../libffi-3.2.1_patch ; cd ..)
 echo "Compiling libffi-3.2.1:"
-(cd libffi-3.2.1 ;  xcodebuild -project libffi.xcodeproj -target libffi-iOS -sdk iphoneos -arch arm64 -configuration Debug -quiet
-; mv build/Debug-iphoneos/libffi.a .. ; cd ..)
+(cd libffi-3.2.1 ;  xcodebuild -project libffi.xcodeproj -target libffi-iOS -sdk iphoneos -arch arm64 -configuration Debug -quiet; mv build/Debug-iphoneos/libffi.a .. ; cd ..)
 echo "Applying patches to Python-2.7.13"
 (cd Python-2.7.13 ; patch -p 1 < ../Python_Include.patch ; patch -p 1 < ../Python_Lib.patch ; patch -p 1 < ../Python_Modules.patch; patch -p 1 < ../Python_Parser.patch ; patch -p 1 < ../Python_Python.patch; patch -p 1 < ../Python_setup.patch ; cd ..)
 
