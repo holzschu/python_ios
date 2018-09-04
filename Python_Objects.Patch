@@ -1,0 +1,14 @@
+diff -Naur tmp/Python-2.7.13/Objects/object.c Python-2.7.13/Objects/object.c
+--- tmp/Python-2.7.13/Objects/object.c	2018-09-04 16:09:34.000000000 -0400
++++ Python-2.7.13/Objects/object.c	2018-09-04 16:07:37.000000000 -0400
+@@ -29,8 +29,8 @@
+ }
+ #endif /* Py_REF_DEBUG */
+ 
+-int Py_DivisionWarningFlag;
+-int Py_Py3kWarningFlag;
++__thread int Py_DivisionWarningFlag;
++__thread int Py_Py3kWarningFlag;
+ 
+ /* Object allocation routines used by NEWOBJ and NEWVAROBJ macros.
+    These are used by the individual routines for object creation.
