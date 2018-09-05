@@ -14,6 +14,7 @@ diff -Naur tmp/Python-$PYTHONVERSION/Include Python-$PYTHONVERSION/Include > Pyt
 diff -Naur tmp/Python-$PYTHONVERSION/Lib Python-$PYTHONVERSION/Lib > Python_Lib.patch
 diff -Naur tmp/Python-$PYTHONVERSION/Modules Python-$PYTHONVERSION/Modules > Python_Modules.patch
 diff -Naur tmp/Python-$PYTHONVERSION/Parser Python-$PYTHONVERSION/Parser > Python_Parser.patch
+diff -Naur tmp/Python-$PYTHONVERSION/Objects Python-$PYTHONVERSION/Objects > Python_Objects.patch
 diff -Naur tmp/Python-$PYTHONVERSION/Python Python-$PYTHONVERSION/Python > Python_Python.patch
 diff -Naur tmp/Python-$PYTHONVERSION/setup.py Python-$PYTHONVERSION/setup.py > Python_setup.patch
 
