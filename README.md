@@ -2,7 +2,7 @@
 
 This project is a patch of Python-2.7.13, designed to make it compile on iOS. Python becomes a framework, and your programs call `python_main(argc, argv)` to execute python scripts. 
 
-This framework was designed to be used in conjunction with [Blinkshell](https://github.com/holzschu/blink) or [iVim](https://github.com/holzschu/iVim), but it can be used independently. 
+This framework was designed to be used in conjunction with [Blinkshell](https://github.com/holzschu/blink), [OpenTerm](https://github.com/holzschu/terminal) or [iVim](https://github.com/holzschu/iVim), but it can be used independently. 
 
 # Compilation:
 
@@ -16,7 +16,7 @@ After patching, you have two Xcode projects:
 
 Open the first one, build it, and move the product `libffi.a` to this directory. 
 
-For Python, you need `openSSL.framework` and `libssh2.framework`. They are available as part of [Blink](https://github.com/blinksh/blink) or in [libssh2-for-iOS](https://github.com/x2on/libssh2-for-iOS). 
+For Python, you need `openSSL.framework` and `libssh2.framework`. They are available as part of [Blink](https://github.com/blinksh/blink) or in [libssh2-for-iOS](https://github.com/holzschu/libssh2-for-iOS). 
 
 For python to make system calls, we use the [ios_system](https://github.com/holzschu/ios_system) framework. Download it, compile, and it will be linked with python. 
 
@@ -24,7 +24,7 @@ The system commands available depend on a list of `#define` at the start of  `io
 
 # Installation (on your device)
 
-Once you have compiled the Python-ios framework, you can link it with your favorite app (I used [Blinkshell](https://github.com/holzschu/blink) and [iVim](https://github.com/holzschu/iVim)). 
+Once you have compiled the Python-ios framework, you can link it with your favorite app (I've done it with [Blinkshell](https://github.com/holzschu/blink), [OpenTerm](https://github.com/holzschu/terminal)  and [iVim](https://github.com/holzschu/iVim)). 
 
 You will need to transfer the Python scripts to your device:
 - `tar -cvzf pythonScripts.tar.gz Lib/`
