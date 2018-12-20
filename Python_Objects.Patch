@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Objects/object.c Python-2.7.13/Objects/object.c
---- tmp/Python-2.7.13/Objects/object.c	2018-09-04 16:09:34.000000000 -0400
-+++ Python-2.7.13/Objects/object.c	2018-09-04 16:07:37.000000000 -0400
+--- tmp/Python-2.7.13/Objects/object.c	2016-12-17 21:05:07.000000000 +0100
++++ Python-2.7.13/Objects/object.c	2018-12-09 15:27:27.000000000 +0100
 @@ -29,8 +29,8 @@
  }
  #endif /* Py_REF_DEBUG */
