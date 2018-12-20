@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Python/_warnings.c Python-2.7.13/Python/_warnings.c
 --- tmp/Python-2.7.13/Python/_warnings.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/_warnings.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/_warnings.c	2018-12-09 15:27:27.000000000 +0100
 @@ -1,5 +1,6 @@
  #include "Python.h"
  #include "frameobject.h"
@@ -19,7 +19,7 @@ diff -Naur tmp/Python-2.7.13/Python/_warnings.c Python-2.7.13/Python/_warnings.c
      }
 diff -Naur tmp/Python-2.7.13/Python/ceval.c Python-2.7.13/Python/ceval.c
 --- tmp/Python-2.7.13/Python/ceval.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/ceval.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/ceval.c	2018-12-09 15:27:27.000000000 +0100
 @@ -16,6 +16,7 @@
  #include "eval.h"
  #include "opcode.h"
@@ -94,7 +94,7 @@ diff -Naur tmp/Python-2.7.13/Python/ceval.c Python-2.7.13/Python/ceval.c
                               (*pp_stack)-2*nk, nk, d, nd,
 diff -Naur tmp/Python-2.7.13/Python/compile.c Python-2.7.13/Python/compile.c
 --- tmp/Python-2.7.13/Python/compile.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/compile.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/compile.c	2018-12-09 15:27:27.000000000 +0100
 @@ -31,8 +31,9 @@
  #include "compile.h"
  #include "symtable.h"
@@ -150,7 +150,7 @@ diff -Naur tmp/Python-2.7.13/Python/compile.c Python-2.7.13/Python/compile.c
      }
 diff -Naur tmp/Python-2.7.13/Python/dtoa.c Python-2.7.13/Python/dtoa.c
 --- tmp/Python-2.7.13/Python/dtoa.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dtoa.c	2018-02-25 10:31:55.000000000 +0100
++++ Python-2.7.13/Python/dtoa.c	2018-12-09 15:27:27.000000000 +0100
 @@ -172,7 +172,7 @@
  /* End Python #define linking */
  
@@ -162,7 +162,7 @@ diff -Naur tmp/Python-2.7.13/Python/dtoa.c Python-2.7.13/Python/dtoa.c
  #ifndef PRIVATE_MEM
 diff -Naur tmp/Python-2.7.13/Python/dynload_atheos.c Python-2.7.13/Python/dynload_atheos.c
 --- tmp/Python-2.7.13/Python/dynload_atheos.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dynload_atheos.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/dynload_atheos.c	2018-12-09 15:27:27.000000000 +0100
 @@ -22,7 +22,7 @@
      char funcname[258];
  
@@ -183,7 +183,7 @@ diff -Naur tmp/Python-2.7.13/Python/dynload_atheos.c Python-2.7.13/Python/dynloa
          if (Py_VerboseFlag)
 diff -Naur tmp/Python-2.7.13/Python/dynload_beos.c Python-2.7.13/Python/dynload_beos.c
 --- tmp/Python-2.7.13/Python/dynload_beos.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dynload_beos.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/dynload_beos.c	2018-12-09 15:27:27.000000000 +0100
 @@ -164,7 +164,7 @@
      char funcname[258];
  
@@ -231,7 +231,7 @@ diff -Naur tmp/Python-2.7.13/Python/dynload_beos.c Python-2.7.13/Python/dynload_
          switch( retval ) {
 diff -Naur tmp/Python-2.7.13/Python/dynload_hpux.c Python-2.7.13/Python/dynload_hpux.c
 --- tmp/Python-2.7.13/Python/dynload_hpux.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dynload_hpux.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/dynload_hpux.c	2018-12-09 15:27:27.000000000 +0100
 @@ -31,7 +31,7 @@
      if (Py_VerboseFlag) {
          flags = BIND_FIRST | BIND_IMMEDIATE |
@@ -252,7 +252,7 @@ diff -Naur tmp/Python-2.7.13/Python/dynload_hpux.c Python-2.7.13/Python/dynload_
          p = NULL;
 diff -Naur tmp/Python-2.7.13/Python/dynload_shlib.c Python-2.7.13/Python/dynload_shlib.c
 --- tmp/Python-2.7.13/Python/dynload_shlib.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/dynload_shlib.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/dynload_shlib.c	2018-12-09 15:27:27.000000000 +0100
 @@ -115,7 +115,7 @@
      if (Py_VerboseFlag)
          PySys_WriteStderr("dlopen(\"%s\", %x);\n", pathname,
@@ -264,7 +264,7 @@ diff -Naur tmp/Python-2.7.13/Python/dynload_shlib.c Python-2.7.13/Python/dynload
      /* Concatenate 'python_module_' and shortname */
 diff -Naur tmp/Python-2.7.13/Python/errors.c Python-2.7.13/Python/errors.c
 --- tmp/Python-2.7.13/Python/errors.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/errors.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/errors.c	2018-12-09 15:27:27.000000000 +0100
 @@ -149,7 +149,9 @@
      PyObject *inclass = NULL;
      PyObject *initial_tb = NULL;
@@ -288,7 +288,7 @@ diff -Naur tmp/Python-2.7.13/Python/errors.c Python-2.7.13/Python/errors.c
      *p_traceback = tstate->curexc_traceback;
 diff -Naur tmp/Python-2.7.13/Python/frozenmain.c Python-2.7.13/Python/frozenmain.c
 --- tmp/Python-2.7.13/Python/frozenmain.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/frozenmain.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/frozenmain.c	2018-12-09 15:27:27.000000000 +0100
 @@ -2,6 +2,7 @@
  /* Python interpreter main program for frozen scripts */
  
@@ -332,7 +332,7 @@ diff -Naur tmp/Python-2.7.13/Python/frozenmain.c Python-2.7.13/Python/frozenmain
      PyWinFreeze_ExeTerm();
 diff -Naur tmp/Python-2.7.13/Python/getopt.c Python-2.7.13/Python/getopt.c
 --- tmp/Python-2.7.13/Python/getopt.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/getopt.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/getopt.c	2018-12-09 15:27:27.000000000 +0100
 @@ -29,6 +29,7 @@
  
  #include <stdio.h>
@@ -376,7 +376,7 @@ diff -Naur tmp/Python-2.7.13/Python/getopt.c Python-2.7.13/Python/getopt.c
              }
 diff -Naur tmp/Python-2.7.13/Python/graminit.c Python-2.7.13/Python/graminit.c
 --- tmp/Python-2.7.13/Python/graminit.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/graminit.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/graminit.c	2018-12-09 15:27:27.000000000 +0100
 @@ -2,7 +2,7 @@
  
  #include "pgenheaders.h"
@@ -397,7 +397,7 @@ diff -Naur tmp/Python-2.7.13/Python/graminit.c Python-2.7.13/Python/graminit.c
      {169, labels},
 diff -Naur tmp/Python-2.7.13/Python/import.c Python-2.7.13/Python/import.c
 --- tmp/Python-2.7.13/Python/import.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/import.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/import.c	2018-12-09 15:27:27.000000000 +0100
 @@ -1605,7 +1605,7 @@
      }
      if (fp == NULL) {
@@ -430,7 +430,7 @@ diff -Naur tmp/Python-2.7.13/Python/import.c Python-2.7.13/Python/import.c
  
 diff -Naur tmp/Python-2.7.13/Python/importdl.c Python-2.7.13/Python/importdl.c
 --- tmp/Python-2.7.13/Python/importdl.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/importdl.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/importdl.c	2018-12-09 15:27:27.000000000 +0100
 @@ -12,6 +12,7 @@
  
  #include "importdl.h"
@@ -441,7 +441,7 @@ diff -Naur tmp/Python-2.7.13/Python/importdl.c Python-2.7.13/Python/importdl.c
                                             const char *pathname, FILE *fp);
 diff -Naur tmp/Python-2.7.13/Python/mactoolboxglue.c Python-2.7.13/Python/mactoolboxglue.c
 --- tmp/Python-2.7.13/Python/mactoolboxglue.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/mactoolboxglue.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/mactoolboxglue.c	2018-12-09 15:27:27.000000000 +0100
 @@ -263,6 +263,7 @@
  
  /* Convert a Python object to an EventRecord.
@@ -491,7 +491,7 @@ diff -Naur tmp/Python-2.7.13/Python/mactoolboxglue.c Python-2.7.13/Python/mactoo
  GLUE_NEW(CFTypeRef, CFObj_New, "Carbon.CF")
 diff -Naur tmp/Python-2.7.13/Python/marshal.c Python-2.7.13/Python/marshal.c
 --- tmp/Python-2.7.13/Python/marshal.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/marshal.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/marshal.c	2018-12-09 15:27:27.000000000 +0100
 @@ -10,6 +10,7 @@
  #include "longintrepr.h"
  #include "code.h"
@@ -511,7 +511,7 @@ diff -Naur tmp/Python-2.7.13/Python/marshal.c Python-2.7.13/Python/marshal.c
      v = r_object(p);
 diff -Naur tmp/Python-2.7.13/Python/pyarena.c Python-2.7.13/Python/pyarena.c
 --- tmp/Python-2.7.13/Python/pyarena.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/pyarena.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/pyarena.c	2018-12-09 15:27:27.000000000 +0100
 @@ -162,7 +162,7 @@
      assert(arena);
  #if defined(Py_DEBUG)
@@ -523,7 +523,7 @@ diff -Naur tmp/Python-2.7.13/Python/pyarena.c Python-2.7.13/Python/pyarena.c
          arena->total_block_size, arena->total_big_blocks,
 diff -Naur tmp/Python-2.7.13/Python/pystate.c Python-2.7.13/Python/pystate.c
 --- tmp/Python-2.7.13/Python/pystate.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/pystate.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/pystate.c	2018-12-09 15:27:27.000000000 +0100
 @@ -21,6 +21,7 @@
  #define RTLD_LAZY 1
  #endif
@@ -567,7 +567,7 @@ diff -Naur tmp/Python-2.7.13/Python/pystate.c Python-2.7.13/Python/pystate.c
      Py_CLEAR(tstate->frame);
 diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
 --- tmp/Python-2.7.13/Python/pythonrun.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/pythonrun.c	2018-05-25 16:16:22.000000000 +0200
++++ Python-2.7.13/Python/pythonrun.c	2018-12-09 15:27:27.000000000 +0100
 @@ -2,6 +2,7 @@
  /* Python interpreter top-level routines, including init/exit */
  
@@ -779,7 +779,7 @@ diff -Naur tmp/Python-2.7.13/Python/pythonrun.c Python-2.7.13/Python/pythonrun.c
  
 diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
 --- tmp/Python-2.7.13/Python/sysmodule.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/sysmodule.c	2018-02-25 10:32:40.000000000 +0100
++++ Python-2.7.13/Python/sysmodule.c	2018-12-09 15:27:27.000000000 +0100
 @@ -21,6 +21,7 @@
  #include "eval.h"
  
@@ -849,7 +849,7 @@ diff -Naur tmp/Python-2.7.13/Python/sysmodule.c Python-2.7.13/Python/sysmodule.c
  }
 diff -Naur tmp/Python-2.7.13/Python/thread.c Python-2.7.13/Python/thread.c
 --- tmp/Python-2.7.13/Python/thread.c	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/Python/thread.c	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Python/thread.c	2018-12-09 15:27:27.000000000 +0100
 @@ -64,8 +64,8 @@
  
  #ifdef Py_DEBUG

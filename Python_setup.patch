@@ -1,5 +1,5 @@
 --- tmp/Python-2.7.13/setup.py	2016-12-17 21:05:07.000000000 +0100
-+++ Python-2.7.13/setup.py	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/setup.py	2018-12-09 15:27:27.000000000 +0100
 @@ -61,7 +61,8 @@
      """
      return ( (path.startswith('/usr/') and not path.startswith('/usr/local'))

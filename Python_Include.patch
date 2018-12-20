@@ -1,6 +1,6 @@
 diff -Naur tmp/Python-2.7.13/Include/Python.h Python-2.7.13/Include/Python.h
 --- tmp/Python-2.7.13/Include/Python.h	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Include/Python.h	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Include/Python.h	2018-12-09 15:27:27.000000000 +0100
 @@ -54,7 +54,8 @@
   * assert() calls won't be removed.
   */
@@ -13,7 +13,7 @@ diff -Naur tmp/Python-2.7.13/Include/Python.h Python-2.7.13/Include/Python.h
  /* pyconfig.h or pyport.h may or may not define DL_IMPORT */
 diff -Naur tmp/Python-2.7.13/Include/pydebug.h Python-2.7.13/Include/pydebug.h
 --- tmp/Python-2.7.13/Include/pydebug.h	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Include/pydebug.h	2018-05-25 16:17:17.000000000 +0200
++++ Python-2.7.13/Include/pydebug.h	2018-12-09 15:27:27.000000000 +0100
 @@ -5,28 +5,28 @@
  extern "C" {
  #endif
@@ -62,7 +62,7 @@ diff -Naur tmp/Python-2.7.13/Include/pydebug.h Python-2.7.13/Include/pydebug.h
     Py_IgnoreEnvironmentFlag.  It should be used for getting variables like
 diff -Naur tmp/Python-2.7.13/Include/pymactoolbox.h Python-2.7.13/Include/pymactoolbox.h
 --- tmp/Python-2.7.13/Include/pymactoolbox.h	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Include/pymactoolbox.h	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Include/pymactoolbox.h	2018-12-09 15:27:27.000000000 +0100
 @@ -7,8 +7,9 @@
  	extern "C" {
  #endif
@@ -116,7 +116,7 @@ diff -Naur tmp/Python-2.7.13/Include/pymactoolbox.h Python-2.7.13/Include/pymact
  extern PyObject *CtlObj_New(ControlHandle);
 diff -Naur tmp/Python-2.7.13/Include/pystate.h Python-2.7.13/Include/pystate.h
 --- tmp/Python-2.7.13/Include/pystate.h	2016-12-17 21:05:05.000000000 +0100
-+++ Python-2.7.13/Include/pystate.h	2018-02-11 17:27:47.000000000 +0100
++++ Python-2.7.13/Include/pystate.h	2018-12-09 15:27:27.000000000 +0100
 @@ -124,7 +124,7 @@
  
  /* Variable and macro for in-line access to current thread state */
